@@ -24,7 +24,7 @@ public ProveedorData(){
     public void regristrarProveedor(Proveedor proveedor) {
 
         try {
-            String sql = "INSERT INTO producto (razonSocial, domicilio, telefono)" + "VALUES (?, ?, ?)";
+            String sql = "INSERT INTO proveedor (razonSocial, domicilio, telefono)" + "VALUES (?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, proveedor.getRazonSocial());
