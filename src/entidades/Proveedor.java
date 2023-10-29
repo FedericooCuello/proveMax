@@ -17,6 +17,12 @@ public class Proveedor {
         this.telefono = telefono;
     }
 
+    public Proveedor(String razonSocial, String domicilio, String telefono) {
+        this.razonSocial = razonSocial;
+        this.domicilio = domicilio;
+        this.telefono = telefono;
+    }
+
     public int getIdProvedor() {
         return idProvedor;
     }
