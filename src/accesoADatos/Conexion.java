@@ -27,7 +27,8 @@ public static Connection getConexion() {
             Class.forName("org.mariadb.jdbc.Driver");
             // se elimino DriverManager que estaba en la izq
             conexion = DriverManager.getConnection(url, usuario, contrasenia);
-            //System.out.println("Conectado desde clase conexion");
+            JOptionPane.showMessageDialog(null, "Conectado a la BD");
+            //System.out.println("Conectado a BD");
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error al cargar el driver de la base de datos");
             ex.printStackTrace();

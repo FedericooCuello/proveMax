@@ -2,23 +2,29 @@
 package entidades;
 
 
-public class datalleCompra {
+public class DetalleCompra {
   private int idDetalle;
   private int cantidad;
   private double precioCosto;
-  private Compra compra;
   private Producto producto;
 
-    public datalleCompra() {
+    public DetalleCompra() {
     }
 
-    public datalleCompra(int idDetalle, int cantidad, double precioCosto, Compra compra, Producto producto) {
+    public DetalleCompra(int idDetalle, int cantidad, double precioCosto, Producto producto) {
         this.idDetalle = idDetalle;
         this.cantidad = cantidad;
         this.precioCosto = precioCosto;
-        this.compra = compra;
         this.producto = producto;
     }
+
+    public DetalleCompra(int cantidad, double precioCosto, Producto producto) {
+        this.cantidad = cantidad;
+        this.precioCosto = precioCosto;
+        this.producto = producto;
+    }
+    
+    
 
     public int getIdDetalle() {
         return idDetalle;
@@ -44,13 +50,6 @@ public class datalleCompra {
         this.precioCosto = precioCosto;
     }
 
-    public Compra getCompra() {
-        return compra;
-    }
-
-    public void setCompra(Compra compra) {
-        this.compra = compra;
-    }
 
     public Producto getProducto() {
         return producto;
@@ -60,9 +59,12 @@ public class datalleCompra {
         this.producto = producto;
     }
 
+    
+    
+    
     @Override
     public String toString() {
-        return "datalleCompra{" + "idDetalle=" + idDetalle + ", cantidad=" + cantidad + ", precioCosto=" + precioCosto + ", compra=" + compra + ", producto=" + producto + '}';
+        return "datalleCompra{" + "idDetalle=" + idDetalle + ", cantidad=" + cantidad + ", precioCosto=" + precioCosto + ", producto=" + producto + '}';
     }
   
   

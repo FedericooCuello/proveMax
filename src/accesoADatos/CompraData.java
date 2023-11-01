@@ -2,7 +2,7 @@
 package accesoADatos;
 
 import entidades.Compra;
-import entidades.Proveedor;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -17,23 +17,24 @@ public class CompraData {
     public CompraData(){
         con = Conexion.getConexion();
     }
-    public void compraAProveedores(Proveedor proveedor, Compra compra){
+    public void compraAProveedores(Compra compra){
         try{
-        String sql = "INSERT INTO compra (idProveedor,fecha)" + "VALUES (?,?)";
+        String sql = "INSERT INTO compra (idProveedor,idDetalle,fecha) " + "VALUES (?,?,?)";
        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            //ps.setInt(1,compra.getIdCompra());
-            ps.setInt(1, proveedor.getIdProvedor());
-            ps.setDate(2,Date.valueOf(compra.getFecha()));
+            ps.setInt(1,compra.getProvedor().getIdProvedor());
+            ps.setInt(2, compra.getDetalleCompra().getIdDetalle());
+            ps.setDate(3,Date.valueOf(compra.getFecha()));
+            
             ps.executeUpdate(); 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 compra.setIdCompra(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Compra añadido con exito.");
+                JOptionPane.showMessageDialog(null, "Compra añadida con exito.");
             }
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a compra" + ex.getMessage());
 
             
             }

@@ -22,7 +22,7 @@ public ProductoData(){
 
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, producto.getNombreProducto());
-            ps.setString(2, producto.getDescripcio());
+            ps.setString(2, producto.getDescripcion());
             ps.setDouble(3, producto.getPrecioActual());
             ps.setInt(4,producto.getStock()) ;
             ps.setBoolean(5, producto.isEstado());  

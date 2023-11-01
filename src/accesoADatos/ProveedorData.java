@@ -24,12 +24,14 @@ public ProveedorData(){
     public void regristrarProveedor(Proveedor proveedor) {
 
         try {
-            String sql = "INSERT INTO proveedor (razonSocial, domicilio, telefono)" + "VALUES (?, ?, ?)";
+            String sql = "INSERT INTO proveedor (nombre, razonSocial, domicilio, telefono, estado)" + "VALUES (?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, proveedor.getRazonSocial());
-            ps.setString(2, proveedor.getDomicilio());
-            ps.setString(3, proveedor.getTelefono()); 
+            ps.setString(1, proveedor.getNombre());
+            ps.setString(2, proveedor.getRazonSocial());
+            ps.setString(3, proveedor.getDomicilio());
+            ps.setString(4, proveedor.getTelefono());
+            ps.setBoolean(5, true);
             ps.executeUpdate(); 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
