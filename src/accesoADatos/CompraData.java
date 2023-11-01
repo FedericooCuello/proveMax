@@ -17,10 +17,11 @@ public class CompraData {
     public CompraData(){
         con = Conexion.getConexion();
     }
-    private void compraAProveedores(Proveedor proveedor, Compra compra){
+    public void compraAProveedores(Proveedor proveedor, Compra compra){
         try{
-        String sql = "INSERT INTO compra (idProveedor,fecha)" + "VALUES (?, ?)";
+        String sql = "INSERT INTO compra (idProveedor,fecha)" + "VALUES (?,?)";
        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //ps.setInt(1,compra.getIdCompra());
             ps.setInt(1, proveedor.getIdProvedor());
             ps.setDate(2,Date.valueOf(compra.getFecha()));
             ps.executeUpdate(); 

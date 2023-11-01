@@ -1,6 +1,7 @@
 
 package provemax_main;
 
+import accesoADatos.CompraData;
 import accesoADatos.Conexion;
 import accesoADatos.ProductoData;
 import accesoADatos.ProveedorData;
@@ -8,6 +9,7 @@ import entidades.Compra;
 import entidades.Producto;
 import entidades.Proveedor;
 import java.sql.Connection;
+import java.time.LocalDate;
 
 public class ProveMax {
 
@@ -22,7 +24,11 @@ public class ProveMax {
        //ProveedorData prod = new ProveedorData();
        //prod.regristrarProveedor(cocaAndina);
        //-Prueva del metodo compraAProveedores <--------
-       //Compra compra2 = new Compra(cocaAndina,02-05-2024);
+       Compra compra2 = new Compra(cocaAndina,LocalDate.of(2024,05,03));
+       CompraData comp = new CompraData();
+       comp.compraAProveedores(cocaAndina, compra2);
+       
+       
     }
     
 }
