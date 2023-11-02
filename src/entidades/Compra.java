@@ -8,21 +8,24 @@ public class Compra {
     private Proveedor provedor;
     private DetalleCompra detalleCompra;
     private LocalDate fecha;
+    private boolean estado;
 
     public Compra() {
     }
 
-    public Compra(int idCompra, Proveedor provedor,DetalleCompra detalleCompra, LocalDate fecha) {
+    public Compra(int idCompra, Proveedor provedor,DetalleCompra detalleCompra, LocalDate fecha, boolean estado) {
         this.idCompra = idCompra;
         this.provedor = provedor;
         this.detalleCompra=detalleCompra;
         this.fecha = fecha;
+        this.estado=true;
     }
 
-    public Compra(Proveedor provedor,DetalleCompra detalleCompra, LocalDate fecha) {
+    public Compra(Proveedor provedor,DetalleCompra detalleCompra, LocalDate fecha, boolean estado) {
         this.provedor = provedor;
         this.detalleCompra=detalleCompra;
         this.fecha = fecha;
+        this.estado=true;
     }
 
     public int getIdCompra() {
@@ -56,6 +59,14 @@ public class Compra {
     public void setDetalleCompra(DetalleCompra detalleCompra) {
         this.detalleCompra = detalleCompra;
     }    
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
     
     
     @Override
