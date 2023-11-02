@@ -40,6 +40,19 @@ public class ProveMax {
 //       compraData.compraAProveedores(compra);
        
        
+       
+      //-Prueva del metodo buscarProducto <-------------------------------------
+      ProductoData pd=new ProductoData();
+      Producto producto=pd.buscarProducto(1);
+      System.out.println("Producto "+producto.getNombreProducto());
+      //-Prueva del metodo modificarProducto <----------------------------------
+      producto.setStock(550);
+      pd.modificarProducto(producto);
+      //-Prueva del metodo eliminarProducto <-----------------------------------
+      pd.eliminarProducto(1);
+       
+       
+       
     }
     
 }
