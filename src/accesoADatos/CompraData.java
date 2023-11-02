@@ -19,11 +19,12 @@ public class CompraData {
     }
     public void compraAProveedores(Compra compra){
         try{
-        String sql = "INSERT INTO compra (idProveedor,idDetalle,fecha) " + "VALUES (?,?,?)";
+        String sql = "INSERT INTO compra (idProveedor,idDetalle,fecha,estado) " + "VALUES (?,?,?,?)";
        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,compra.getProvedor().getIdProvedor());
             ps.setInt(2, compra.getDetalleCompra().getIdDetalle());
             ps.setDate(3,Date.valueOf(compra.getFecha()));
+            ps.setBoolean(4,compra.isEstado());
             
             ps.executeUpdate(); 
             ResultSet rs = ps.getGeneratedKeys();

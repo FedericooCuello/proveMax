@@ -11,12 +11,13 @@ public class DetalleCompraData {
     }
     public void registrarDetalleCompra(DetalleCompra detalleCompra){
         try {
-            String sql = "INSERT INTO detallecompra (cantidad, precioCosto, idproducto)" + "VALUES (?, ?, ?)";
+            String sql = "INSERT INTO detallecompra (cantidad, precioCosto, idproducto,estado)" + "VALUES (?, ?, ?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, detalleCompra.getCantidad());
             ps.setDouble(2, detalleCompra.getPrecioCosto());
             ps.setInt(3, detalleCompra.getProducto().getIdProducto());
+            ps.setBoolean(4,detalleCompra.isEstado());
             ps.executeUpdate(); 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
