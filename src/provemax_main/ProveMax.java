@@ -32,12 +32,25 @@ public class ProveMax {
 //       dpData.registrarDetalleCompra(detalle);
        
        //-Prueva del metodo compraAProveedores <--------
-       Proveedor cocaAndina = new Proveedor(1,"Distribuidora","CocacolaAndina","España 223","2664223344");
-       Producto producto = new Producto(1,"Fanta","Gaseosa",950,600,true);
-       DetalleCompra detalle=new DetalleCompra(1,2,producto.getPrecioActual(),producto);
-       Compra compra = new Compra(cocaAndina,detalle,LocalDate.of(2024,05,03));
-       CompraData compraData = new CompraData();
-       compraData.compraAProveedores(compra);
+//       Proveedor cocaAndina = new Proveedor(1,"Distribuidora","CocacolaAndina","España 223","2664223344");
+//       Producto producto = new Producto(1,"Fanta","Gaseosa",950,600,true);
+//       DetalleCompra detalle=new DetalleCompra(1,2,producto.getPrecioActual(),producto);
+//       Compra compra = new Compra(cocaAndina,detalle,LocalDate.of(2024,05,03));
+//       CompraData compraData = new CompraData();
+//       compraData.compraAProveedores(compra);
+       
+       
+       
+      //-Prueva del metodo buscarProducto <-------------------------------------
+      ProductoData pd=new ProductoData();
+      Producto producto=pd.buscarProducto(1);
+      System.out.println("Producto "+producto.getNombreProducto());
+      //-Prueva del metodo modificarProducto <----------------------------------
+      producto.setStock(550);
+      pd.modificarProducto(producto);
+      //-Prueva del metodo eliminarProducto <-----------------------------------
+      pd.eliminarProducto(1);
+       
        
        
     }

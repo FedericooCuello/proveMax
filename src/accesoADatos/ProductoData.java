@@ -15,7 +15,7 @@ public class ProductoData {
 public ProductoData(){
     con = Conexion.getConexion();
 }
-    public void regristrarProducto(Producto producto) {
+    public void regristrarProducto(Producto producto){
 
         try {
             String sql = "INSERT INTO producto (nombreProducto, descripcion, precioActual, stock, estado)" + "VALUES (?, ?, ?, ?, ?)";
@@ -39,8 +39,68 @@ public ProductoData(){
 
             
             }
-
-        }
-
     }
+    
+    public void modificarProducto(Producto producto){
+        try{
+            String sql="UPDATE producto SET nombreProducto=?,descripcion=?,precioActual=?,stock=? "
+                    + "WHERE idProducto=? ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,producto.getNombreProducto());
+            ps.setString(2,producto.getDescripcion());
+            ps.setDouble(3,producto.getPrecioActual());
+            ps.setInt(4,producto.getStock());
+            ps.setInt(5,producto.getIdProducto());
+            int exito=ps.executeUpdate();
+            if(exito==1){
+                JOptionPane.showMessageDialog(null,"Producto actualizado");
+            }
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto" + ex.getMessage());
+        }
+    }
+    
+    public void eliminarProducto(int id){
+        String sql="UPDATE producto SET estado=0 WHERE idProducto=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int exito=ps.executeUpdate();
+            if(exito==1){
+                JOptionPane.showMessageDialog(null,"Producto borrado");
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla producto "+ex.getMessage());
+        }
+    }
+    
+    public Producto buscarProducto(int id){
+        String sql="SELECT nombreProducto,descripcion,precioActual,stock FROM producto WHERE idProducto=? AND estado=1";
+        Producto producto=null;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                producto=new Producto();
+                producto.setIdProducto(id);
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setPrecioActual(rs.getDouble("precioActual"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setEstado(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"No existe el producto");
+            }
+            ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla producto "+ex.getMessage());
+        }
+        return producto;
+    }
+
+}
 
