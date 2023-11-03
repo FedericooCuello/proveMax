@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -21,7 +23,7 @@ public class CompraData {
         try{
         String sql = "INSERT INTO compra (idProveedor,idDetalle,fecha,estado) " + "VALUES (?,?,?,?)";
        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,compra.getProvedor().getIdProvedor());
+            ps.setInt(1,compra.getProveedor().getIdProvedor());
             ps.setInt(2, compra.getDetalleCompra().getIdDetalle());
             ps.setDate(3,Date.valueOf(compra.getFecha()));
             ps.setBoolean(4,compra.isEstado());
@@ -40,4 +42,57 @@ public class CompraData {
             
             }
     }
+    public void  modificarCompra(Compra compra){
+        String sql = "UPDATE compra SET proveedor = ?, detalleCompra = ?, fecha = ?" + "WHERE idCompra = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,compra.getProveedor().getIdProvedor());
+            ps.setInt(2,compra.getDetalleCompra().getIdDetalle());
+            ps.setDate(3, Date.valueOf(compra.getFecha()));
+            int qe = ps.executeUpdate();
+            if (qe==1){
+                JOptionPane.showMessageDialog(null, "Se modificaron los cambios con exito.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra" + ex.getMessage());
+        }
+    
+    }
+    public void eliminarCompra(int idcompra){
+      String sql = "UPDATE compra SET estado = 0" + "WHERE idCompra = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,idcompra);
+            int e = ps.executeUpdate();
+            if(e==1){
+                JOptionPane.showMessageDialog(null, "Se elimino la compra con exito.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra" + ex.getMessage());
+        }
+      
+    }
+    public Compra buscarCompra(int idCompra){
+        String sql ="SELECT proveedor,detalleCompra,fecha FROM compra WHERE idCompra = ? AND estado = 1 ";
+        Compra compra = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,idCompra);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                compra = new Compra();
+                compra.setIdCompra(idCompra);
+                compra.setProvedor(rs.getInt("proveedor"));
+                compra.setDetalleCompra(rs.getInt("detalleCompra"));
+                compra.setFecha(rs.getDate("fecha").toLocalDate());
+                compra.setEstado(true);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra" + ex.getMessage());
+        }
+        
+        
+        return compra;
+    }     
 }
