@@ -12,7 +12,7 @@ public class Proveedor {
     public Proveedor() {
     }
 
-    public Proveedor(int idProvedor, String nombre,String razonSocial, String domicilio, String telefono) {
+    public Proveedor(int idProvedor, String nombre,String razonSocial, String domicilio, String telefono, boolean estado) {
         this.idProvedor = idProvedor;
         this.nombre= nombre;
         this.razonSocial = razonSocial;
@@ -21,7 +21,7 @@ public class Proveedor {
         this.estado=true;
     }
 
-    public Proveedor(String nombre,String razonSocial, String domicilio, String telefono) {
+    public Proveedor(String nombre,String razonSocial, String domicilio, String telefono, boolean estado) {
         this.nombre=nombre;
         this.razonSocial = razonSocial;
         this.domicilio = domicilio;
@@ -76,13 +76,9 @@ public class Proveedor {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-    
-    
-    
     @Override
     public String toString() {
-        return "Proveedor{" + "idProvedor=" + idProvedor + ", razonSocial=" + razonSocial + ", domicilio=" + domicilio + ", telefono=" + telefono + '}';
+        return "Proveedor  " + "idProvedor=" + idProvedor + ", razonSocial=" + razonSocial + ", domicilio=" + domicilio + ", telefono=" + telefono  ;
     }
 
 }

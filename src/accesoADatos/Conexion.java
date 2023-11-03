@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
  
     
-    private final static String url = "jdbc:mariadb://127.0.0.1:3307/proveMax";
+    private final static String url = "jdbc:mariadb://127.0.0.1:3306/proveMax";
     private final static String usuario= "root";
     private final static  String contrasenia = "";
     private static Connection conexion;
@@ -19,7 +19,7 @@ public class Conexion {
      
     
 public static Connection getConexion() {
-    // Verifica si la conexión ya está establecida
+    
     if (conexion == null) {
         try {
             // Cargar el driver MariaDB.
@@ -27,7 +27,7 @@ public static Connection getConexion() {
             Class.forName("org.mariadb.jdbc.Driver");
             // se elimino DriverManager que estaba en la izq
             conexion = DriverManager.getConnection(url, usuario, contrasenia);
-            JOptionPane.showMessageDialog(null, "Conectado a la BD");
+          //  JOptionPane.showMessageDialog(null, "Conectado a la BD");
             //System.out.println("Conectado a BD");
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error al cargar el driver de la base de datos");
