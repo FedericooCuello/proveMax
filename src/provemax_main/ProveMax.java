@@ -42,7 +42,7 @@ public class ProveMax {
 //       compraData.compraAProveedores(compra);
        
       //------------------- Prueba método modificar datos proveedor
-       Proveedor proveedor1 = new Proveedor("Distribuidora de bebidas gaseosas y agua saborizadas", "Coca cola Andina & Hijos ", "España 223", "2665223300", true);
+//       Proveedor proveedor1 = new Proveedor("Distribuidora de bebidas gaseosas y agua saborizadas", "Coca cola Andina & Hijos ", "España 223", "2665223300", true);
         
        // ProveedorData proveedorData1 = new ProveedorData();
        // proveedorData1.regristrarProveedor(proveedor1);
@@ -54,44 +54,47 @@ public class ProveMax {
         
         
         //---------------- Prueba método buscar proveedores  x id
-           ProveedorData proveedorData1 = new ProveedorData();
-        Proveedor provBuscado = proveedorData1.buscarProveedor(1);
-        if (provBuscado!=null ) {
-             JOptionPane.showMessageDialog(null, "Proveedor: " + proveedor1.getNombre() + " id: " + proveedor1.getIdProvedor() );
-        }
-       
-<<<<<<< Updated upstream
+//           ProveedorData proveedorData1 = new ProveedorData();
+//        Proveedor provBuscado = proveedorData1.buscarProveedor(1);
+//        if (provBuscado!=null ) {
+//             JOptionPane.showMessageDialog(null, "Proveedor: " + proveedor1.getNombre() + " id: " + proveedor1.getIdProvedor() );
+//        }
+//       
+//<<<<<<< Updated upstream
        
       //-Prueva del metodo buscarProducto <-------------------------------------
-      ProductoData pd=new ProductoData();
-      Producto producto=pd.buscarProducto(1);
-      System.out.println("Producto "+producto.getNombreProducto());
+//      ProductoData pd=new ProductoData();
+//      Producto producto=pd.buscarProducto(1);
+//      System.out.println("Producto "+producto.getNombreProducto());
       //-Prueva del metodo modificarProducto <----------------------------------
-      producto.setStock(550);
-      pd.modificarProducto(producto);
+//      producto.setStock(550);
+//      pd.modificarProducto(producto);
       //-Prueva del metodo eliminarProducto <-----------------------------------
-      pd.eliminarProducto(1);
+//      pd.eliminarProducto(1);
        
        
        
-=======
+
         
         //----------prueba método listar proveedores
-        List <Proveedor> proveedorLi = proveedorData1.listarProveedores();
-        System.out.println("Lista de inscripciones: \n");
-                   for (Proveedor aux : proveedorLi) {
-                       System.out.println("Id proveedor: " + proveedor1.getIdProvedor());
-                       System.out.println("Nombre: " + proveedor1.getNombre());
-                       System.out.println("Razon social: " + proveedor1.getRazonSocial());
-                       System.out.println("Telefono: " + proveedor1.getTelefono());
-                       System.out.println("\n");
-                   }  
+//        List <Proveedor> proveedorLi = proveedorData1.listarProveedores();
+//        System.out.println("Lista de inscripciones: \n");
+//                   for (Proveedor aux : proveedorLi) {
+//                       System.out.println("Id proveedor: " + proveedor1.getIdProvedor());
+//                       System.out.println("Nombre: " + proveedor1.getNombre());
+//                       System.out.println("Razon social: " + proveedor1.getRazonSocial());
+//                       System.out.println("Telefono: " + proveedor1.getTelefono());
+//                       System.out.println("\n");
+//                   }  
                    
->>>>>>> Stashed changes
-    }
-    
-    
-    
-  
-    
+    //-Prueva del metodo buscarCompra <-----------------------------------------
+    CompraData cd=new CompraData();
+    Compra compra=cd.buscarCompra(4);
+        System.out.println("Compra: "+compra.toString());
+
+
+
+
+
+    }    
 }
