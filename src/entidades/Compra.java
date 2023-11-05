@@ -67,11 +67,13 @@ public class Compra {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
+
     @Override
     public String toString() {
-        return "Compra{" + "idCompra=" + idCompra + ", proveedor=" + proveedor + ", fecha=" + fecha + '}';
+        return "Compra{" + "idCompra=" + idCompra + ", proveedor=" + proveedor.getNombre()+ ", detalleCompra=" + detalleCompra.getProducto().getNombreProducto() + ", fecha=" + fecha + ", estado=" + estado + '}';
     }
+    
+    
+    
 
 }

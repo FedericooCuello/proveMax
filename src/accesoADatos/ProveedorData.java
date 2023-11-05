@@ -101,10 +101,12 @@ public class ProveedorData {
 
             if (rs.next()) {
                 proveedor = new Proveedor();
-                proveedor.setNombre(rs.getString(1));
-                proveedor.setRazonSocial(rs.getString(2));
-                proveedor.setDomicilio(rs.getString(3));
-                proveedor.setTelefono(rs.getString(4));
+                proveedor.setIdProvedor(rs.getInt("idProveedor"));
+                proveedor.setNombre(rs.getString("nombre"));
+                proveedor.setRazonSocial(rs.getString("razonSocial"));
+                proveedor.setDomicilio(rs.getString("domicilio"));
+                proveedor.setTelefono(rs.getString("telefono"));
+                proveedor.setEstado(true);
             } else {
                 JOptionPane.showMessageDialog(null, "El proveedor no existe");
             }
