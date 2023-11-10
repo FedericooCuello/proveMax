@@ -143,6 +143,34 @@ public class ProveedorData {
         }
         return proveedoresLista;
     }
+    
+    
+        public List<Proveedor> listarProveedoresPorID(int idProveedor) {
+        
+        List<Proveedor> proveedoresLista = new ArrayList<>();
+        String sql = "SELECT * FROM proveedor WHERE idProveedor=? AND estado = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            // setea  ID en la consulta
+            ps.setInt(1, idProveedor);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProvedor(rs.getInt("idProveedor"));
+                proveedor.setRazonSocial(rs.getString("razonSocial"));
+                proveedor.setNombre(rs.getString("nombre"));
+                proveedor.setDomicilio(rs.getString("domicilio"));
+                proveedor.setTelefono(rs.getString("telefono"));
+                proveedor.setEstado(true);
+                proveedoresLista.add(proveedor);
+            }
+            ps.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar acceder a la tabla proveedor con el ID " + ex.getMessage());
+        }
+        return proveedoresLista;
+    }
+    
 }
 
 

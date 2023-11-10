@@ -60,7 +60,7 @@ public class ProveMax {
 //             JOptionPane.showMessageDialog(null, "Proveedor: " + proveedor1.getNombre() + " id: " + proveedor1.getIdProvedor() );
 //        }
 //       
-//<<<<<<< Updated upstream
+// 
        
       //-Prueva del metodo buscarProducto <-------------------------------------
 //      ProductoData pd=new ProductoData();
@@ -76,22 +76,24 @@ public class ProveMax {
        
 
         
-        //----------prueba método listar proveedores
-//        List <Proveedor> proveedorLi = proveedorData1.listarProveedores();
-//        System.out.println("Lista de inscripciones: \n");
-//                   for (Proveedor aux : proveedorLi) {
-//                       System.out.println("Id proveedor: " + proveedor1.getIdProvedor());
-//                       System.out.println("Nombre: " + proveedor1.getNombre());
-//                       System.out.println("Razon social: " + proveedor1.getRazonSocial());
-//                       System.out.println("Telefono: " + proveedor1.getTelefono());
-//                       System.out.println("\n");
-//                   }  
+       // ----------prueba método listar proveedores
+          ProveedorData proveedorData1 = new ProveedorData();
+          Proveedor proveedor1 = new Proveedor("Distribuidora Del Sur ", "Comestibles SRL ", "Sucre 545", "26645777114", true);
+        List <Proveedor> proveedorLi = proveedorData1.listarProveedores();
+        System.out.println("Lista de inscripciones: \n");
+                   for (Proveedor aux : proveedorLi) {
+                       System.out.println("Id proveedor: " + aux.getIdProvedor());
+                       System.out.println("Nombre: " + aux.getNombre());
+                       System.out.println("Razon social: " + aux.getRazonSocial());
+                       System.out.println("Telefono: " + aux.getTelefono());
+                       System.out.println("\n");
+                   }  
                    
-    //-Prueva del metodo buscarCompra <-----------------------------------------
-    CompraData cd=new CompraData();
-    Compra compra=cd.buscarCompra(4);
-        System.out.println("Compra: "+compra.toString());
-
+    //-Prueba del metodo buscarCompra <-----------------------------------------
+//    CompraData cd=new CompraData();
+//    Compra compra=cd.buscarCompra(4);
+//        System.out.println("Compra: "+compra.toString());
+//
 
 
 
