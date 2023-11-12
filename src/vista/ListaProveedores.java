@@ -218,12 +218,12 @@ private CompraData compData;
       java.util.Date d2=jDateChooser1_fechaFinal.getDate();
       LocalDate f1=d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       LocalDate f2=d2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        System.out.println("Fecha Inicio: "+f1);
-        System.out.println("Fecha Final: "+f2);
-        System.out.println("Proveedor: "+provSeleccionado.getIdProvedor());
+        //System.out.println("Fecha Inicio: "+f1);
+        //System.out.println("Fecha Final: "+f2);
+        //System.out.println("Proveedor: "+provSeleccionado.getIdProvedor());
       listaCompra=compData.buscarComprasProveedor(provSeleccionado.getIdProvedor(),Date.valueOf(f1),Date.valueOf(f2));
       if(!listaCompra.isEmpty()){
-          System.out.println("Cargando datos tabla compras");
+          //System.out.println("Cargando datos tabla compras");
           for(Compra aux:listaCompra){
               modeloTabla2.addRow(new Object[]{
                   aux.getFecha().toString(),

@@ -105,7 +105,7 @@ public class ProveMax {
         ProductoData pd=new ProductoData();
         
         LocalDate lc1=LocalDate.of(2023, 1, 1);
-        LocalDate lc2=LocalDate.of(2023,7,1);
+        LocalDate lc2=LocalDate.of(2023,12,1);
         
         List<Compra> compras=cd.buscarComprasProveedor(1,Date.valueOf(lc1),Date.valueOf(lc2));
         System.out.println("Lista de compras a un Proveedor");

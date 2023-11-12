@@ -111,14 +111,14 @@ public class CompraData {
             ps.setDate(2, d1);
             ps.setDate(3, d2);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 compra = new Compra();
                 compra.setIdCompra(rs.getInt("idCompra"));
                 compra.setProvedor(prData.buscarProveedor(rs.getInt("idProveedor")));
                 compra.setDetalleCompra(dcData.buscarDetalleCompra(rs.getInt("idDetalle")));
                 compra.setFecha(rs.getDate("fecha").toLocalDate());
-                compras.add(compra);
                 compra.setEstado(true);
+                compras.add(compra);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra" + ex.getMessage());
