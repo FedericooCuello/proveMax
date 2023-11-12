@@ -28,6 +28,7 @@ public class MenuView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         ImageIcon iconoEscritorio = new ImageIcon(getClass().getResource("/recursos/imagenDesktop.jpg"));
         Image escritorioImagen = iconoEscritorio.getImage();
         jDesktopPrincipal = new javax.swing.JDesktopPane(){
@@ -208,6 +209,7 @@ public class MenuView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JDesktopPane jDesktopPrincipal;
     private javax.swing.JMenu jMenu1_detalleCompra;
     private javax.swing.JMenu jMenu2;
