@@ -70,7 +70,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Formulario de alta de proveedor");
+        setTitle("Compras");
         setToolTipText("");
 
         jLabel_Materiattulo.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
@@ -424,7 +424,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
 
     private void cargarProveedores() {
         for (Proveedor proveedor : listaProveedor) {
-            jcomboBoxProveedor1.addItem();
+           // jcomboBoxProveedor1.addItem();
         }
     }
 

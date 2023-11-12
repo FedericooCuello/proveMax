@@ -35,11 +35,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1_fInicial" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jDateChooser1_fechaInicial" min="-2" pref="86" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="jDateChooser1_fechaInicial" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jLabel_fFinal" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jDateChooser1_fechaIFinal" min="-2" pref="85" max="-2" attributes="0"/>
+                              <Component id="jDateChooser1_fechaFinal" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jButton_buscarProveedorFecha" min="-2" pref="115" max="-2" attributes="0"/>
                           </Group>
@@ -84,7 +84,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="jDateChooser1_fechaIFinal" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooser1_fechaFinal" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Component id="jDateChooser1_fechaInicial" min="-2" max="-2" attributes="0"/>
@@ -144,9 +144,9 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1_fechaIFinal">
+    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1_fechaFinal">
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jDateChooser1_fechaIFinalMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jDateChooser1_fechaFinalMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1_fInicial">
