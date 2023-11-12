@@ -99,6 +99,7 @@ public class ProveMax {
 //
         
         //-Prueva del metodo buscarComprasProveedor() <-----------------------------------
+        System.out.println("Test Compras de a un proveedor");
         CompraData cd=new CompraData();
         DetalleCompraData dc=new DetalleCompraData();
         ProductoData pd=new ProductoData();
