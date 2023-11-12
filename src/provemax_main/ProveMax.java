@@ -11,7 +11,10 @@ import entidades.DetalleCompra;
 import entidades.Producto;
 import entidades.Proveedor;
 import java.sql.Connection;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -77,25 +80,42 @@ public class ProveMax {
 
         
        // ----------prueba método listar proveedores
-          ProveedorData proveedorData1 = new ProveedorData();
-          Proveedor proveedor1 = new Proveedor("Distribuidora Del Sur ", "Comestibles SRL ", "Sucre 545", "26645777114", true);
-        List <Proveedor> proveedorLi = proveedorData1.listarProveedores();
-        System.out.println("Lista de inscripciones: \n");
-                   for (Proveedor aux : proveedorLi) {
-                       System.out.println("Id proveedor: " + aux.getIdProvedor());
-                       System.out.println("Nombre: " + aux.getNombre());
-                       System.out.println("Razon social: " + aux.getRazonSocial());
-                       System.out.println("Telefono: " + aux.getTelefono());
-                       System.out.println("\n");
-                   }  
+//          ProveedorData proveedorData1 = new ProveedorData();
+//          //Proveedor proveedor1 = new Proveedor("Distribuidora Del Sur ", "Comestibles SRL ", "Sucre 545", "26645777114", true);
+//        List <Proveedor> proveedorLi = proveedorData1.listarProveedores();
+//        System.out.println("Lista de proveedores: \n");
+//                   for (Proveedor aux : proveedorLi) {
+//                       System.out.println("Id proveedor: " + aux.getIdProvedor());
+//                       System.out.println("Nombre: " + aux.getNombre());
+//                       System.out.println("Razon social: " + aux.getRazonSocial());
+//                       System.out.println("Telefono: " + aux.getTelefono());
+//                       System.out.println("\n");
+//                   }  
                    
     //-Prueba del metodo buscarCompra <-----------------------------------------
 //    CompraData cd=new CompraData();
 //    Compra compra=cd.buscarCompra(4);
 //        System.out.println("Compra: "+compra.toString());
 //
-
-
+        
+        //-Prueva del metodo buscarComprasProveedor() <-----------------------------------
+        CompraData cd=new CompraData();
+        DetalleCompraData dc=new DetalleCompraData();
+        ProductoData pd=new ProductoData();
+        
+        LocalDate lc1=LocalDate.of(2023, 1, 1);
+        LocalDate lc2=LocalDate.of(2023,7,1);
+        
+        List<Compra> compras=cd.buscarComprasProveedor(1,Date.valueOf(lc1),Date.valueOf(lc2));
+        System.out.println("Lista de compras a un Proveedor");
+        for(Compra aux:compras){
+            System.out.println("Compra");
+            System.out.println("Fecha: "+aux.getFecha());
+            System.out.println("Producto: "+pd.buscarProducto(aux.getDetalleCompra().getProducto().getIdProducto()).getNombreProducto());
+            System.out.println("Cantidad: "+dc.buscarDetalleCompra(aux.getDetalleCompra().getIdDetalle()).getCantidad());
+            System.out.println("Precio: "+dc.buscarDetalleCompra(aux.getDetalleCompra().getIdDetalle()).getPrecioCosto());
+            
+        }
 
 
     }    

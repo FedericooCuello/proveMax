@@ -4,9 +4,15 @@
  */
 package vista;
 
+import accesoADatos.CompraData;
+import accesoADatos.DetalleCompraData;
 import accesoADatos.ProveedorData;
 import entidades.Compra;
 import entidades.Proveedor;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -18,18 +24,29 @@ import javax.swing.table.DefaultTableModel;
 public class ListaProveedores extends javax.swing.JInternalFrame {
 
 private DefaultTableModel modeloTabla;
+private DefaultTableModel modeloTabla2;
 private List <Proveedor> listaProveedor;
 private List <Compra> listaCompra; 
 
 private ProveedorData provData;
+private CompraData compData;
+//private DetalleCompraData detCompData;
 
     public ListaProveedores() {
         initComponents();
         provData = new ProveedorData();
+        compData=new CompraData();
+        //detCompData=new DetalleCompraData();
+        
         listaProveedor = provData.listarProveedores();
+        listaCompra= new ArrayList<>();
+        
         modeloTabla = new DefaultTableModel();
+        modeloTabla2= new DefaultTableModel();
+        
         cargarProveedores();
         armarCabeceraTabla();
+        armarCabeceraTabla2();
     }
 
     private void cargarProveedores() {
@@ -52,7 +69,7 @@ private ProveedorData provData;
         jLabel_compra = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1_listadoProveedores = new javax.swing.JTable();
-        jDateChooser1_fechaIFinal = new com.toedter.calendar.JDateChooser();
+        jDateChooser1_fechaFinal = new com.toedter.calendar.JDateChooser();
         jLabel1_fInicial = new javax.swing.JLabel();
         jLabel_fFinal = new javax.swing.JLabel();
         jcomboBoxProveedor = new javax.swing.JComboBox<>();
@@ -87,9 +104,9 @@ private ProveedorData provData;
         ));
         jScrollPane1.setViewportView(jTable1_listadoProveedores);
 
-        jDateChooser1_fechaIFinal.addMouseListener(new java.awt.event.MouseAdapter() {
+        jDateChooser1_fechaFinal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jDateChooser1_fechaIFinalMouseClicked(evt);
+                jDateChooser1_fechaFinalMouseClicked(evt);
             }
         });
 
@@ -139,11 +156,11 @@ private ProveedorData provData;
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1_fInicial)
                                 .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1_fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
+                                .addComponent(jDateChooser1_fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
                                 .addComponent(jLabel_fFinal)
                                 .addGap(30, 30, 30)
-                                .addComponent(jDateChooser1_fechaIFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jDateChooser1_fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton_buscarProveedorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -176,7 +193,7 @@ private ProveedorData provData;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jDateChooser1_fechaIFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDateChooser1_fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jDateChooser1_fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +211,28 @@ private ProveedorData provData;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_buscarProveedorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarProveedorFechaActionPerformed
+      borrarFilas2();
+      Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
       
+      java.util.Date d1=jDateChooser1_fechaInicial.getDate();
+      java.util.Date d2=jDateChooser1_fechaFinal.getDate();
+      LocalDate f1=d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+      LocalDate f2=d2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        System.out.println("Fecha Inicio: "+f1);
+        System.out.println("Fecha Final: "+f2);
+        System.out.println("Proveedor: "+provSeleccionado.getIdProvedor());
+      listaCompra=compData.buscarComprasProveedor(provSeleccionado.getIdProvedor(),Date.valueOf(f1),Date.valueOf(f2));
+      if(!listaCompra.isEmpty()){
+          System.out.println("Cargando datos tabla compras");
+          for(Compra aux:listaCompra){
+              modeloTabla2.addRow(new Object[]{
+                  aux.getFecha().toString(),
+                  aux.getDetalleCompra().getProducto().getNombreProducto(),
+                  aux.getDetalleCompra().getCantidad(),
+                  aux.getDetalleCompra().getPrecioCosto()
+          });
+          }
+      }
     }//GEN-LAST:event_jButton_buscarProveedorFechaActionPerformed
 
     private void jcomboBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorActionPerformed
@@ -202,6 +240,7 @@ private ProveedorData provData;
       //------------------------REVISAR , debe ir asociado al jDateCHooser luego de ingresar los intervalos de fehca
         
         borrarFilas();
+        borrarFilas2();
         Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
         //obt lista 
         listaProveedor = provData.listarProveedoresPorID(provSeleccionado.getIdProvedor());
@@ -218,19 +257,26 @@ private ProveedorData provData;
         }
     }//GEN-LAST:event_jcomboBoxProveedorActionPerformed
 
-    private void jDateChooser1_fechaIFinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1_fechaIFinalMouseClicked
+    private void jDateChooser1_fechaFinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1_fechaFinalMouseClicked
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jDateChooser1_fechaIFinalMouseClicked
+    }//GEN-LAST:event_jDateChooser1_fechaFinalMouseClicked
 
     
         private void borrarFilas () {
         //devuelve la cant de fila = getRowCount, que va a ser usada como indice por eso se resta -1
         int indiceFila = modeloTabla.getRowCount()-1;
-        for(int i=indiceFila; i>0;  i--) {
+        for(int i=indiceFila; i>=0;  i--) {
             modeloTabla.removeRow(i);
         }
-    }
+        }
+        private void borrarFilas2 () {
+        //devuelve la cant de fila = getRowCount, que va a ser usada como indice por eso se resta -1
+        int indiceFila = modeloTabla2.getRowCount()-1;
+        for(int i=indiceFila; i>=0;  i--) {
+            modeloTabla2.removeRow(i);
+        }
+        }
         
          private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
@@ -243,12 +289,24 @@ private ProveedorData provData;
             modeloTabla.addColumn(aux);
         }
         jTable1_listadoProveedores.setModel(modeloTabla);
-    } 
+        }
+         
+        private void armarCabeceraTabla2(){
+            ArrayList<Object> filaCabecera=new ArrayList<>();
+            filaCabecera.add("Fecha de Compra");
+            filaCabecera.add("Prodructo");
+            filaCabecera.add("Cantidad");
+            filaCabecera.add("Precio");
+            for(Object aux:filaCabecera){
+                modeloTabla2.addColumn(aux);
+            }
+            jTable1_listadoCompraProveedores.setModel(modeloTabla2);
+        } 
          
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_buscarProveedorFecha;
-    private com.toedter.calendar.JDateChooser jDateChooser1_fechaIFinal;
+    private com.toedter.calendar.JDateChooser jDateChooser1_fechaFinal;
     private com.toedter.calendar.JDateChooser jDateChooser1_fechaInicial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel1_fInicial;
