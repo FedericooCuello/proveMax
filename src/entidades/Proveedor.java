@@ -76,9 +76,38 @@ public class Proveedor {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + this.idProvedor;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Proveedor other = (Proveedor) obj;
+        if (this.idProvedor != other.idProvedor) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
     @Override
     public String toString() {
-        return "• "   + idProvedor + " " + nombre + " , " + razonSocial + ", " + domicilio + " - " + telefono  ;
+        //return "• "   + idProvedor + " " + nombre + " , " + razonSocial + ", " + domicilio + " - " + telefono  ;
+        return nombre + " / " + razonSocial;
     }
 
 }

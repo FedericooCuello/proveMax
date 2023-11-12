@@ -37,8 +37,8 @@ public class MenuView extends javax.swing.JFrame {
             }
         };
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1_detalleCOmpra = new javax.swing.JMenu();
-        jMenuItem1_detallleCompra = new javax.swing.JMenuItem();
+        jMenu1_detalleCompra = new javax.swing.JMenu();
+        jMenuItem1_detalleCompra = new javax.swing.JMenuItem();
         jMenuItem1_listaCompras = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem_altaProducto = new javax.swing.JMenuItem();
@@ -61,22 +61,17 @@ public class MenuView extends javax.swing.JFrame {
             .addGap(0, 429, Short.MAX_VALUE)
         );
 
-        jMenu1_detalleCOmpra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/transaccion.png"))); // NOI18N
-        jMenu1_detalleCOmpra.setText(" Compras    ");
-        jMenu1_detalleCOmpra.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jMenu1_detalleCOmpra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1_detalleCOmpraActionPerformed(evt);
-            }
-        });
+        jMenu1_detalleCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/transaccion.png"))); // NOI18N
+        jMenu1_detalleCompra.setText(" Compras    ");
+        jMenu1_detalleCompra.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
 
-        jMenuItem1_detallleCompra.setText("jMenuItem1");
-        jMenuItem1_detallleCompra.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1_detalleCompra.setText("Comprar");
+        jMenuItem1_detalleCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1_detallleCompraActionPerformed(evt);
+                jMenuItem1_detalleCompraActionPerformed(evt);
             }
         });
-        jMenu1_detalleCOmpra.add(jMenuItem1_detallleCompra);
+        jMenu1_detalleCompra.add(jMenuItem1_detalleCompra);
 
         jMenuItem1_listaCompras.setText("Lista de compras");
         jMenuItem1_listaCompras.addActionListener(new java.awt.event.ActionListener() {
@@ -84,9 +79,9 @@ public class MenuView extends javax.swing.JFrame {
                 jMenuItem1_listaComprasActionPerformed(evt);
             }
         });
-        jMenu1_detalleCOmpra.add(jMenuItem1_listaCompras);
+        jMenu1_detalleCompra.add(jMenuItem1_listaCompras);
 
-        jMenuBar1.add(jMenu1_detalleCOmpra);
+        jMenuBar1.add(jMenu1_detalleCompra);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/producto logo.png"))); // NOI18N
         jMenu3.setText("  Productos      ");
@@ -165,11 +160,7 @@ public class MenuView extends javax.swing.JFrame {
         formProducto.getContentPane().setBackground(new Color(227, 242, 253));
     }//GEN-LAST:event_jMenuItem_altaProductoActionPerformed
 
-    private void jMenuItem1_detallleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_detallleCompraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1_detallleCompraActionPerformed
-
-    private void jMenu1_detalleCOmpraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1_detalleCOmpraActionPerformed
+    private void jMenuItem1_detalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_detalleCompraActionPerformed
         // TODO add your handling code here:
         jDesktopPrincipal.removeAll();
         jDesktopPrincipal.repaint();
@@ -178,7 +169,7 @@ public class MenuView extends javax.swing.JFrame {
         jDesktopPrincipal.add(formularioAltaCompra);
         jDesktopPrincipal.moveToFront(formularioAltaCompra);
         formularioAltaCompra.getContentPane().setBackground(new Color(251, 238, 230 ));
-    }//GEN-LAST:event_jMenu1_detalleCOmpraActionPerformed
+    }//GEN-LAST:event_jMenuItem1_detalleCompraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,12 +209,12 @@ public class MenuView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPrincipal;
-    private javax.swing.JMenu jMenu1_detalleCOmpra;
+    private javax.swing.JMenu jMenu1_detalleCompra;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1_altaProveedor;
-    private javax.swing.JMenuItem jMenuItem1_detallleCompra;
+    private javax.swing.JMenuItem jMenuItem1_detalleCompra;
     private javax.swing.JMenuItem jMenuItem1_listaCompras;
     private javax.swing.JMenuItem jMenuItem_altaProducto;
     // End of variables declaration//GEN-END:variables
