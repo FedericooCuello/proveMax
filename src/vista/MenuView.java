@@ -131,7 +131,7 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jMenuItem1_listaComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_listaComprasActionPerformed
         // TODO add your handling code here:
-         jDesktopPrincipal.removeAll();
+        jDesktopPrincipal.removeAll();
         jDesktopPrincipal.repaint();
         ListaProveedores listaProveedores = new ListaProveedores();
         listaProveedores.setVisible(true);

@@ -25,26 +25,24 @@ public class ListaProveedores extends javax.swing.JInternalFrame {
 
 private DefaultTableModel modeloTabla;
 private DefaultTableModel modeloTabla2;
+
 private List <Proveedor> listaProveedor;
 private List <Compra> listaCompra; 
 
 private ProveedorData provData;
 private CompraData compData;
-//private DetalleCompraData detCompData;
+private DetalleCompraData detCompData;
 
     public ListaProveedores() {
         initComponents();
-        provData = new ProveedorData();
-        compData=new CompraData();
-        //detCompData=new DetalleCompraData();
-        
+        provData=new ProveedorData();
         listaProveedor = provData.listarProveedores();
-        listaCompra= new ArrayList<>();
         
         modeloTabla = new DefaultTableModel();
         modeloTabla2= new DefaultTableModel();
         
         cargarProveedores();
+        
         armarCabeceraTabla();
         armarCabeceraTabla2();
     }
@@ -201,9 +199,9 @@ private CompraData compData;
                             .addComponent(jLabel_fFinal, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(jButton_buscarProveedorFecha))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addGap(41, 41, 41))
         );
 
@@ -211,50 +209,39 @@ private CompraData compData;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_buscarProveedorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarProveedorFechaActionPerformed
-      borrarFilas2();
-      Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
-      
-      java.util.Date d1=jDateChooser1_fechaInicial.getDate();
-      java.util.Date d2=jDateChooser1_fechaFinal.getDate();
-      LocalDate f1=d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-      LocalDate f2=d2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        //System.out.println("Fecha Inicio: "+f1);
-        //System.out.println("Fecha Final: "+f2);
-        //System.out.println("Proveedor: "+provSeleccionado.getIdProvedor());
-      listaCompra=compData.buscarComprasProveedor(provSeleccionado.getIdProvedor(),Date.valueOf(f1),Date.valueOf(f2));
-      if(!listaCompra.isEmpty()){
-          //System.out.println("Cargando datos tabla compras");
-          for(Compra aux:listaCompra){
-              modeloTabla2.addRow(new Object[]{
-                  aux.getFecha().toString(),
-                  aux.getDetalleCompra().getProducto().getNombreProducto(),
-                  aux.getDetalleCompra().getCantidad(),
-                  aux.getDetalleCompra().getPrecioCosto()
-          });
-          }
-      }
+        Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
+        borrarFilas();
+        borrarFilas2();
+        modeloTabla.addRow(new Object [] {
+                    provSeleccionado.getIdProvedor(),
+                    provSeleccionado.getNombre(),
+                    provSeleccionado.getRazonSocial(),
+                    provSeleccionado.getDomicilio(),
+                    provSeleccionado.getTelefono()
+                });     
+        java.util.Date d1=jDateChooser1_fechaInicial.getDate();
+        java.util.Date d2=jDateChooser1_fechaFinal.getDate();
+        LocalDate f1=d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate f2=d2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
     }//GEN-LAST:event_jButton_buscarProveedorFechaActionPerformed
 
     private void jcomboBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorActionPerformed
-        // TODO add your handling code here:
-      //------------------------REVISAR , debe ir asociado al jDateCHooser luego de ingresar los intervalos de fehca
-        
-        borrarFilas();
-        borrarFilas2();
-        Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
-        //obt lista 
-        listaProveedor = provData.listarProveedoresPorID(provSeleccionado.getIdProvedor());
-        if(!listaProveedor.isEmpty()) {
-            for ( Proveedor aux : listaProveedor  ) {
-                modeloTabla.addRow(new Object [] {
-                    aux.getIdProvedor(),
-                    aux.getNombre(),
-                    aux.getRazonSocial(),
-                    aux.getDomicilio(),
-                    aux.getTelefono()
-                });
-            }
-        }
+//        borrarFilas();
+//        Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
+//        //obt lista 
+//        listaProveedor = provData.listarProveedoresPorID(provSeleccionado.getIdProvedor());
+//        if(!listaProveedor.isEmpty()) {
+//            for ( Proveedor aux : listaProveedor  ) {
+//                modeloTabla.addRow(new Object [] {
+//                    aux.getIdProvedor(),
+//                    aux.getNombre(),
+//                    aux.getRazonSocial(),
+//                    aux.getDomicilio(),
+//                    aux.getTelefono()
+//                });
+//            }
+//        }
     }//GEN-LAST:event_jcomboBoxProveedorActionPerformed
 
     private void jDateChooser1_fechaFinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1_fechaFinalMouseClicked

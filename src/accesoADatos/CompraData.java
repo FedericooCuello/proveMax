@@ -2,6 +2,7 @@
 package accesoADatos;
 
 import entidades.Compra;
+import entidades.DetalleCompra;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -25,12 +26,11 @@ public class CompraData {
     }
     public void compraAProveedores(Compra compra){
         try{
-        String sql = "INSERT INTO compra (idProveedor,idDetalle,fecha,estado) " + "VALUES (?,?,?,?)";
+        String sql = "INSERT INTO compra (idProveedor,fecha,estado) " + "VALUES (?,?,?)";
        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,compra.getProveedor().getIdProvedor());
-            ps.setInt(2, compra.getDetalleCompra().getIdDetalle());
-            ps.setDate(3,Date.valueOf(compra.getFecha()));
-            ps.setBoolean(4,compra.isEstado());
+            ps.setDate(2,Date.valueOf(compra.getFecha()));
+            ps.setBoolean(3,compra.isEstado());
             
             ps.executeUpdate(); 
             ResultSet rs = ps.getGeneratedKeys();
@@ -47,12 +47,11 @@ public class CompraData {
             }
     }
     public void  modificarCompra(Compra compra){
-        String sql = "UPDATE compra SET proveedor = ?, detalleCompra = ?, fecha = ?" + "WHERE idCompra = ?";
+        String sql = "UPDATE compra SET proveedor = ?, fecha = ?" + "WHERE idCompra = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,compra.getProveedor().getIdProvedor());
-            ps.setInt(2,compra.getDetalleCompra().getIdDetalle());
-            ps.setDate(3, Date.valueOf(compra.getFecha()));
+            ps.setDate(2, Date.valueOf(compra.getFecha()));
             int qe = ps.executeUpdate();
             if (qe==1){
                 JOptionPane.showMessageDialog(null, "Se modificaron los cambios con exito.");
@@ -78,7 +77,7 @@ public class CompraData {
       
     }
     public Compra buscarCompra(int idCompra){
-        String sql ="SELECT idProveedor,idDetalle,fecha FROM compra WHERE idCompra = ? AND estado = 1 ";
+        String sql ="SELECT idProveedor,fecha FROM compra WHERE idCompra = ? AND estado = 1 ";
         Compra compra = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -88,7 +87,6 @@ public class CompraData {
                 compra = new Compra();
                 compra.setIdCompra(idCompra);
                 compra.setProvedor(prData.buscarProveedor(rs.getInt("idProveedor")));
-                compra.setDetalleCompra(dcData.buscarDetalleCompra(rs.getInt("idDetalle")));
                 compra.setFecha(rs.getDate("fecha").toLocalDate());
                 compra.setEstado(true);
             }
@@ -99,8 +97,10 @@ public class CompraData {
         
         return compra;
     }
-    public List<Compra> buscarComprasProveedor(int idProveedor,Date d1,Date d2){
-        ArrayList<Compra> compras=new ArrayList<>();
+    
+    //Ver Nuevamente
+    public List<DetalleCompra> buscarComprasProveedor(int idProveedor,Date d1,Date d2){
+        ArrayList<DetalleCompra> compras=new ArrayList<>();
         String sql="SELECT * "+ 
         "FROM compra c JOIN detallecompra dc ON (c.idDetalle=dc.idDetalle) JOIN producto p ON (dc.idProducto=p.idProducto) "+ 
         "WHERE c.idProveedor=? AND c.fecha BETWEEN ? AND ?";
@@ -115,10 +115,9 @@ public class CompraData {
                 compra = new Compra();
                 compra.setIdCompra(rs.getInt("idCompra"));
                 compra.setProvedor(prData.buscarProveedor(rs.getInt("idProveedor")));
-                compra.setDetalleCompra(dcData.buscarDetalleCompra(rs.getInt("idDetalle")));
                 compra.setFecha(rs.getDate("fecha").toLocalDate());
                 compra.setEstado(true);
-                compras.add(compra);
+                //compras.add(compra);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra" + ex.getMessage());

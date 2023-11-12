@@ -99,24 +99,24 @@ public class ProveMax {
 //
         
         //-Prueva del metodo buscarComprasProveedor() <-----------------------------------
-        System.out.println("Test Compras de a un proveedor");
-        CompraData cd=new CompraData();
-        DetalleCompraData dc=new DetalleCompraData();
-        ProductoData pd=new ProductoData();
-        
-        LocalDate lc1=LocalDate.of(2023, 1, 1);
-        LocalDate lc2=LocalDate.of(2023,12,1);
-        
-        List<Compra> compras=cd.buscarComprasProveedor(1,Date.valueOf(lc1),Date.valueOf(lc2));
-        System.out.println("Lista de compras a un Proveedor");
-        for(Compra aux:compras){
-            System.out.println("Compra");
-            System.out.println("Fecha: "+aux.getFecha());
-            System.out.println("Producto: "+pd.buscarProducto(aux.getDetalleCompra().getProducto().getIdProducto()).getNombreProducto());
-            System.out.println("Cantidad: "+dc.buscarDetalleCompra(aux.getDetalleCompra().getIdDetalle()).getCantidad());
-            System.out.println("Precio: "+dc.buscarDetalleCompra(aux.getDetalleCompra().getIdDetalle()).getPrecioCosto());
-            
-        }
+//        System.out.println("Test Compras de a un proveedor");
+//        CompraData cd=new CompraData();
+//        DetalleCompraData dc=new DetalleCompraData();
+//        ProductoData pd=new ProductoData();
+//        
+//        LocalDate lc1=LocalDate.of(2023, 1, 1);
+//        LocalDate lc2=LocalDate.of(2023,12,1);
+//        
+//        List<Compra> compras=cd.buscarComprasProveedor(1,Date.valueOf(lc1),Date.valueOf(lc2));
+//        System.out.println("Lista de compras a un Proveedor");
+//        for(Compra aux:compras){
+//            System.out.println("Compra");
+//            System.out.println("Fecha: "+aux.getFecha());
+//            System.out.println("Producto: "+pd.buscarProducto(aux.getDetalleCompra().getProducto().getIdProducto()).getNombreProducto());
+//            System.out.println("Cantidad: "+dc.buscarDetalleCompra(aux.getDetalleCompra().getIdDetalle()).getCantidad());
+//            System.out.println("Precio: "+dc.buscarDetalleCompra(aux.getDetalleCompra().getIdDetalle()).getPrecioCosto());
+//            
+//        }
 
 
     }    

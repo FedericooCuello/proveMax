@@ -7,18 +7,20 @@ import javax.swing.JOptionPane;
 public class DetalleCompraData {
     private Connection con= null;
     private ProductoData pd=new ProductoData();
+    private CompraData cd=new CompraData();
     public DetalleCompraData(){
         con = Conexion.getConexion();
     }
     public void registrarDetalleCompra(DetalleCompra detalleCompra){
         try {
-            String sql = "INSERT INTO detallecompra (cantidad, precioCosto, idproducto,estado)" + "VALUES (?, ?, ?,?)";
+            String sql = "INSERT INTO detallecompra (cantidad, precioCosto, idCompra, idProducto,estado)" + "VALUES (?, ?, ?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, detalleCompra.getCantidad());
             ps.setDouble(2, detalleCompra.getPrecioCosto());
-            ps.setInt(3, detalleCompra.getProducto().getIdProducto());
-            ps.setBoolean(4,detalleCompra.isEstado());
+            ps.setInt(3,detalleCompra.getCompra().getIdCompra());
+            ps.setInt(4, detalleCompra.getProducto().getIdProducto());
+            ps.setBoolean(5,detalleCompra.isEstado());
             ps.executeUpdate(); 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -36,13 +38,14 @@ public class DetalleCompraData {
     
     public void modificarDetalleCompra(DetalleCompra detalleCompra){
         try{
-            String sql="UPDATE detallecompra SET cantidad=?,precioCosto=?,idProducto=? "
+            String sql="UPDATE detallecompra SET cantidad=?,precioCosto=?,idCompra=?, idProducto=? "
                     + "WHERE idDetalleCompra=? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, detalleCompra.getCantidad());
             ps.setDouble(2,detalleCompra.getPrecioCosto());
-            ps.setInt(3,detalleCompra.getProducto().getIdProducto());
-            ps.setInt(4,detalleCompra.getIdDetalle());
+            ps.setInt(3,detalleCompra.getCompra().getIdCompra());
+            ps.setInt(4,detalleCompra.getProducto().getIdProducto());
+            ps.setInt(5,detalleCompra.getIdDetalle());
             int exito=ps.executeUpdate();
             if(exito==1){
                 JOptionPane.showMessageDialog(null,"Detalle de compra actualizada");
@@ -69,7 +72,7 @@ public class DetalleCompraData {
     }
     
     public DetalleCompra buscarDetalleCompra(int id){
-        String sql="SELECT cantidad,precioCosto,idProducto FROM detalleCompra WHERE idDetalle=? AND estado=1";
+        String sql="SELECT cantidad,precioCosto,idCompra,idProducto FROM detalleCompra WHERE idDetalle=? AND estado=1";
         DetalleCompra detalle=null;
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -80,6 +83,7 @@ public class DetalleCompraData {
                 detalle.setIdDetalle(id);
                 detalle.setCantidad(rs.getInt("cantidad"));
                 detalle.setPrecioCosto(rs.getDouble("precioCosto"));
+                Compra c1=cd.buscarCompra(rs.getInt("idCompra"));
                 Producto p1=pd.buscarProducto(rs.getInt("idProducto"));
                 detalle.setProducto(p1);
                 detalle.setEstado(true);

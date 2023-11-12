@@ -283,10 +283,10 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
          compraActual= compraData.buscarCompra(Integer.parseInt(jTextField_cod.getText()));
             System.out.println("Compra encontrada "+compraActual.toString());
             if (compraActual!=null) {
-                jTextField_cant.setText(""+compraActual.getDetalleCompra().getCantidad());
-                jTextField_precio.setText(""+compraActual.getDetalleCompra().getPrecioCosto());
+                //jTextField_cant.setText(""+compraActual.getDetalleCompra().getCantidad());
+                //jTextField_precio.setText(""+compraActual.getDetalleCompra().getPrecioCosto());
                 jDateChooser1.setDate(Date.valueOf(compraActual.getFecha()));
-                cBoxProducto.setSelectedItem(compraActual.getDetalleCompra().getProducto());
+                //cBoxProducto.setSelectedItem(compraActual.getDetalleCompra().getProducto());
                 jcBoxProveedor.setSelectedItem(compraActual.getProveedor());
                  
 //                jTextField_telefono.setText( compraActual.getTelefono() );

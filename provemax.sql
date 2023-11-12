@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 12-11-2023 a las 16:23:38
+-- Tiempo de generación: 12-11-2023 a las 23:50:44
 -- Versión del servidor: 10.10.6-MariaDB
 -- Versión de PHP: 8.2.11
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `provemax`
+-- Base de datos: `provemaxnew`
 --
 
 -- --------------------------------------------------------
@@ -31,25 +31,28 @@ DROP TABLE IF EXISTS `compra`;
 CREATE TABLE IF NOT EXISTS `compra` (
   `idCompra` int(11) NOT NULL AUTO_INCREMENT,
   `idProveedor` int(11) NOT NULL,
-  `idDetalle` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `estado` tinyint(4) NOT NULL,
   PRIMARY KEY (`idCompra`),
-  KEY `idProveedor` (`idProveedor`),
-  KEY `idDetalle` (`idDetalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `idProveedor` (`idProveedor`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `compra`
 --
 
-INSERT INTO `compra` (`idCompra`, `idProveedor`, `idDetalle`, `fecha`, `estado`) VALUES
-(4, 1, 1, '2023-05-03', 1),
-(5, 1, 2, '2023-10-10', 1),
-(6, 1, 3, '2023-10-08', 1),
-(7, 1, 4, '2023-10-07', 1),
-(8, 3, 5, '2023-09-27', 1),
-(9, 3, 6, '2023-09-29', 1);
+INSERT INTO `compra` (`idCompra`, `idProveedor`, `fecha`, `estado`) VALUES
+(1, 1, '2023-11-12', 1),
+(2, 2, '2023-01-30', 1),
+(3, 2, '2023-03-11', 1),
+(4, 2, '2023-06-20', 1),
+(5, 3, '2023-02-28', 1),
+(6, 3, '2023-04-10', 1),
+(7, 3, '2023-06-30', 1),
+(8, 3, '2023-10-27', 1),
+(9, 4, '2023-02-12', 1),
+(10, 4, '2023-03-11', 1),
+(11, 4, '2023-12-19', 1);
 
 -- --------------------------------------------------------
 
@@ -62,23 +65,40 @@ CREATE TABLE IF NOT EXISTS `detallecompra` (
   `idDetalle` int(11) NOT NULL AUTO_INCREMENT,
   `cantidad` int(11) NOT NULL,
   `precioCosto` double NOT NULL,
+  `idCompra` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `estado` tinyint(4) NOT NULL,
   PRIMARY KEY (`idDetalle`),
+  KEY `idCompra` (`idCompra`),
   KEY `idProducto` (`idProducto`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `detallecompra`
 --
 
-INSERT INTO `detallecompra` (`idDetalle`, `cantidad`, `precioCosto`, `idProducto`, `estado`) VALUES
-(1, 2, 950, 1, 1),
-(2, 10, 950, 2, 1),
-(3, 10, 880, 3, 1),
-(4, 10, 790, 4, 1),
-(5, 6, 880000, 6, 1),
-(6, 2, 999999, 7, 1);
+INSERT INTO `detallecompra` (`idDetalle`, `cantidad`, `precioCosto`, `idCompra`, `idProducto`, `estado`) VALUES
+(1, 12, 950, 1, 1, 1),
+(2, 18, 950, 1, 2, 1),
+(3, 6, 880, 1, 3, 1),
+(4, 6, 790, 1, 4, 1),
+(5, 6, 330, 2, 13, 1),
+(6, 6, 220, 2, 14, 1),
+(7, 12, 700, 3, 15, 1),
+(8, 12, 330, 3, 13, 1),
+(9, 2, 7000, 4, 16, 1),
+(10, 1, 1999999, 5, 5, 1),
+(11, 1, 880000, 6, 6, 1),
+(12, 1, 999999, 7, 7, 1),
+(13, 1, 790000, 8, 8, 1),
+(14, 30, 500, 9, 9, 1),
+(15, 40, 300, 9, 10, 1),
+(16, 30, 600, 10, 11, 1),
+(17, 50, 1100, 10, 12, 1),
+(18, 20, 500, 10, 9, 1),
+(19, 20, 300, 11, 10, 1),
+(20, 20, 600, 11, 11, 1),
+(21, 10, 1100, 11, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -155,13 +175,13 @@ INSERT INTO `proveedor` (`idProveedor`, `nombre`, `razonSocial`, `domicilio`, `t
 -- Filtros para la tabla `compra`
 --
 ALTER TABLE `compra`
-  ADD CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`idProveedor`) REFERENCES `proveedor` (`idProveedor`),
-  ADD CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`idDetalle`) REFERENCES `detallecompra` (`idDetalle`);
+  ADD CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`idProveedor`) REFERENCES `proveedor` (`idProveedor`);
 
 --
 -- Filtros para la tabla `detallecompra`
 --
 ALTER TABLE `detallecompra`
+  ADD CONSTRAINT `detallecompra_ibfk_1` FOREIGN KEY (`idCompra`) REFERENCES `compra` (`idCompra`),
   ADD CONSTRAINT `detallecompra_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`);
 COMMIT;
 
