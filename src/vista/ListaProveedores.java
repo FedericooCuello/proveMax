@@ -8,6 +8,7 @@ import accesoADatos.CompraData;
 import accesoADatos.DetalleCompraData;
 import accesoADatos.ProveedorData;
 import entidades.Compra;
+import entidades.DetalleCompra;
 import entidades.Proveedor;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -26,12 +27,12 @@ public class ListaProveedores extends javax.swing.JInternalFrame {
 private DefaultTableModel modeloTabla;
 private DefaultTableModel modeloTabla2;
 
-private List <Proveedor> listaProveedor;
-private List <Compra> listaCompra; 
+private List <Proveedor> listaProveedor=null;
+private List <DetalleCompra> listaCompras=null; 
 
-private ProveedorData provData;
-private CompraData compData;
-private DetalleCompraData detCompData;
+private ProveedorData provData=null;
+private CompraData compData=null;
+private DetalleCompraData detCompData=null;
 
     public ListaProveedores() {
         initComponents();
@@ -223,7 +224,19 @@ private DetalleCompraData detCompData;
         java.util.Date d2=jDateChooser1_fechaFinal.getDate();
         LocalDate f1=d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate f2=d2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
+        detCompData=new DetalleCompraData();
+        listaCompras=detCompData.buscarComprasProveedor(provSeleccionado.getIdProvedor(),Date.valueOf(f1),Date.valueOf(f2));
+        if(!listaCompras.isEmpty()){
+            for(DetalleCompra aux:listaCompras){
+                modeloTabla2.addRow(new Object[]{
+                    aux.getCompra().getFecha(),
+                    aux.getProducto(),
+                    aux.getCantidad(),
+                    aux.getCantidad()
+                }
+                );
+            }
+        }
     }//GEN-LAST:event_jButton_buscarProveedorFechaActionPerformed
 
     private void jcomboBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorActionPerformed

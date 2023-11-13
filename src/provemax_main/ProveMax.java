@@ -99,25 +99,35 @@ public class ProveMax {
 //
         
         //-Prueva del metodo buscarComprasProveedor() <-----------------------------------
-//        System.out.println("Test Compras de a un proveedor");
-//        CompraData cd=new CompraData();
+//        System.out.println("Test");
+//      
 //        DetalleCompraData dc=new DetalleCompraData();
-//        ProductoData pd=new ProductoData();
+//        List<DetalleCompra> compras=new ArrayList<>();
+//        List<DetalleCompra> compras2=new ArrayList<>();
 //        
 //        LocalDate lc1=LocalDate.of(2023, 1, 1);
-//        LocalDate lc2=LocalDate.of(2023,12,1);
+//        LocalDate lc2=LocalDate.of(2023,12,30);
 //        
-//        List<Compra> compras=cd.buscarComprasProveedor(1,Date.valueOf(lc1),Date.valueOf(lc2));
-//        System.out.println("Lista de compras a un Proveedor");
-//        for(Compra aux:compras){
-//            System.out.println("Compra");
-//            System.out.println("Fecha: "+aux.getFecha());
-//            System.out.println("Producto: "+pd.buscarProducto(aux.getDetalleCompra().getProducto().getIdProducto()).getNombreProducto());
-//            System.out.println("Cantidad: "+dc.buscarDetalleCompra(aux.getDetalleCompra().getIdDetalle()).getCantidad());
-//            System.out.println("Precio: "+dc.buscarDetalleCompra(aux.getDetalleCompra().getIdDetalle()).getPrecioCosto());
-//            
+//        compras=dc.buscarComprasProveedor(2,Date.valueOf(lc1),Date.valueOf(lc2));
+//        System.out.println("Lista de compras a un Proveedor entre fechas");
+//        
+//        for(DetalleCompra aux:compras){
+//            System.out.println(aux.getProducto().getNombreProducto());
 //        }
-
-
+//        
+//        System.out.println("Lista de compras a un Proveedor");
+//        
+//        compras2=dc.ListarComprasAProveedor(2);
+//        for(DetalleCompra aux:compras2){
+//            System.out.println(aux.getProducto().getNombreProducto());
+//        }
+        
+        //-Prueva del metodo listarDetallesCompras() <-----------------------------------
+        DetalleCompraData dc=new DetalleCompraData();
+        List<DetalleCompra> compras=new ArrayList<>();
+        compras=dc.listarDetallesCompra(11);
+         for(DetalleCompra aux:compras){
+            System.out.println(aux.getProducto().getNombreProducto());
+        }
     }    
 }
