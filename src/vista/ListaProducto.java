@@ -54,7 +54,7 @@ public class ListaProducto extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Lista de proveedores ");
+        setTitle("Lista de productos disponibles ");
 
         jLabel_compra.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel_compra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/productoalta.png"))); // NOI18N
@@ -220,6 +220,7 @@ public class ListaProducto extends javax.swing.JInternalFrame {
 
     private void limpiarTabla() {
         modeloTabla.setRowCount(0);
+        jcomboBoxProducto.setSelectedItem("seleccione");
     }
     
     private void busquedaPorCoincidencia () {

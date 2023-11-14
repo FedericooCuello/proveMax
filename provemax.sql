@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 12-11-2023 a las 23:50:44
--- Versión del servidor: 10.10.6-MariaDB
--- Versión de PHP: 8.2.11
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 15-11-2023 a las 00:37:16
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `provemaxnew`
+-- Base de datos: `provemax`
 --
 
 -- --------------------------------------------------------
@@ -27,15 +27,12 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `compra`
 --
 
-DROP TABLE IF EXISTS `compra`;
-CREATE TABLE IF NOT EXISTS `compra` (
-  `idCompra` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `compra` (
+  `idCompra` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `estado` tinyint(4) NOT NULL,
-  PRIMARY KEY (`idCompra`),
-  KEY `idProveedor` (`idProveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `estado` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `compra`
@@ -60,18 +57,14 @@ INSERT INTO `compra` (`idCompra`, `idProveedor`, `fecha`, `estado`) VALUES
 -- Estructura de tabla para la tabla `detallecompra`
 --
 
-DROP TABLE IF EXISTS `detallecompra`;
-CREATE TABLE IF NOT EXISTS `detallecompra` (
-  `idDetalle` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `detallecompra` (
+  `idDetalle` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `precioCosto` double NOT NULL,
   `idCompra` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
-  `estado` tinyint(4) NOT NULL,
-  PRIMARY KEY (`idDetalle`),
-  KEY `idCompra` (`idCompra`),
-  KEY `idProducto` (`idProducto`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `estado` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `detallecompra`
@@ -106,39 +99,40 @@ INSERT INTO `detallecompra` (`idDetalle`, `cantidad`, `precioCosto`, `idCompra`,
 -- Estructura de tabla para la tabla `producto`
 --
 
-DROP TABLE IF EXISTS `producto`;
-CREATE TABLE IF NOT EXISTS `producto` (
-  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `producto` (
+  `idProducto` int(11) NOT NULL,
   `nombreProducto` varchar(30) NOT NULL,
   `descripcion` text NOT NULL,
   `precioActual` double NOT NULL,
   `stock` int(11) NOT NULL,
-  `estado` tinyint(1) NOT NULL,
-  PRIMARY KEY (`idProducto`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `stockMinimo` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idProducto`, `nombreProducto`, `descripcion`, `precioActual`, `stock`, `estado`) VALUES
-(1, 'Fanta', 'Gaseosa', 950, 550, 1),
-(2, 'CocaCola', 'Gaseosa', 950, 100, 1),
-(3, 'Sprite', 'Gaseosa', 880, 100, 1),
-(4, 'QuatroPomelo', 'Gaseosa', 790, 100, 1),
-(5, 'PcGamer', 'Informatica', 1999999, 8, 1),
-(6, 'Lenovo I7', 'Informatica', 880000, 10, 1),
-(7, 'Acer Tuf', 'Informatica', 999999, 7, 1),
-(8, 'Acer Pro', 'Informatica', 790000, 12, 1),
-(9, 'Magistral', 'Detergente', 500, 100, 1),
-(10, 'Ayudin', 'Lavandina', 300, 100, 1),
-(11, 'Cif', 'Limpiador', 600, 100, 1),
-(12, 'Blem', 'Lustra Muebles', 1100, 100, 1),
-(13, 'Copa', 'Copa Cristal', 330, 60, 1),
-(14, 'Vasos', 'Vasos medianos', 220, 80, 1),
-(15, 'Platos', 'Platos Porcelana', 700, 50, 1),
-(16, 'Cacelora', 'Cacelora Acero Inoxidable', 7000, 10, 1),
-(17, 'Test', 'Test de producto Nuevo', 100, 100, 1);
+INSERT INTO `producto` (`idProducto`, `nombreProducto`, `descripcion`, `precioActual`, `stock`, `stockMinimo`, `estado`) VALUES
+(1, 'Fanta', 'Gaseosa', 950, 550, 2, 1),
+(2, 'CocaCola', 'Gaseosa', 950, 100, 10, 1),
+(3, 'Sprite', 'Gaseosa', 880, 100, 3, 1),
+(4, 'QuatroPomelo', 'Gaseosa', 790, 100, 10, 1),
+(5, 'PcGamer', 'Informatica', 1999999, 8, 9, 1),
+(6, 'Lenovo I7', 'Informatica', 880000, 10, 2, 1),
+(7, 'Acer Tuf', 'Informatica', 999999, 7, 2, 1),
+(8, 'Acer Pro', 'Informatica', 790000, 12, 2, 1),
+(9, 'Magistral', 'Detergente', 500, 100, 10, 1),
+(10, 'Ayudin', 'Lavandina', 300, 100, 10, 1),
+(11, 'Cif', 'Limpiador', 600, 100, 10, 1),
+(12, 'Blem', 'Lustra Muebles', 1100, 100, 2, 1),
+(13, 'Copa', 'Copa Cristal', 330, 60, 5, 1),
+(14, 'Vasos', 'Vasos medianos', 220, 80, 5, 1),
+(15, 'Platos', 'Platos Porcelana', 700, 50, 5, 1),
+(16, 'Cacelora', 'Cacelora Acero Inoxidable', 7000, 10, 1, 1),
+(17, 'Test', 'Test de producto Nuevo', 100, 100, 10, 1),
+(18, 'Resma de hoja', 'Papel reciclado', 2874, 2, 1, 1),
+(19, ' Escritorio', ' Muebles de oficina', 45000, 2, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -146,16 +140,14 @@ INSERT INTO `producto` (`idProducto`, `nombreProducto`, `descripcion`, `precioAc
 -- Estructura de tabla para la tabla `proveedor`
 --
 
-DROP TABLE IF EXISTS `proveedor`;
-CREATE TABLE IF NOT EXISTS `proveedor` (
-  `idProveedor` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `proveedor` (
+  `idProveedor` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `razonSocial` varchar(60) NOT NULL,
   `domicilio` varchar(60) NOT NULL,
   `telefono` varchar(20) NOT NULL,
-  `estado` tinyint(4) NOT NULL,
-  PRIMARY KEY (`idProveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `estado` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `proveedor`
@@ -166,6 +158,65 @@ INSERT INTO `proveedor` (`idProveedor`, `nombre`, `razonSocial`, `domicilio`, `t
 (2, 'Bazar S.A.', 'Bazar S.A.', 'Colon 1800', '2664789789', 1),
 (3, 'Informatica Rivadavia', 'Electro S.A.', 'Rivadavia 1942', '2664789888', 1),
 (4, 'LimpiaLimpia', 'Quimicos S.R.L.', 'Maipu 222', '266123456', 1);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `compra`
+--
+ALTER TABLE `compra`
+  ADD PRIMARY KEY (`idCompra`),
+  ADD KEY `idProveedor` (`idProveedor`);
+
+--
+-- Indices de la tabla `detallecompra`
+--
+ALTER TABLE `detallecompra`
+  ADD PRIMARY KEY (`idDetalle`),
+  ADD KEY `idCompra` (`idCompra`),
+  ADD KEY `idProducto` (`idProducto`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`idProducto`);
+
+--
+-- Indices de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  ADD PRIMARY KEY (`idProveedor`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `compra`
+--
+ALTER TABLE `compra`
+  MODIFY `idCompra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT de la tabla `detallecompra`
+--
+ALTER TABLE `detallecompra`
+  MODIFY `idDetalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

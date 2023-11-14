@@ -147,7 +147,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
     private void jTextField1_BusquedaProvKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1_BusquedaProvKeyReleased
         // Limpia la tabla antes de agregar nuevas filas
-        limpiarTabla();
+        limpiarCampos();
 
         // Verificar lo ingresado está en la lista de  
         String textoIngresadoTf = jTextField1_BusquedaProv.getText().trim();
@@ -176,13 +176,13 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
     private void jTextField1_BusquedaProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1_BusquedaProvActionPerformed
         // TODO add your handling code here:
-        limpiarTabla();
+        limpiarCampos();
         busquedaPorCoincidencia();
     }//GEN-LAST:event_jTextField1_BusquedaProvActionPerformed
 
     private void jcomboBoxProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorKeyTyped
         // Limpiar la tabla antes de agregar nuevas filas
-        limpiarTabla();
+        limpiarCampos();
         jcomboBoxProveedor.setEditable(true);
         busquedaPorCoincidencia();
     }//GEN-LAST:event_jcomboBoxProveedorKeyTyped
@@ -190,7 +190,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     private void jcomboBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorActionPerformed
         // TODO add your handling code here:
         // Limpiar la tabla antes de agregar nuevas filas
-        limpiarTabla();
+        limpiarCampos();
         jcomboBoxProveedor.setEditable(true);
         busquedaPorCoincidencia();
      
@@ -215,8 +215,9 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         }
     }
 
-    private void limpiarTabla() {
+    private void limpiarCampos() {
         modeloTabla.setRowCount(0);
+        jcomboBoxProveedor.setSelectedItem("Seleccione");
     }
     
     private void busquedaPorCoincidencia () {

@@ -16,34 +16,35 @@ import java.time.ZoneId;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
-
-  
 public class ListaCompraProveedores extends javax.swing.JInternalFrame {
 
-private DefaultTableModel modeloTabla;
-private DefaultTableModel modeloTabla2;
+    private DefaultTableModel modeloTabla;
+    private DefaultTableModel modeloTabla2;
 
-private List <Proveedor> listaProveedor=null;
-private List <DetalleCompra> listaCompras=null; 
+    private List<Proveedor> listaProveedor = null;
+    private List<DetalleCompra> listaCompras = null;
 
-private ProveedorData provData=null;
-private CompraData compData=null;
-private DetalleCompraData detCompData=null;
+    private ProveedorData provData = null;
+    private CompraData compData = null;
+    private DetalleCompraData detCompData = null;
 
     public ListaCompraProveedores() {
         initComponents();
-        provData=new ProveedorData();
+        provData = new ProveedorData();
         listaProveedor = provData.listarProveedores();
-        
+
         modeloTabla = new DefaultTableModel();
-        modeloTabla2= new DefaultTableModel();
-        
+        modeloTabla2 = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column) {
+                 return false;
+            }
+        };
+
         cargarProveedores();
-        
+
         armarCabeceraTabla();
         armarCabeceraTabla2();
     }
@@ -81,7 +82,7 @@ private DetalleCompraData detCompData=null;
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Listado de compras");
+        setTitle("Listado de compras a proveedores");
         setToolTipText("");
 
         jLabel_fechaCompra.setText("Fecha de compra:");
@@ -102,12 +103,6 @@ private DetalleCompraData detCompData=null;
             }
         ));
         jScrollPane1.setViewportView(jTable1_listadoProveedores);
-
-        jDateChooser1_fechaFinal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jDateChooser1_fechaFinalMouseClicked(evt);
-            }
-        });
 
         jLabel1_fInicial.setText("Inicio");
 
@@ -208,54 +203,68 @@ private DetalleCompraData detCompData=null;
         Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
         borrarFilas();
         borrarFilas2();
-        modeloTabla.addRow(new Object [] {
-                    provSeleccionado.getIdProvedor(),
-                    provSeleccionado.getNombre(),
-                    provSeleccionado.getRazonSocial(),
-                    provSeleccionado.getDomicilio(),
-                    provSeleccionado.getTelefono()
-                });     
-        java.util.Date d1=jDateChooser1_fechaInicial.getDate();
-        java.util.Date d2=jDateChooser1_fechaFinal.getDate();
-        LocalDate f1=d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate f2=d2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        detCompData=new DetalleCompraData();
-        listaCompras=detCompData.buscarComprasProveedor(provSeleccionado.getIdProvedor(),Date.valueOf(f1),Date.valueOf(f2));
-        if(!listaCompras.isEmpty()){
-            for(DetalleCompra aux:listaCompras){
-                modeloTabla2.addRow(new Object[]{
-                    aux.getCompra().getFecha(),
-                    aux.getProducto(),
-                    aux.getCantidad(),
-                    aux.getCantidad()
+
+        modeloTabla.addRow(new Object[]{
+            provSeleccionado.getIdProvedor(),
+            provSeleccionado.getNombre(),
+            provSeleccionado.getRazonSocial(),
+            provSeleccionado.getDomicilio(),
+            provSeleccionado.getTelefono()
+        });
+
+        java.util.Date d1 = jDateChooser1_fechaInicial.getDate();
+        java.util.Date d2 = jDateChooser1_fechaFinal.getDate();
+
+        // Chequeo que las fechas no estén vacías
+        if (d1 != null && d2 != null) {
+            LocalDate f1 = d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate f2 = d2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            // Verificar que f1 sea anterior o igual a f2
+            if (!f1.isAfter(f2)) {
+                detCompData = new DetalleCompraData();
+                listaCompras = detCompData.buscarComprasProveedor(provSeleccionado.getIdProvedor(), Date.valueOf(f1), Date.valueOf(f2));
+
+                if (!listaCompras.isEmpty()) {
+                    for (DetalleCompra aux : listaCompras) {
+                        modeloTabla2.addRow(new Object[]{
+                            aux.getCompra().getFecha(),
+                            aux.getProducto(),
+                            aux.getCantidad(),
+                            aux.getCantidad()
+                        });
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No hay compras registradas entre las fechas seleccionadas.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
                 }
-                );
+            } else {
+               
+                JOptionPane.showMessageDialog(this, "La fecha inicial debe ser anterior o igual a la fecha final.", "Error de fecha", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+          
+            JOptionPane.showMessageDialog(this, "Ambas fechas son requeridas.", "Error de fecha", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_jButton_buscarProveedorFechaActionPerformed
 
-    private void jDateChooser1_fechaFinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1_fechaFinalMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jDateChooser1_fechaFinalMouseClicked
-
-    
-        private void borrarFilas () {
+    private void borrarFilas() {
         //devuelve la cant de fila = getRowCount, que va a ser usada como indice por eso se resta -1
-        int indiceFila = modeloTabla.getRowCount()-1;
-        for(int i=indiceFila; i>=0;  i--) {
+        int indiceFila = modeloTabla.getRowCount() - 1;
+        for (int i = indiceFila; i >= 0; i--) {
             modeloTabla.removeRow(i);
         }
-        }
-        private void borrarFilas2 () {
-        //devuelve la cant de fila = getRowCount, que va a ser usada como indice por eso se resta -1
-        int indiceFila = modeloTabla2.getRowCount()-1;
-        for(int i=indiceFila; i>=0;  i--) {
+    }
+
+    private void borrarFilas2() {
+        
+        int indiceFila = modeloTabla2.getRowCount() - 1;
+        for (int i = indiceFila; i >= 0; i--) {
             modeloTabla2.removeRow(i);
         }
-        }
-        
-         private void armarCabeceraTabla() {
+    }
+
+    private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
         filaCabecera.add("Id");
         filaCabecera.add("Nombre");
@@ -266,20 +275,20 @@ private DetalleCompraData detCompData=null;
             modeloTabla.addColumn(aux);
         }
         jTable1_listadoProveedores.setModel(modeloTabla);
+    }
+
+    private void armarCabeceraTabla2() {
+        ArrayList<Object> filaCabecera = new ArrayList<>();
+        filaCabecera.add("Fecha de Compra");
+        filaCabecera.add("Producto");
+        filaCabecera.add("Cantidad");
+        filaCabecera.add("Precio");
+        for (Object aux : filaCabecera) {
+            modeloTabla2.addColumn(aux);
         }
-         
-        private void armarCabeceraTabla2(){
-            ArrayList<Object> filaCabecera=new ArrayList<>();
-            filaCabecera.add("Fecha de Compra");
-            filaCabecera.add("Producto");
-            filaCabecera.add("Cantidad");
-            filaCabecera.add("Precio");
-            for(Object aux:filaCabecera){
-                modeloTabla2.addColumn(aux);
-            }
-            jTable1_listadoCompraProveedores.setModel(modeloTabla2);
-        } 
-         
+        jTable1_listadoCompraProveedores.setModel(modeloTabla2);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_buscarProveedorFecha;

@@ -1,39 +1,40 @@
   
 package vista;
  
+
 import accesoADatos.CompraData;
-import accesoADatos.ProductoData;
-import accesoADatos.ProveedorData;
-import entidades.Compra; 
+import accesoADatos.DetalleCompraData;
+import entidades.Compra;
+import entidades.DetalleCompra;
 import entidades.Producto;
 import entidades.Proveedor;
-import java.sql.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 
-public class FormularioAltaCompra extends javax.swing.JInternalFrame {
+public class FormularioDetalleCompra extends javax.swing.JInternalFrame {
 
     /**
      *  
      */
     
-    private CompraData compraData = new CompraData();
-    private Compra compraActual = null;
-    private ProveedorData provData;
-    private ProductoData prodData;
     private List <Proveedor> listaProveedor;
-    private List <Producto> listaProducto; 
-      
-      
-    public FormularioAltaCompra() {
+    private List <Producto> listaProductos;
+    private Producto producto;
+    private Compra compra=null;
+    private CompraData compraData;
+    private DetalleCompra detalleCompra  ;
+    private DetalleCompraData detalleCompraData;
+    
+    
+    
+    
+    
+    public FormularioDetalleCompra() {
         initComponents();
-        provData = new ProveedorData();
-        prodData=new ProductoData();
-        listaProveedor =provData.listarProveedores();
-        listaProducto=prodData.listaProductos();
-        cargarProveedores();
-        cargarProductos();
+        detalleCompra = new DetalleCompra();
+        detalleCompraData = new DetalleCompraData();
+        compraData = new CompraData();
     }
 
     /**
@@ -61,9 +62,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         jButton_guardar = new javax.swing.JButton();
         jButton_salir = new javax.swing.JButton();
         jLabel_domicilio = new javax.swing.JLabel();
-        jLabel_fecha = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        cBoxProducto = new javax.swing.JComboBox<>();
+        jComboBoxProducto = new javax.swing.JComboBox<>();
         jcBoxProveedor = new javax.swing.JComboBox<>();
         jLabel_fecha1 = new javax.swing.JLabel();
 
@@ -76,7 +75,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
 
         jLabel_Materiattulo.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel_Materiattulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/compras (1).png"))); // NOI18N
-        jLabel_Materiattulo.setText(" Compra");
+        jLabel_Materiattulo.setText(" Detalle de compra");
 
         jLabel_codigoMat.setText("Código: ");
 
@@ -150,9 +149,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
 
         jLabel_domicilio.setText("Producto:");
 
-        jLabel_fecha.setText("Fecha de compra: ");
-
-        cBoxProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboBoxProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jcBoxProveedor.setToolTipText("");
         jcBoxProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +177,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
                             .addComponent(jLabel_domicilio))
                         .addGap(303, 303, 303)
                         .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(179, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_razonSocial)
@@ -194,23 +191,19 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField_cant, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                                     .addComponent(jTextField_precio)
-                                    .addComponent(cBoxProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jComboBoxProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(258, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel_fecha)
-                                    .addComponent(jLabel_fecha1))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel_fecha1)
+                                .addGap(58, 58, 58)
+                                .addComponent(jcBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel_estado)
                                 .addGap(42, 42, 42)
                                 .addComponent(jCheckBox_Activo)))
-                        .addGap(0, 189, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jButton_nuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,16 +242,12 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_domicilio)
-                    .addComponent(cBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_fecha, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                    .addComponent(jComboBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_fecha1))
-                .addGap(61, 61, 61)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_estado)
                     .addComponent(jCheckBox_Activo))
@@ -276,80 +265,42 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         // TODO add your handling code here:
-        try {
-         //compraActual= compraData.buscarCompra(Integer.parseInt(jTextField_cod.getText().trim()));
-         compraActual= compraData.buscarCompra(Integer.parseInt(jTextField_cod.getText()));
-            System.out.println("Compra encontrada "+compraActual.toString());
-            if (compraActual!=null) {
-                //jTextField_cant.setText(""+compraActual.getDetalleCompra().getCantidad());
-                //jTextField_precio.setText(""+compraActual.getDetalleCompra().getPrecioCosto());
-                jDateChooser1.setDate(Date.valueOf(compraActual.getFecha()));
-                //cBoxProducto.setSelectedItem(compraActual.getDetalleCompra().getProducto());
-                jcBoxProveedor.setSelectedItem(compraActual.getProveedor());
-                 
-//                jTextField_telefono.setText( compraActual.getTelefono() );
-//                jCheckBox_Activo.setSelected(compraActual.isEstado() ); 
-            } else {
-                 JOptionPane.showMessageDialog(this, "El código ingresado no corresponde a un proveedor registrado");
-                 limpiarCamposPantalla();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Datos incorrectos, reintente nuevamente");
-            e.printStackTrace();
-            limpiarCamposPantalla();
-        }
+        
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     private void jButton_nuevo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_nuevo2ActionPerformed
         // TODO add your handling code here:
         limpiarCamposPantalla();
-        compraActual=null;
+       
     }//GEN-LAST:event_jButton_nuevo2ActionPerformed
 
+    
+    
+    
     private void jButton_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_eliminarActionPerformed
  
-        if (compraActual!=null) {
-            ///---------------------------------------Necesario eliminar en ambas tablas y tablas anexadas? 
-            compraData.eliminarCompra(compraActual.getIdCompra());
-           // compraData.eliminarCompra(compraActual.getIdProvedor() );
-            compraActual=null;
-            limpiarCamposPantalla();
-              JOptionPane.showMessageDialog(this, "Compra eliminado");
-        } else  {
-            JOptionPane.showMessageDialog(this, "No hay una compra seleccionado");
-        }
+       
     }//GEN-LAST:event_jButton_eliminarActionPerformed
 
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
-//        -----------------------ARREGLAR
-       
-            //-----------------------ARREGLAR
-        try { 
-            Integer cantidad = Integer.parseInt (jTextField_cant.getText().trim() );
-            Double precio = Double.parseDouble(jTextField_precio.getText().trim()); 
-            boolean activo = jCheckBox_Activo.isSelected();
+        try {
             
-//            if ( ) {
-//                if (compraActual == null) {
-//                    compraActual = new Compra(proveedor, detalleCompra, LocalDate.MIN, activo);
-//                    compraData.regristrarProveedor(compraActual);
-//                } else {
-//                    compraActual.setDetalleCompra(detalleCompra);
-//                    
-//                    
-//                    compraActual.setEstado(activo);
-//                    compraData.modificarDatosProveedor(compraActual);
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(this, "No pueden existir campos vacios");
-//                return;
-//            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Datos incorrectos, reintente nuevamente");
-            e.printStackTrace();
-            limpiarCamposPantalla();
+            if(jTextField_cant==null &&  jTextField_precio==null && jTextField_precio==null && jcBoxProveedor.getSelectedItem()==null && jcBoxProveedor.getSelectedItem()==null ) {
+                 JOptionPane.showMessageDialog(this, "Todos los campos deben ser completados");
+            } else {
+                Integer cantidad = Integer.parseInt( jTextField_cant.getText() );
+                Double precio = Double.parseDouble(jTextField_precio.getText() );
+                Producto producto = (Producto) jComboBoxProducto.getSelectedItem(); 
+                boolean estado = jCheckBox_Activo.isSelected();
+                
+                detalleCompra = new DetalleCompra(cantidad, precio, compra, producto, estado );
+                detalleCompraData.registrarDetalleCompra(detalleCompra);
+               //--------------------------------------agregar compra a proveedor
+               registrarCompra();
+            }
+        } catch (Exception e) {
+              JOptionPane.showMessageDialog(this, "Error al registrar la compra", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
         }
- 
         
     }//GEN-LAST:event_jButton_guardarActionPerformed
 
@@ -377,26 +328,25 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
 
     
        private void limpiarCamposPantalla() {
-        jTextField_cant.setText("");
         jTextField_cod.setText("");
-        jTextField_precio.setText("");
+        jTextField_cant.setText(""); 
+        jTextField_precio.setText(""); 
         jCheckBox_Activo.setSelected(true);
+        jcBoxProveedor.setSelectedItem("Seleccione");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Producto> cBoxProducto;
     private javax.swing.JButton jButton_buscar;
     private javax.swing.JButton jButton_eliminar;
     private javax.swing.JButton jButton_guardar;
     private javax.swing.JButton jButton_nuevo2;
     private javax.swing.JButton jButton_salir;
     private javax.swing.JCheckBox jCheckBox_Activo;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JComboBox<Producto> jComboBoxProducto;
     private javax.swing.JLabel jLabel_Materiattulo;
     private javax.swing.JLabel jLabel_codigoMat;
     private javax.swing.JLabel jLabel_domicilio;
     private javax.swing.JLabel jLabel_estado;
-    private javax.swing.JLabel jLabel_fecha;
     private javax.swing.JLabel jLabel_fecha1;
     private javax.swing.JLabel jLabel_nombre;
     private javax.swing.JLabel jLabel_razonSocial;
@@ -418,14 +368,23 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         }
     }
 
+    private void registrarCompra() {
+        Proveedor proveedorJB = (Proveedor) jcBoxProveedor.getSelectedItem();
+       // int proveedorJBid   = proveedorJB.getIdProvedor();
+       
+        compra.setProvedor(proveedorJB);
+        compra.setEstado(jCheckBox_Activo.isSelected());
+        compraData.compraAProveedores(compra);
+    }
+
     private void cargarProductos() {
-        Producto vacio=new Producto();
+        Producto vacio = new Producto();
         vacio.setNombreProducto("Lista de Productos");
         vacio.setDescripcion("Descripcion");
         vacio.setIdProducto(0);
-        cBoxProducto.addItem(vacio);
-        for (Producto producto : listaProducto) {
-            cBoxProducto.addItem(producto);
+        jComboBoxProducto.addItem(vacio);
+        for (Producto producto : listaProductos) {
+            jComboBoxProducto.addItem(producto);
         }
     }
 }

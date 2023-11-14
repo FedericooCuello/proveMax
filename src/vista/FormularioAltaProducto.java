@@ -50,6 +50,8 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
         jLabel_precio = new javax.swing.JLabel();
         jLabel_stock = new javax.swing.JLabel();
         jTextField_stock = new javax.swing.JTextField();
+        jTextField_stockMINIMO = new javax.swing.JTextField();
+        jLabel_stockMinimo = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -150,6 +152,15 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        jTextField_stockMINIMO.setText(" ");
+        jTextField_stockMINIMO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_stockMINIMOActionPerformed(evt);
+            }
+        });
+
+        jLabel_stockMinimo.setText("Stock minimo :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,7 +197,8 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
                                 .addGap(57, 57, 57)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jCheckBox_Activo))))
+                                    .addComponent(jCheckBox_Activo)
+                                    .addComponent(jTextField_stockMINIMO, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +216,8 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jTextField_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel_stockMinimo))
                         .addGap(0, 37, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -235,11 +248,15 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_stock)
                     .addComponent(jTextField_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_stockMinimo)
+                    .addComponent(jTextField_stockMINIMO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_estado)
                     .addComponent(jCheckBox_Activo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,6 +279,7 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
                 jTextField_descripcion.setText( productoActual.getDescripcion() );
                 jTextField_precio.setText(String.valueOf (productoActual.getPrecioActual() ) );
                 jTextField_stock.setText(String.valueOf(productoActual.getStock()));
+                jTextField_stockMINIMO.setText(String.valueOf(productoActual.getStockMinimo()));
                 jCheckBox_Activo.setSelected(productoActual.isEstado() ); 
             } else {
                  JOptionPane.showMessageDialog(this, "código ingresado no corresponde a un producto registrado");
@@ -306,21 +324,22 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
             String descripcion = jTextField_descripcion.getText();
             Double precio = Double.parseDouble(jTextField_precio.getText().trim());
             Integer stock = Integer.parseInt(jTextField_stock.getText().trim());
+            Integer stockMInimo = Integer.parseInt(jTextField_stockMINIMO.getText().trim());
             boolean activo = jCheckBox_Activo.isSelected();
 
             if (!nombre.isEmpty() && !descripcion.isEmpty()) {
-                
+
                 if (productoActual == null) {
-                    productoActual = new Producto(nombre, descripcion, precio, stock, activo);
+                    productoActual = new Producto(nombre, descripcion, precio, stock, stockMInimo, activo);
                     productoData.regristrarProducto(productoActual);
                 } else {
-                productoActual.setNombreProducto(nombre);
-                productoActual.setDescripcion(descripcion);
-                productoActual.setPrecioActual(precio);
-                productoActual.setStock(stock);
-                productoActual.setEstado(activo);
+                    productoActual.setNombreProducto(nombre);
+                    productoActual.setDescripcion(descripcion);
+                    productoActual.setPrecioActual(precio);
+                    productoActual.setStock(stock);
+                    productoActual.setStockMinimo(stockMInimo);
+                    productoActual.setEstado(activo);
                     productoData.modificarProducto(productoActual);
-                   
                 }
 
             } else {
@@ -354,6 +373,10 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_stockActionPerformed
 
+    private void jTextField_stockMINIMOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_stockMINIMOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_stockMINIMOActionPerformed
+
     
         private void limpiarCamposPantalla() {
        jTextField_cod.setText("");
@@ -361,6 +384,7 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
         jTextField_nombre.setText("");
         jTextField_descripcion.setText("");
         jTextField_precio.setText("");
+        jTextField_stockMINIMO.setText("");
         jCheckBox_Activo.setSelected(true);
     }
 
@@ -377,6 +401,7 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_nombre;
     private javax.swing.JLabel jLabel_precio;
     private javax.swing.JLabel jLabel_stock;
+    private javax.swing.JLabel jLabel_stockMinimo;
     private javax.swing.JLabel jLabel_titulo;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField_cod;
@@ -384,5 +409,6 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField_nombre;
     private javax.swing.JTextField jTextField_precio;
     private javax.swing.JTextField jTextField_stock;
+    private javax.swing.JTextField jTextField_stockMINIMO;
     // End of variables declaration//GEN-END:variables
 }
