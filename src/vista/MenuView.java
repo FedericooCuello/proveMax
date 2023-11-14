@@ -6,10 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author Erica
- */
+
 public class MenuView extends javax.swing.JFrame {
 
     /**
@@ -28,7 +25,6 @@ public class MenuView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCalendar1 = new com.toedter.calendar.JCalendar();
         ImageIcon iconoEscritorio = new ImageIcon(getClass().getResource("/recursos/imagenDesktop.jpg"));
         Image escritorioImagen = iconoEscritorio.getImage();
         jDesktopPrincipal = new javax.swing.JDesktopPane(){
@@ -40,11 +36,13 @@ public class MenuView extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1_detalleCompra = new javax.swing.JMenu();
         jMenuItem1_detalleCompra = new javax.swing.JMenuItem();
-        jMenuItem1_listaCompras = new javax.swing.JMenuItem();
+        jMenuItem1_listaComprasAproveedores = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem_altaProducto = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1_listaProducto = new javax.swing.JMenuItem();
+        jMenu2_altaModificacionProveedor = new javax.swing.JMenu();
         jMenuItem1_altaProveedor = new javax.swing.JMenuItem();
+        jMenuItem1_listaProveedor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ProveMax - Gestión de ventas");
@@ -74,13 +72,13 @@ public class MenuView extends javax.swing.JFrame {
         });
         jMenu1_detalleCompra.add(jMenuItem1_detalleCompra);
 
-        jMenuItem1_listaCompras.setText("Lista de compras");
-        jMenuItem1_listaCompras.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1_listaComprasAproveedores.setText("Lista de compras");
+        jMenuItem1_listaComprasAproveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1_listaComprasActionPerformed(evt);
+                jMenuItem1_listaComprasAproveedoresActionPerformed(evt);
             }
         });
-        jMenu1_detalleCompra.add(jMenuItem1_listaCompras);
+        jMenu1_detalleCompra.add(jMenuItem1_listaComprasAproveedores);
 
         jMenuBar1.add(jMenu1_detalleCompra);
 
@@ -96,12 +94,20 @@ public class MenuView extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem_altaProducto);
 
+        jMenuItem1_listaProducto.setText("Lista de productos");
+        jMenuItem1_listaProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1_listaProductoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1_listaProducto);
+
         jMenuBar1.add(jMenu3);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/repartidor (2).png"))); // NOI18N
-        jMenu2.setText(" Proveedores");
-        jMenu2.setToolTipText("");
-        jMenu2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        jMenu2_altaModificacionProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/repartidor (2).png"))); // NOI18N
+        jMenu2_altaModificacionProveedor.setText(" Proveedores");
+        jMenu2_altaModificacionProveedor.setToolTipText("");
+        jMenu2_altaModificacionProveedor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
 
         jMenuItem1_altaProveedor.setText("Formulario alta / busqueda de proveedor");
         jMenuItem1_altaProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -109,9 +115,17 @@ public class MenuView extends javax.swing.JFrame {
                 jMenuItem1_altaProveedorActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1_altaProveedor);
+        jMenu2_altaModificacionProveedor.add(jMenuItem1_altaProveedor);
 
-        jMenuBar1.add(jMenu2);
+        jMenuItem1_listaProveedor.setText("Lista de proveedores");
+        jMenuItem1_listaProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1_listaProveedorActionPerformed(evt);
+            }
+        });
+        jMenu2_altaModificacionProveedor.add(jMenuItem1_listaProveedor);
+
+        jMenuBar1.add(jMenu2_altaModificacionProveedor);
 
         setJMenuBar(jMenuBar1);
 
@@ -129,16 +143,16 @@ public class MenuView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1_listaComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_listaComprasActionPerformed
+    private void jMenuItem1_listaComprasAproveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_listaComprasAproveedoresActionPerformed
         // TODO add your handling code here:
         jDesktopPrincipal.removeAll();
         jDesktopPrincipal.repaint();
-        ListaProveedores listaProveedores = new ListaProveedores();
-        listaProveedores.setVisible(true);
-        jDesktopPrincipal.add(listaProveedores);
-        jDesktopPrincipal.moveToFront(listaProveedores);
-        listaProveedores.getContentPane().setBackground(new Color(232, 248, 245  ));
-    }//GEN-LAST:event_jMenuItem1_listaComprasActionPerformed
+        ListaCompraProveedores listaCompraProveedores = new ListaCompraProveedores();
+        listaCompraProveedores.setVisible(true);
+        jDesktopPrincipal.add(listaCompraProveedores);
+        jDesktopPrincipal.moveToFront(listaCompraProveedores);
+        listaCompraProveedores.getContentPane().setBackground(new Color(232, 248, 245  ));
+    }//GEN-LAST:event_jMenuItem1_listaComprasAproveedoresActionPerformed
 
     private void jMenuItem1_altaProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_altaProveedorActionPerformed
         // TODO add your handling code here:
@@ -171,6 +185,34 @@ public class MenuView extends javax.swing.JFrame {
         jDesktopPrincipal.moveToFront(formularioAltaCompra);
         formularioAltaCompra.getContentPane().setBackground(new Color(251, 238, 230 ));
     }//GEN-LAST:event_jMenuItem1_detalleCompraActionPerformed
+
+    private void jMenuItem1_listaProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_listaProductoActionPerformed
+        // TODO add your handling code here:
+        jDesktopPrincipal.removeAll();
+        jDesktopPrincipal.repaint();
+        ListaProducto listaProducto = new ListaProducto();
+        listaProducto.setVisible(true);
+         jDesktopPrincipal.add(listaProducto);
+        jDesktopPrincipal.moveToFront(listaProducto);
+        listaProducto.getContentPane().setBackground(new Color(249, 235, 234 ));
+        
+//        ListaCompraProveedores formListaProducto = new ListaCompraProveedores();
+//        formListaProducto.setVisible(true);
+//        jDesktopPrincipal.add(formListaProducto);
+//        jDesktopPrincipal.moveToFront(formListaProducto);
+//        formListaProducto.getContentPane().setBackground(new Color(249, 235, 234 ));
+
+    }//GEN-LAST:event_jMenuItem1_listaProductoActionPerformed
+
+    private void jMenuItem1_listaProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_listaProveedorActionPerformed
+         jDesktopPrincipal.removeAll();
+        jDesktopPrincipal.repaint();
+        ListaProveedor listaProveedor = new ListaProveedor();
+        listaProveedor.setVisible(true);
+         jDesktopPrincipal.add(listaProveedor);
+        jDesktopPrincipal.moveToFront(listaProveedor);
+        listaProveedor.getContentPane().setBackground(new Color(244, 246, 246 ));
+    }//GEN-LAST:event_jMenuItem1_listaProveedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,15 +251,16 @@ public class MenuView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JDesktopPane jDesktopPrincipal;
     private javax.swing.JMenu jMenu1_detalleCompra;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu2_altaModificacionProveedor;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1_altaProveedor;
     private javax.swing.JMenuItem jMenuItem1_detalleCompra;
-    private javax.swing.JMenuItem jMenuItem1_listaCompras;
+    private javax.swing.JMenuItem jMenuItem1_listaComprasAproveedores;
+    private javax.swing.JMenuItem jMenuItem1_listaProducto;
+    private javax.swing.JMenuItem jMenuItem1_listaProveedor;
     private javax.swing.JMenuItem jMenuItem_altaProducto;
     // End of variables declaration//GEN-END:variables
 }

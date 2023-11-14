@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 
   
-public class ListaProveedores extends javax.swing.JInternalFrame {
+public class ListaCompraProveedores extends javax.swing.JInternalFrame {
 
 private DefaultTableModel modeloTabla;
 private DefaultTableModel modeloTabla2;
@@ -34,7 +34,7 @@ private ProveedorData provData=null;
 private CompraData compData=null;
 private DetalleCompraData detCompData=null;
 
-    public ListaProveedores() {
+    public ListaCompraProveedores() {
         initComponents();
         provData=new ProveedorData();
         listaProveedor = provData.listarProveedores();
@@ -81,7 +81,7 @@ private DetalleCompraData detCompData=null;
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Lista de compras");
+        setTitle("Listado de compras");
         setToolTipText("");
 
         jLabel_fechaCompra.setText("Fecha de compra:");
@@ -114,11 +114,6 @@ private DetalleCompraData detCompData=null;
         jLabel_fFinal.setText("Final");
 
         jcomboBoxProveedor.setToolTipText("");
-        jcomboBoxProveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcomboBoxProveedorActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Elija un proveedor: ");
 
@@ -239,24 +234,6 @@ private DetalleCompraData detCompData=null;
         }
     }//GEN-LAST:event_jButton_buscarProveedorFechaActionPerformed
 
-    private void jcomboBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorActionPerformed
-//        borrarFilas();
-//        Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
-//        //obt lista 
-//        listaProveedor = provData.listarProveedoresPorID(provSeleccionado.getIdProvedor());
-//        if(!listaProveedor.isEmpty()) {
-//            for ( Proveedor aux : listaProveedor  ) {
-//                modeloTabla.addRow(new Object [] {
-//                    aux.getIdProvedor(),
-//                    aux.getNombre(),
-//                    aux.getRazonSocial(),
-//                    aux.getDomicilio(),
-//                    aux.getTelefono()
-//                });
-//            }
-//        }
-    }//GEN-LAST:event_jcomboBoxProveedorActionPerformed
-
     private void jDateChooser1_fechaFinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1_fechaFinalMouseClicked
         // TODO add your handling code here:
         
@@ -294,7 +271,7 @@ private DetalleCompraData detCompData=null;
         private void armarCabeceraTabla2(){
             ArrayList<Object> filaCabecera=new ArrayList<>();
             filaCabecera.add("Fecha de Compra");
-            filaCabecera.add("Prodructo");
+            filaCabecera.add("Producto");
             filaCabecera.add("Cantidad");
             filaCabecera.add("Precio");
             for(Object aux:filaCabecera){

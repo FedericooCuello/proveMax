@@ -170,6 +170,36 @@ public class ProveedorData {
         }
         return proveedoresLista;
     }
+        
+        
+        
+        public List<Proveedor> buscarProveedorPorCoincidencia (String proveedorTipeado) {
+         List<Proveedor> proveedorBusqTipeoProveedor = new ArrayList<>();
+          String sql="SELECT * FROM proveedor WHERE nombre LIKE ? "
+                + " AND estado=1 ";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            //busqueda por coinicdencia parcial
+            ps.setString(1, "%" + proveedorTipeado + "%");
+            ResultSet rs=ps.executeQuery();
+           
+                while (rs.next()) {
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProvedor(rs.getInt("idProveedor"));
+                proveedor.setRazonSocial(rs.getString("razonSocial"));
+                proveedor.setNombre(rs.getString("nombre"));
+                proveedor.setDomicilio(rs.getString("domicilio"));
+                proveedor.setTelefono(rs.getString("telefono"));
+                proveedor.setEstado(true);
+                proveedorBusqTipeoProveedor.add(proveedor);
+            }
+            ps.close();
+        
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar acceder a la tabla proveedor con el nombre ingreesado " + ex.getMessage());
+        }
+        return proveedorBusqTipeoProveedor;
+    }
     
 }
 

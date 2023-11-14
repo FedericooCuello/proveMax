@@ -129,5 +129,32 @@ public class ProveMax {
          for(DetalleCompra aux:compras){
             System.out.println(aux.getProducto().getNombreProducto());
         }
-    }    
+         
+         
+         ProductoData prodData = new ProductoData();
+         Producto p1= null;
+          //Proveedor proveedor1 = new Proveedor("Distribuidora Del Sur ", "Comestibles SRL ", "Sucre 545", "26645777114", true);
+          List <Producto> prodStockMinimo = prodData.listaProductosMin(1);
+        System.out.println("Lista de prod minimos: \n");
+                   for (Producto aux : prodStockMinimo) {
+                       System.out.println(aux.getIdProducto());
+                       System.out.println("Nombre: " + aux.getNombreProducto());
+                       System.out.println("Razon social: " + aux.getStock());
+               
+                   }  
+        //-----------prueba busqueda por coincidencia de proveedor
+        ProveedorData provData = new ProveedorData();
+        String proveedorTipeado = "a";
+        List<Proveedor> resultado = provData.buscarProveedorPorCoincidencia(proveedorTipeado);
+        System.out.println("COincidencia");
+        for (Proveedor proveedor : resultado) {
+            
+            System.out.println(proveedor);
+            System.out.println("-");
+        }
+
+        }
+         
+         
+        
 }
