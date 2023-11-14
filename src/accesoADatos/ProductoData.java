@@ -159,11 +159,8 @@ public ProductoData(){
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             //busqueda por coinicdencia parcial
-            ps.setString(1, "%" + sql + "%");
-            ResultSet rs=ps.executeQuery();
-            
-            
-            
+           ps.setString(1, "%" + productoTipeado + "%");
+            ResultSet rs=ps.executeQuery(); 
             while(rs.next()){
                 Producto producto=new Producto();
                 producto.setIdProducto(rs.getInt("idProducto"));

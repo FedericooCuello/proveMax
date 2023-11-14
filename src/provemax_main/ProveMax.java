@@ -152,6 +152,17 @@ public class ProveMax {
             System.out.println(proveedor);
             System.out.println("-");
         }
+        
+        
+                //-----------prueba busqueda por coincidencia de prodcuto
+           //   ProductoData prodData = new ProductoData();
+        String prodTipeado = "a";
+        List<Producto> resultadoProd = prodData.buscarProdPorCoincidencia(prodTipeado);
+        System.out.println("COincidencia de prod");
+        for (Producto aux : resultadoProd) {
+            System.out.println(aux);
+            System.out.println("-");
+        }
 
         }
          
