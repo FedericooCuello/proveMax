@@ -38,6 +38,7 @@ public class MenuView extends javax.swing.JFrame {
         jMenuItem1_detalleCompra = new javax.swing.JMenuItem();
         jMenuItem1_listaComprasAproveedores = new javax.swing.JMenuItem();
         jMenuItem1_detalleDeCompra = new javax.swing.JMenuItem();
+        jMenuCompraSugerida = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem_altaProducto = new javax.swing.JMenuItem();
         jMenuItem1_listaProducto = new javax.swing.JMenuItem();
@@ -88,6 +89,14 @@ public class MenuView extends javax.swing.JFrame {
             }
         });
         jMenu1_detalleCompra.add(jMenuItem1_detalleDeCompra);
+
+        jMenuCompraSugerida.setText("Compra sugerida");
+        jMenuCompraSugerida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCompraSugeridaActionPerformed(evt);
+            }
+        });
+        jMenu1_detalleCompra.add(jMenuCompraSugerida);
 
         jMenuBar1.add(jMenu1_detalleCompra);
 
@@ -235,6 +244,17 @@ public class MenuView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem1_detalleDeCompraActionPerformed
 
+    private void jMenuCompraSugeridaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCompraSugeridaActionPerformed
+        jDesktopPrincipal.removeAll();
+        jDesktopPrincipal.repaint();
+        CompraSugerida comprasugerida = new CompraSugerida();
+        comprasugerida.setVisible(true);
+        jDesktopPrincipal.add(comprasugerida);
+        jDesktopPrincipal.moveToFront(comprasugerida);
+        comprasugerida.getContentPane().setBackground(new Color(240, 240, 246 ));
+        
+    }//GEN-LAST:event_jMenuCompraSugeridaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -277,6 +297,7 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2_altaModificacionProveedor;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuCompraSugerida;
     private javax.swing.JMenuItem jMenuItem1_altaProveedor;
     private javax.swing.JMenuItem jMenuItem1_detalleCompra;
     private javax.swing.JMenuItem jMenuItem1_detalleDeCompra;

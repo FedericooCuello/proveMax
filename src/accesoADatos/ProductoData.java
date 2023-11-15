@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ProductoData {
@@ -201,6 +203,31 @@ public ProductoData(){
         return productos;
     }
 
-
+public List<Producto> productosBajoStock(){
+    ArrayList<Producto> productosBajostock = new ArrayList<>();
+    String sql ="SELECT idProducto, nombreProducto, descripcion, precioActual, stock,stockMinimo"+
+            "FROM producto WHERE stock < stockMinimo ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Producto productobs = new Producto();
+                productobs.setIdProducto(rs.getInt("idProducto"));
+                productobs.setNombreProducto(rs.getString("nombreProducto"));
+                productobs.setDescripcion(rs.getString("descripcion"));
+                productobs.setPrecioActual(rs.getDouble("precioActual"));
+                productobs.setStock(rs.getInt("stock"));
+                productobs.setStockMinimo(rs.getInt("stockMinimo"));
+                productobs.setEstado(true);
+                productosBajostock.add(productobs);
+                
+                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al acceder a la tablaa producto "+ex.getMessage());
+        }
+        return productosBajostock;
+}
 }
 
