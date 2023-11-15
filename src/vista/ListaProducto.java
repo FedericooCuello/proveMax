@@ -49,6 +49,8 @@ public class ListaProducto extends javax.swing.JInternalFrame {
         jTable1_listadoProducto = new javax.swing.JTable();
         jTextField1_BusquedaProducto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jBmostrar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -103,10 +105,23 @@ public class ListaProducto extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Elija un producto: ");
 
+        jBmostrar.setText("Mostrar");
+        jBmostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBmostrarActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Productos inactivos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_compra)
+                .addGap(211, 211, 211))
             .addGroup(layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,12 +134,12 @@ public class ListaProducto extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jcomboBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jBmostrar)))
                 .addContainerGap(64, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_compra)
-                .addGap(211, 211, 211))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,9 +154,13 @@ public class ListaProducto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcomboBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(61, 61, 61)
+                .addGap(62, 62, 62)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jBmostrar))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,6 +218,13 @@ public class ListaProducto extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_jcomboBoxProductoActionPerformed
 
+    private void jBmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmostrarActionPerformed
+        // TODO add your handling code here:
+        limpiarTabla();
+        cargarProductosInactivos();
+        
+    }//GEN-LAST:event_jBmostrarActionPerformed
+
     private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
   filaCabecera.add("Id producto");
@@ -243,11 +269,24 @@ public class ListaProducto extends javax.swing.JInternalFrame {
         
        
     }
+    private void cargarProductosInactivos(){
+        List<Producto> productosInactivos = productoData.listaProductosBaja();
+        for (Producto productoI : productosInactivos){
+        modeloTabla.addRow(new Object[]{
+                          productoI.getIdProducto(),
+                          productoI.getNombreProducto(),
+                          productoI.getDescripcion(),
+                          productoI.getPrecioActual(),
+                          productoI.getStock(),
+        });
+    }}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBmostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_compra;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1_listadoProducto;
