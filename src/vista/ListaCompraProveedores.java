@@ -36,7 +36,12 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         provData = new ProveedorData();
         listaProveedor = provData.listarProveedores();
 
-        modeloTabla = new DefaultTableModel();
+         modeloTabla = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column) {
+                 return false;
+            }
+        };
+        
         modeloTabla2 = new DefaultTableModel(){
             public boolean isCellEditable(int row, int column) {
                  return false;
