@@ -200,7 +200,28 @@ public class ProveedorData {
         }
         return proveedorBusqTipeoProveedor;
     }
-    
+    public List<Proveedor> listarProveedoresInactivos() {
+        String sql = "SELECT * FROM proveedor WHERE estado = 0";
+        List<Proveedor> proveedoresLista = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProvedor(rs.getInt("idProveedor"));
+                proveedor.setRazonSocial(rs.getString("razonSocial"));
+                proveedor.setNombre(rs.getString("nombre"));
+                proveedor.setDomicilio(rs.getString("domicilio"));
+                proveedor.setTelefono(rs.getString("telefono"));
+                proveedor.setEstado(true);
+                proveedoresLista.add(proveedor);
+            }
+            ps.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar acceder a la tabla proveedor " + ex.getMessage());
+        }
+        return proveedoresLista;
+    }
 }
 
 

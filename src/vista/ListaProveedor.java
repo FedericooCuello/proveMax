@@ -48,6 +48,8 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         jTable1_listadoProveedor = new javax.swing.JTable();
         jTextField1_BusquedaProv = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jBmostrar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -101,10 +103,23 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Elija un proveedor: ");
 
+        jLabel3.setText("Proveedores inactivos");
+
+        jBmostrar.setText("Mostrar");
+        jBmostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBmostrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_compra)
+                .addGap(211, 211, 211))
             .addGroup(layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,12 +132,12 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jcomboBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(jBmostrar)))
                 .addContainerGap(59, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_compra)
-                .addGap(211, 211, 211))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +154,11 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2))
                 .addGap(61, 61, 61)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBmostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,6 +215,11 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_jcomboBoxProveedorActionPerformed
 
+    private void jBmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmostrarActionPerformed
+        limpiarCampos();
+        cargarProveedoresInactivos();
+    }//GEN-LAST:event_jBmostrarActionPerformed
+
     private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
         filaCabecera.add("Id proveedor");
@@ -240,11 +264,25 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         
        
     }
+    private void cargarProveedoresInactivos(){
+        List<Proveedor> proveedoresInactivos = proveedorData.listarProveedoresInactivos();
+        for (Proveedor proveedoresI : proveedoresInactivos){
+            modeloTabla.addRow(new Object[]{
+                proveedoresI.getIdProvedor(),
+                proveedoresI.getNombre(),
+                proveedoresI.getRazonSocial(),
+                proveedoresI.getTelefono(),
+                proveedoresI.getDomicilio()
+            });
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBmostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_compra;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1_listadoProveedor;
