@@ -108,7 +108,9 @@ public ProductoData(){
     
     public List<Producto> listaProductosMin(int min){
         ArrayList<Producto> productos=new ArrayList<>();
-        String sql="SELECT idProducto,nombreProducto,descripcion,precioActual,stock FROM producto WHERE stock<=? AND estado=1";
+        String sql="SELECT idProducto,nombreProducto,descripcion,precioActual,stock FROM producto "
+                + " WHERE stock<=? AND estado=1 "
+                + " ORDER BY nombreProducto";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1, min);
@@ -133,7 +135,8 @@ public ProductoData(){
     public List<Producto> listaProductos(){
         ArrayList<Producto> productos=new ArrayList<>();
         String sql="SELECT idProducto, nombreProducto, descripcion, precioActual, stock "
-                + " FROM producto WHERE estado=1";
+                + " FROM producto WHERE estado=1 "
+                + "  ORDER BY nombreProducto" ;
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
@@ -157,7 +160,7 @@ public ProductoData(){
     public List<Producto> buscarProdPorCoincidencia (String productoTipeado) {
          List<Producto> productos = new ArrayList<>();
           String sql="SELECT * FROM producto WHERE nombreProducto LIKE ? "
-                + " AND estado=1 ";
+                + " AND estado=1 ORDER BY nombreProducto";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             //busqueda por coinicdencia parcial
@@ -185,7 +188,7 @@ public ProductoData(){
         public List<Producto> listaProductosBaja(){
         ArrayList<Producto> productos=new ArrayList<>();
         String sql="SELECT idProducto, nombreProducto, descripcion, precioActual, stock "
-                + " FROM producto WHERE estado=0";
+                + " FROM producto WHERE estado=0 ORDER BY nombreProducto";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
@@ -210,7 +213,8 @@ public ProductoData(){
     public List<Producto> productosBajoStock() {
         ArrayList<Producto> productosBajostock = new ArrayList<>();
         String sql = "SELECT * FROM producto p  "
-                + " WHERE p.stock < p.stockMinimo";
+                + " WHERE p.stock < p.stockMinimo "
+                + " ORDER BY p.nombreProducto";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

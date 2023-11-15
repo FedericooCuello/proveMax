@@ -91,7 +91,9 @@ public class ProveedorData {
     }
 
     public Proveedor buscarProveedor(int idProveedor) {
-        String sql = "SELECT * FROM proveedor WHERE idProveedor = ? AND estado = 1";
+        String sql = "SELECT * FROM proveedor "
+                + " WHERE idProveedor = ? AND estado = 1 "
+                + "ORDER BY nombre";
         Proveedor proveedor = null;
 
         try {
@@ -122,7 +124,8 @@ public class ProveedorData {
     
     
     public List<Proveedor> listarProveedores() {
-        String sql = "SELECT * FROM proveedor WHERE estado = 1";
+        String sql = "SELECT * FROM proveedor WHERE estado = 1"
+                + " ORDER BY nombre";
         List<Proveedor> proveedoresLista = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -176,7 +179,8 @@ public class ProveedorData {
         public List<Proveedor> buscarProveedorPorCoincidencia (String proveedorTipeado) {
          List<Proveedor> proveedorBusqTipeoProveedor = new ArrayList<>();
           String sql="SELECT * FROM proveedor WHERE nombre LIKE ? "
-                + " AND estado=1 ";
+                + " AND estado=1 "
+                + " ORDER BY nombre";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             //busqueda por coinicdencia parcial
@@ -201,7 +205,7 @@ public class ProveedorData {
         return proveedorBusqTipeoProveedor;
     }
     public List<Proveedor> listarProveedoresInactivos() {
-        String sql = "SELECT * FROM proveedor WHERE estado = 0";
+        String sql = "SELECT * FROM proveedor WHERE estado = 0 ORDER BY nombre";
         List<Proveedor> proveedoresLista = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);

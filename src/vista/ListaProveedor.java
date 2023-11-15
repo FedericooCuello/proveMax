@@ -1,4 +1,3 @@
- 
 package vista;
 
 import accesoADatos.ProveedorData;
@@ -13,8 +12,8 @@ import javax.swing.text.JTextComponent;
 public class ListaProveedor extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla;
- //   private List <Proveedor> listaProveedorProveedor=null;
-    private ProveedorData proveedorData = null ;
+    //   private List <Proveedor> listaProveedorProveedor=null;
+    private ProveedorData proveedorData = null;
 
     /**
      * Creates new form ListaProveedor
@@ -25,11 +24,12 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         //seteo de tabla p/que no sea editable
         modeloTabla = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
-                 return false;
+                return false;
             }
         };
         cargarComboBox();
         armarCabeceraTabla();
+        cargarDatosEnTabla();
     }
 
     /**
@@ -175,7 +175,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
             //  modelo de la tabla no sea nulo
             if (modeloTabla != null) {
-                
+
                 for (Proveedor proveedor : proveedoresCoincidentes) {
                     modeloTabla.addRow(new Object[]{
                         proveedor.getIdProvedor(),
@@ -188,16 +188,18 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "No hay datos cargados. Debe dar de alta un proveedor a traves de formulario");
             }
         } catch (Exception ex) {
-                 JOptionPane.showMessageDialog(this, "Error, reintente nuevamente");
+            JOptionPane.showMessageDialog(this, "Error, reintente nuevamente");
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jTextField1_BusquedaProvKeyReleased
+
 
     private void jTextField1_BusquedaProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1_BusquedaProvActionPerformed
         // TODO add your handling code here:
         limpiarCampos();
         busquedaPorCoincidencia();
     }//GEN-LAST:event_jTextField1_BusquedaProvActionPerformed
+
 
     private void jcomboBoxProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorKeyTyped
         // Limpiar la tabla antes de agregar nuevas filas
@@ -206,14 +208,16 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         busquedaPorCoincidencia();
     }//GEN-LAST:event_jcomboBoxProveedorKeyTyped
 
+
     private void jcomboBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorActionPerformed
         // TODO add your handling code here:
         // Limpiar la tabla antes de agregar nuevas filas
         limpiarCampos();
         jcomboBoxProveedor.setEditable(true);
         busquedaPorCoincidencia();
-     
+
     }//GEN-LAST:event_jcomboBoxProveedorActionPerformed
+
 
     private void jBmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmostrarActionPerformed
         limpiarCampos();
@@ -243,30 +247,51 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         modeloTabla.setRowCount(0);
         jcomboBoxProveedor.setSelectedItem("Seleccione");
     }
-    
-    private void busquedaPorCoincidencia () {
-        // Obtener el texto ingresado en el JComboBox después de la pulsación de tecla
-    String textoIngresado = ((JTextComponent) jcomboBoxProveedor.getEditor().getEditorComponent()).getText();
- 
-    // Verificar si el texto ingresado está en la lista de proveedores
-    List<Proveedor> proveedoresCoincidentes = proveedorData.buscarProveedorPorCoincidencia(textoIngresado);
 
-    // Llenar la tabla con los proveedores coincidentes
-    for (Proveedor proveedor : proveedoresCoincidentes) {
-        modeloTabla.addRow(new Object[]{
-            proveedor.getIdProvedor(),
-            proveedor.getNombre(),
-            proveedor.getRazonSocial(),
-            proveedor.getTelefono(),
-            proveedor.getDomicilio() 
-        });
+    private void busquedaPorCoincidencia() {
+        // Obtener el texto ingresado en el JComboBox después de la pulsación de tecla
+        String textoIngresado = ((JTextComponent) jcomboBoxProveedor.getEditor().getEditorComponent()).getText();
+
+        // Verificar si el texto ingresado está en la lista de proveedores
+        List<Proveedor> proveedoresCoincidentes = proveedorData.buscarProveedorPorCoincidencia(textoIngresado);
+
+        // Llenar la tabla con los proveedores coincidentes
+        for (Proveedor proveedor : proveedoresCoincidentes) {
+            modeloTabla.addRow(new Object[]{
+                proveedor.getIdProvedor(),
+                proveedor.getNombre(),
+                proveedor.getRazonSocial(),
+                proveedor.getTelefono(),
+                proveedor.getDomicilio()
+            });
+        }
     }
-        
-       
+
+    private void cargarDatosEnTabla() {
+
+        List<Proveedor> proveedores = proveedorData.listarProveedores();
+
+        //  modelo de la tabla no sea nulo
+        if (modeloTabla != null) {
+
+            for (Proveedor proveedor : proveedores) {
+                modeloTabla.addRow(new Object[]{
+                    proveedor.getIdProvedor(),
+                    proveedor.getNombre(),
+                    proveedor.getRazonSocial(),
+                    proveedor.getTelefono()
+                });
+            }
+        }  
     }
-    private void cargarProveedoresInactivos(){
+            
+    
+            
+    
+
+    private void cargarProveedoresInactivos() {
         List<Proveedor> proveedoresInactivos = proveedorData.listarProveedoresInactivos();
-        for (Proveedor proveedoresI : proveedoresInactivos){
+        for (Proveedor proveedoresI : proveedoresInactivos) {
             modeloTabla.addRow(new Object[]{
                 proveedoresI.getIdProvedor(),
                 proveedoresI.getNombre(),
