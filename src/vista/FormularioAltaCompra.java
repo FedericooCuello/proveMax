@@ -375,6 +375,10 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcBoxProveedorActionPerformed
 
+ 
+            
+        
+    
     
        private void limpiarCamposPantalla() {
         jTextField_cant.setText("");

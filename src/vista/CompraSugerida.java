@@ -9,12 +9,10 @@ import accesoADatos.ProductoData;
 import entidades.Producto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author monic
- */
+ 
 public class CompraSugerida extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTabla;
     private ProductoData prodata = null;
@@ -47,9 +45,14 @@ public class CompraSugerida extends javax.swing.JInternalFrame {
             jTable.setModel(modeloTabla);
     }
     private void cargarProductosBajoStock(){
-        List<Producto> productosbajostock = prodata.productosBajoStock();
-        for (Producto productobs : productosbajostock){
-        modeloTabla.addRow(new Object[]{
+        List<Producto> productosBajoStock = prodata.productosBajoStock();
+        if (productosBajoStock.isEmpty()) {
+            
+            JOptionPane.showMessageDialog(this, "Todos los productos tienen stock suficiente.", "Sin productos sugeridos", JOptionPane.INFORMATION_MESSAGE);
+        } else {      
+             JOptionPane.showMessageDialog(this, "Revisar stock.", "Sugerencia de compra", JOptionPane.INFORMATION_MESSAGE);
+         for (Producto productobs : productosBajoStock){
+         modeloTabla.addRow(new Object[]{
                           productobs.getIdProducto(),
                           productobs.getNombreProducto(),
                           productobs.getDescripcion(),
@@ -58,7 +61,13 @@ public class CompraSugerida extends javax.swing.JInternalFrame {
                           productobs.getStockMinimo(),
                           
         });
-    }}
+        
+        }
+    }
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -179,6 +179,9 @@ public ProductoData(){
         }
         return productos;
     }
+    
+    
+    
         public List<Producto> listaProductosBaja(){
         ArrayList<Producto> productos=new ArrayList<>();
         String sql="SELECT idProducto, nombreProducto, descripcion, precioActual, stock "
@@ -196,21 +199,22 @@ public ProductoData(){
                 producto.setEstado(true);
                 productos.add(producto);
             }
-            ps.close();   
+            ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla producto "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
         }
         return productos;
     }
 
-public List<Producto> productosBajoStock(){
-    ArrayList<Producto> productosBajostock = new ArrayList<>();
-    String sql ="SELECT idProducto, nombreProducto, descripcion, precioActual, stock,stockMinimo"+
-            "FROM producto WHERE stock < stockMinimo ";
+    
+    public List<Producto> productosBajoStock() {
+        ArrayList<Producto> productosBajostock = new ArrayList<>();
+        String sql = "SELECT * FROM producto p  "
+                + " WHERE p.stock < p.stockMinimo";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Producto productobs = new Producto();
                 productobs.setIdProducto(rs.getInt("idProducto"));
                 productobs.setNombreProducto(rs.getString("nombreProducto"));
@@ -220,14 +224,13 @@ public List<Producto> productosBajoStock(){
                 productobs.setStockMinimo(rs.getInt("stockMinimo"));
                 productobs.setEstado(true);
                 productosBajostock.add(productobs);
-                
-                
+
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al acceder a la tablaa producto "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
         }
         return productosBajostock;
-}
+    }
 }
 

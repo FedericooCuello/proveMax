@@ -163,9 +163,24 @@ public class ProveMax {
             System.out.println(aux);
             System.out.println("-");
         }
+        
+        
+        
+        
+        
+        
+        ///-------------pueba stockminimo
+        List<Producto> prodBajoStockList = prodData.productosBajoStock();
+        System.out.println("Productos con stock minimo");
+        for (Producto aux : prodBajoStockList) {
+            System.out.println(aux);
+            System.out.println("-");
+        
+        
+        
 
         }
          
-         
+    }
         
 }
