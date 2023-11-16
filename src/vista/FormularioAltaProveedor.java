@@ -17,6 +17,7 @@ public class FormularioAltaProveedor extends javax.swing.JInternalFrame {
       
     public FormularioAltaProveedor() {
         initComponents();
+        jButton_eliminar.setEnabled(false);
     }
 
     /**
@@ -261,6 +262,7 @@ public class FormularioAltaProveedor extends javax.swing.JInternalFrame {
                 jTextField_domicilio.setText(proveedorActual.getDomicilio());
                 jTextField_telefono.setText( proveedorActual.getTelefono() );
                 jCheckBox_Activo.setSelected(proveedorActual.isEstado() ); 
+                jButton_eliminar.setEnabled(true);
             } else {
                  JOptionPane.showMessageDialog(this, "código ingresado no corresponde a un proveedor registrado");
                  limpiarCamposPantalla();

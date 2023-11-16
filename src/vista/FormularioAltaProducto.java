@@ -20,6 +20,7 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
     
     public FormularioAltaProducto() {
         initComponents();
+        jButton_eliminar.setEnabled(false);
     }
 
     /**
@@ -281,6 +282,7 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
                 jTextField_stock.setText(String.valueOf(productoActual.getStock()));
                 jTextField_stockMINIMO.setText(String.valueOf(productoActual.getStockMinimo()));
                 jCheckBox_Activo.setSelected(productoActual.isEstado() ); 
+                jButton_eliminar.setEnabled(true);
             } else {
                  JOptionPane.showMessageDialog(this, "código ingresado no corresponde a un producto registrado");
                  limpiarCamposPantalla();
