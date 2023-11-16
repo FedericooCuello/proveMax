@@ -309,7 +309,8 @@ public class FormularioAltaProveedor extends javax.swing.JInternalFrame {
             if (!nombre.isEmpty() && !razonSocial.isEmpty() && !domicilio.isEmpty()) {
                 if (proveedorActual == null) {
                     proveedorActual = new Proveedor(nombre, razonSocial, domicilio, telefono, activo);
-                    proveedorData.regristrarProveedor(proveedorActual);
+                    int clave=proveedorData.regristrarProveedor(proveedorActual);
+                    jTextField_cod.setText(""+clave);
                 } else {
                     proveedorActual.setNombre(nombre);
                     proveedorActual.setRazonSocial(razonSocial);

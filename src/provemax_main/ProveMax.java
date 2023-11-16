@@ -123,7 +123,7 @@ public class ProveMax {
 //        }
         
         //-Prueva del metodo listarDetallesCompras() <-----------------------------------
-        DetalleCompraData dc=new DetalleCompraData();
+       DetalleCompraData dc=new DetalleCompraData();
         List<DetalleCompra> compras=new ArrayList<>();
         compras=dc.listarDetallesCompra(11);
          for(DetalleCompra aux:compras){
@@ -163,9 +163,24 @@ public class ProveMax {
             System.out.println(aux);
             System.out.println("-");
         }
+        
+        
+        
+        
+        
+        
+        ///-------------pueba stockminimo
+        List<Producto> prodBajoStockList = prodData.productosBajoStock();
+        System.out.println("Productos con stock minimo");
+        for (Producto aux : prodBajoStockList) {
+            System.out.println(aux);
+            System.out.println("-");
+        
+        
+        
 
         }
          
-         
+    }
         
 }

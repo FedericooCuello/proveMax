@@ -37,7 +37,6 @@ public class MenuView extends javax.swing.JFrame {
         jMenu1_detalleCompra = new javax.swing.JMenu();
         jMenuItem1_detalleCompra = new javax.swing.JMenuItem();
         jMenuItem1_listaComprasAproveedores = new javax.swing.JMenuItem();
-        jMenuItem1_detalleDeCompra = new javax.swing.JMenuItem();
         jMenuCompraSugerida = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem_altaProducto = new javax.swing.JMenuItem();
@@ -66,7 +65,7 @@ public class MenuView extends javax.swing.JFrame {
         jMenu1_detalleCompra.setText(" Compras    ");
         jMenu1_detalleCompra.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
 
-        jMenuItem1_detalleCompra.setText("Comprar");
+        jMenuItem1_detalleCompra.setText("Compras");
         jMenuItem1_detalleCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1_detalleCompraActionPerformed(evt);
@@ -74,21 +73,13 @@ public class MenuView extends javax.swing.JFrame {
         });
         jMenu1_detalleCompra.add(jMenuItem1_detalleCompra);
 
-        jMenuItem1_listaComprasAproveedores.setText("Lista de compras");
+        jMenuItem1_listaComprasAproveedores.setText("Listar compras");
         jMenuItem1_listaComprasAproveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1_listaComprasAproveedoresActionPerformed(evt);
             }
         });
         jMenu1_detalleCompra.add(jMenuItem1_listaComprasAproveedores);
-
-        jMenuItem1_detalleDeCompra.setText("Detalle de compras");
-        jMenuItem1_detalleDeCompra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1_detalleDeCompraActionPerformed(evt);
-            }
-        });
-        jMenu1_detalleCompra.add(jMenuItem1_detalleDeCompra);
 
         jMenuCompraSugerida.setText("Compra sugerida");
         jMenuCompraSugerida.addActionListener(new java.awt.event.ActionListener() {
@@ -232,18 +223,6 @@ public class MenuView extends javax.swing.JFrame {
         listaProveedor.getContentPane().setBackground(new Color(244, 246, 246 ));
     }//GEN-LAST:event_jMenuItem1_listaProveedorActionPerformed
 
-    private void jMenuItem1_detalleDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_detalleDeCompraActionPerformed
-        // TODO add your handling code here:
-          jDesktopPrincipal.removeAll();
-        jDesktopPrincipal.repaint();
-        FormularioDetalleCompra formularioDetalleCompra = new FormularioDetalleCompra();
-        formularioDetalleCompra.setVisible(true);
-        jDesktopPrincipal.add(formularioDetalleCompra);
-        jDesktopPrincipal.moveToFront(formularioDetalleCompra);
-        formularioDetalleCompra.getContentPane().setBackground(new Color(240, 240, 246 ));
-        
-    }//GEN-LAST:event_jMenuItem1_detalleDeCompraActionPerformed
-
     private void jMenuCompraSugeridaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCompraSugeridaActionPerformed
         jDesktopPrincipal.removeAll();
         jDesktopPrincipal.repaint();
@@ -300,7 +279,6 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuCompraSugerida;
     private javax.swing.JMenuItem jMenuItem1_altaProveedor;
     private javax.swing.JMenuItem jMenuItem1_detalleCompra;
-    private javax.swing.JMenuItem jMenuItem1_detalleDeCompra;
     private javax.swing.JMenuItem jMenuItem1_listaComprasAproveedores;
     private javax.swing.JMenuItem jMenuItem1_listaProducto;
     private javax.swing.JMenuItem jMenuItem1_listaProveedor;

@@ -52,6 +52,7 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
 
         armarCabeceraTabla();
         armarCabeceraTabla2();
+        
     }
 
     private void cargarProveedores() {
@@ -239,7 +240,7 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
                             aux.getCantidad()
                         });
                     }
-                } else {
+                }else {
                     JOptionPane.showMessageDialog(this, "No hay compras registradas entre las fechas seleccionadas.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
@@ -248,7 +249,19 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
             }
         } else {
           
-            JOptionPane.showMessageDialog(this, "Ambas fechas son requeridas.", "Error de fecha", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Ambas fechas son requeridas.", "Error de fecha", JOptionPane.ERROR_MESSAGE);
+            detCompData = new DetalleCompraData();
+            listaCompras = detCompData.ListarComprasAProveedor(provSeleccionado.getIdProvedor());
+            if (!listaCompras.isEmpty()) {
+                    for (DetalleCompra aux : listaCompras) {
+                        modeloTabla2.addRow(new Object[]{
+                            aux.getCompra().getFecha(),
+                            aux.getProducto(),
+                            aux.getCantidad(),
+                            aux.getPrecioCosto()
+                        });
+                    }
+                }
         }
 
     }//GEN-LAST:event_jButton_buscarProveedorFechaActionPerformed
@@ -293,6 +306,11 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         }
         jTable1_listadoCompraProveedores.setModel(modeloTabla2);
     }
+    
+    public void cargarDatosEnTabla () {
+        
+    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

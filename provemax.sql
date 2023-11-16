@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2023 a las 00:37:16
+-- Tiempo de generación: 15-11-2023 a las 08:37:23
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -132,7 +132,11 @@ INSERT INTO `producto` (`idProducto`, `nombreProducto`, `descripcion`, `precioAc
 (16, 'Cacelora', 'Cacelora Acero Inoxidable', 7000, 10, 1, 1),
 (17, 'Test', 'Test de producto Nuevo', 100, 100, 10, 1),
 (18, 'Resma de hoja', 'Papel reciclado', 2874, 2, 1, 1),
-(19, ' Escritorio', ' Muebles de oficina', 45000, 2, 0, 1);
+(19, ' Escritorio', ' Muebles de oficina', 45000, 2, 0, 1),
+(20, 'TV Sony', 'Electrodomestico', 58000, 80, 20, 0),
+(21, 'Moto E5', 'Celular', 25000, 70, 25, 0),
+(22, 'Heladera Dream', 'Electrodomestico', 85000, 50, 20, 0),
+(23, 'Cocina Dream', 'Electrodomestico', 65000, 60, 30, 0);
 
 -- --------------------------------------------------------
 
@@ -157,7 +161,10 @@ INSERT INTO `proveedor` (`idProveedor`, `nombre`, `razonSocial`, `domicilio`, `t
 (1, 'Distribuidora', 'CocacolaAndina', 'España 223', '2664223344', 1),
 (2, 'Bazar S.A.', 'Bazar S.A.', 'Colon 1800', '2664789789', 1),
 (3, 'Informatica Rivadavia', 'Electro S.A.', 'Rivadavia 1942', '2664789888', 1),
-(4, 'LimpiaLimpia', 'Quimicos S.R.L.', 'Maipu 222', '266123456', 1);
+(4, 'LimpiaLimpia', 'Quimicos S.R.L.', 'Maipu 222', '266123456', 1),
+(5, 'Garbarino', 'Garbarino e hijos', 'Don bosco 226', '2664726272', 0),
+(6, 'Dash Deporte', 'Dash.s.a', 'Pringles 986', '2664889332', 0),
+(7, 'Luanbeer', 'Luanbeer.s.r.l', 'Parque Norte', '2665527782', 0);
 
 --
 -- Índices para tablas volcadas
@@ -210,13 +217,13 @@ ALTER TABLE `detallecompra`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

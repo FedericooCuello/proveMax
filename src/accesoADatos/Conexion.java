@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
  
     
-    private final static String url = "jdbc:mariadb://LocalHost/provemax";
+    private final static String url = "jdbc:mariadb://LocalHost:3307/provemax";
     private final static String usuario= "root";
     private final static  String contrasenia = "";
     private static Connection conexion;

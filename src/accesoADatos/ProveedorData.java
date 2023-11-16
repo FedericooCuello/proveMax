@@ -24,7 +24,8 @@ public class ProveedorData {
         con = Conexion.getConexion();
     }
 
-    public void regristrarProveedor(Proveedor proveedor) {
+    public int regristrarProveedor(Proveedor proveedor) {
+        int clave=0;
 
         try {
             String sql = "INSERT INTO proveedor (nombre, razonSocial, domicilio, telefono, estado)" + "VALUES (?, ?, ?, ?, ?)";
@@ -37,15 +38,18 @@ public class ProveedorData {
             ps.setBoolean(5, true);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
+            
             if (rs.next()) {
                 proveedor.setIdProvedor(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Proveedor añadido con exito.");
+                clave=rs.getInt(1);
             }
             ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al registrar al  proveedor" + ex.getMessage());
         }
+        return clave;
     }
     
     public void modificarDatosProveedor(Proveedor proveedor) {
@@ -91,7 +95,9 @@ public class ProveedorData {
     }
 
     public Proveedor buscarProveedor(int idProveedor) {
-        String sql = "SELECT * FROM proveedor WHERE idProveedor = ? AND estado = 1";
+        String sql = "SELECT * FROM proveedor "
+                + " WHERE idProveedor = ? AND estado = 1 "
+                + "ORDER BY nombre";
         Proveedor proveedor = null;
 
         try {
@@ -122,7 +128,8 @@ public class ProveedorData {
     
     
     public List<Proveedor> listarProveedores() {
-        String sql = "SELECT * FROM proveedor WHERE estado = 1";
+        String sql = "SELECT * FROM proveedor WHERE estado = 1"
+                + " ORDER BY nombre";
         List<Proveedor> proveedoresLista = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -176,7 +183,8 @@ public class ProveedorData {
         public List<Proveedor> buscarProveedorPorCoincidencia (String proveedorTipeado) {
          List<Proveedor> proveedorBusqTipeoProveedor = new ArrayList<>();
           String sql="SELECT * FROM proveedor WHERE nombre LIKE ? "
-                + " AND estado=1 ";
+                + " AND estado=1 "
+                + " ORDER BY nombre";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             //busqueda por coinicdencia parcial
@@ -201,7 +209,7 @@ public class ProveedorData {
         return proveedorBusqTipeoProveedor;
     }
     public List<Proveedor> listarProveedoresInactivos() {
-        String sql = "SELECT * FROM proveedor WHERE estado = 0";
+        String sql = "SELECT * FROM proveedor WHERE estado = 0 ORDER BY nombre";
         List<Proveedor> proveedoresLista = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);

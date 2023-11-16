@@ -1,4 +1,3 @@
- 
 package vista;
 
 import accesoADatos.ProveedorData;
@@ -13,8 +12,9 @@ import javax.swing.text.JTextComponent;
 public class ListaProveedor extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla;
- //   private List <Proveedor> listaProveedorProveedor=null;
-    private ProveedorData proveedorData = null ;
+    //   private List <Proveedor> listaProveedorProveedor=null;
+    private ProveedorData proveedorData = null;
+    private List <Proveedor> listaProveedors=null;
 
     /**
      * Creates new form ListaProveedor
@@ -22,14 +22,15 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     public ListaProveedor() {
         initComponents();
         proveedorData = new ProveedorData();
-        //seteo de tabla p/que no sea editable
+         
         modeloTabla = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
-                 return false;
+                return false;
             }
         };
         cargarComboBox();
         armarCabeceraTabla();
+        cargarDatosEnTabla();
     }
 
     /**
@@ -43,13 +44,13 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
         jLabel_compra = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jcomboBoxProveedor = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1_listadoProveedor = new javax.swing.JTable();
         jTextField1_BusquedaProv = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jBmostrar = new javax.swing.JButton();
+        jComboBox_Proveedor = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -62,19 +63,6 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         jLabel_compra.setText("Listado de proveedores");
 
         jLabel1.setText("Escriba el nombre del proveedor: ");
-
-        jcomboBoxProveedor.setEditable(true);
-        jcomboBoxProveedor.setToolTipText("");
-        jcomboBoxProveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcomboBoxProveedorActionPerformed(evt);
-            }
-        });
-        jcomboBoxProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jcomboBoxProveedorKeyTyped(evt);
-            }
-        });
 
         jTable1_listadoProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,6 +100,12 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
             }
         });
 
+        jComboBox_Proveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_ProveedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,11 +121,11 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addGap(24, 24, 24)
                         .addComponent(jTextField1_BusquedaProv, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jcomboBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(51, 51, 51)
+                            .addComponent(jComboBox_Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,11 +142,11 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1_BusquedaProv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcomboBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(61, 61, 61)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox_Proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -167,7 +161,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     private void jTextField1_BusquedaProvKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1_BusquedaProvKeyReleased
         // Limpia la tabla antes de agregar nuevas filas
         limpiarCampos();
-
+        limpiarComboBox();
         // Verificar lo ingresado está en la lista de  
         String textoIngresadoTf = jTextField1_BusquedaProv.getText().trim();
         try {
@@ -175,7 +169,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
             //  modelo de la tabla no sea nulo
             if (modeloTabla != null) {
-                
+
                 for (Proveedor proveedor : proveedoresCoincidentes) {
                     modeloTabla.addRow(new Object[]{
                         proveedor.getIdProvedor(),
@@ -188,37 +182,45 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "No hay datos cargados. Debe dar de alta un proveedor a traves de formulario");
             }
         } catch (Exception ex) {
-                 JOptionPane.showMessageDialog(this, "Error, reintente nuevamente");
+            JOptionPane.showMessageDialog(this, "Error, reintente nuevamente");
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jTextField1_BusquedaProvKeyReleased
 
+
     private void jTextField1_BusquedaProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1_BusquedaProvActionPerformed
-        // TODO add your handling code here:
-        limpiarCampos();
-        busquedaPorCoincidencia();
+      
     }//GEN-LAST:event_jTextField1_BusquedaProvActionPerformed
 
-    private void jcomboBoxProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorKeyTyped
-        // Limpiar la tabla antes de agregar nuevas filas
-        limpiarCampos();
-        jcomboBoxProveedor.setEditable(true);
-        busquedaPorCoincidencia();
-    }//GEN-LAST:event_jcomboBoxProveedorKeyTyped
 
-    private void jcomboBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorActionPerformed
-        // TODO add your handling code here:
-        // Limpiar la tabla antes de agregar nuevas filas
-        limpiarCampos();
-        jcomboBoxProveedor.setEditable(true);
-        busquedaPorCoincidencia();
-     
-    }//GEN-LAST:event_jcomboBoxProveedorActionPerformed
+
 
     private void jBmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmostrarActionPerformed
         limpiarCampos();
+        limpiarComboBox();
+        jTextField1_BusquedaProv.setText("");
         cargarProveedoresInactivos();
     }//GEN-LAST:event_jBmostrarActionPerformed
+
+    private void jComboBox_ProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_ProveedorActionPerformed
+        // TODO add your handling code here:
+            limpiarCampos(); 
+        Proveedor provElegido = (Proveedor) jComboBox_Proveedor.getSelectedItem();
+        
+        listaProveedors = proveedorData.listarProveedoresPorID(provElegido.getIdProvedor());
+        if(!listaProveedors.isEmpty() ) {
+              for (Proveedor aux : listaProveedors) {
+            modeloTabla.addRow(new Object[]{
+                aux.getIdProvedor(),
+                aux.getNombre(),
+                aux.getRazonSocial(),
+                aux.getTelefono(),
+                aux.getDomicilio()
+            });
+        }
+        }
+      
+    }//GEN-LAST:event_jComboBox_ProveedorActionPerformed
 
     private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
@@ -235,38 +237,48 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
     private void cargarComboBox() {
         for (Proveedor aux : proveedorData.listarProveedores()) {
-            jcomboBoxProveedor.addItem(aux);
+            jComboBox_Proveedor.addItem(aux);
         }
     }
 
     private void limpiarCampos() {
         modeloTabla.setRowCount(0);
-        jcomboBoxProveedor.setSelectedItem("Seleccione");
-    }
-    
-    private void busquedaPorCoincidencia () {
-        // Obtener el texto ingresado en el JComboBox después de la pulsación de tecla
-    String textoIngresado = ((JTextComponent) jcomboBoxProveedor.getEditor().getEditorComponent()).getText();
- 
-    // Verificar si el texto ingresado está en la lista de proveedores
-    List<Proveedor> proveedoresCoincidentes = proveedorData.buscarProveedorPorCoincidencia(textoIngresado);
-
-    // Llenar la tabla con los proveedores coincidentes
-    for (Proveedor proveedor : proveedoresCoincidentes) {
-        modeloTabla.addRow(new Object[]{
-            proveedor.getIdProvedor(),
-            proveedor.getNombre(),
-            proveedor.getRazonSocial(),
-            proveedor.getTelefono(),
-            proveedor.getDomicilio() 
-        });
-    }
-        
        
     }
-    private void cargarProveedoresInactivos(){
+    
+    private void limpiarComboBox () {
+        
+         jComboBox_Proveedor.setSelectedItem("Seleccione");
+    }
+    
+ 
+
+    private void cargarDatosEnTabla() {
+
+        listaProveedors = proveedorData.listarProveedores();
+
+        //  modelo de la tabla no sea nulo
+        if (modeloTabla != null) {
+
+            for (Proveedor proveedor : listaProveedors) {
+                modeloTabla.addRow(new Object[]{
+                    proveedor.getIdProvedor(),
+                    proveedor.getNombre(),
+                    proveedor.getRazonSocial(),
+                    proveedor.getTelefono()
+                });
+            }
+        }  
+    }
+            
+    
+            
+    
+
+    private void cargarProveedoresInactivos() {
+        
         List<Proveedor> proveedoresInactivos = proveedorData.listarProveedoresInactivos();
-        for (Proveedor proveedoresI : proveedoresInactivos){
+        for (Proveedor proveedoresI : proveedoresInactivos) {
             modeloTabla.addRow(new Object[]{
                 proveedoresI.getIdProvedor(),
                 proveedoresI.getNombre(),
@@ -280,6 +292,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBmostrar;
+    private javax.swing.JComboBox<Proveedor> jComboBox_Proveedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -287,6 +300,5 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1_listadoProveedor;
     private javax.swing.JTextField jTextField1_BusquedaProv;
-    private javax.swing.JComboBox<Proveedor> jcomboBoxProveedor;
     // End of variables declaration//GEN-END:variables
 }
