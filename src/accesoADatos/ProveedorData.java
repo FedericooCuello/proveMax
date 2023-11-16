@@ -24,7 +24,8 @@ public class ProveedorData {
         con = Conexion.getConexion();
     }
 
-    public void regristrarProveedor(Proveedor proveedor) {
+    public int regristrarProveedor(Proveedor proveedor) {
+        int clave=0;
 
         try {
             String sql = "INSERT INTO proveedor (nombre, razonSocial, domicilio, telefono, estado)" + "VALUES (?, ?, ?, ?, ?)";
@@ -37,15 +38,18 @@ public class ProveedorData {
             ps.setBoolean(5, true);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
+            
             if (rs.next()) {
                 proveedor.setIdProvedor(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Proveedor añadido con exito.");
+                clave=rs.getInt(1);
             }
             ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al registrar al  proveedor" + ex.getMessage());
         }
+        return clave;
     }
     
     public void modificarDatosProveedor(Proveedor proveedor) {

@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,6 +36,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     private List <Compra> listaCompras=null; 
     private DetalleCompraData detalleCompraData;
     private DefaultTableModel modeloTabla;
+    private DefaultListModel<DetalleCompra> modeloList=new DefaultListModel<>(); 
       
     public FormularioAltaCompra() {
         initComponents();
@@ -80,8 +82,11 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         jLabel_fecha1 = new javax.swing.JLabel();
         jButton_eliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCompra = new javax.swing.JTable();
         jButton_buscar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListDetalle = new javax.swing.JList<>();
+        jbAgregar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -153,6 +158,11 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         jLabel_fecha.setText("Fecha de compra: ");
 
         cBoxProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cBoxProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cBoxProductoActionPerformed(evt);
+            }
+        });
 
         jcBoxProveedor.setToolTipText("");
 
@@ -166,7 +176,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -177,7 +187,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableCompra);
 
         jButton_buscar.setText("Buscar");
         jButton_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -186,73 +196,79 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
             }
         });
 
+        jScrollPane2.setViewportView(jListDetalle);
+
+        jbAgregar.setText("Agregar");
+        jbAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAgregarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_domicilio)
-                            .addComponent(jLabel_razonSocial)
-                            .addComponent(jLabel_nombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel_codigoMat, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(189, 189, 189)
+                        .addComponent(jLabel_Materiattulo, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel_estado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox_Activo)
+                        .addGap(78, 78, 78)
+                        .addComponent(jButton_nuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel_estado)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel_fecha1)
+                                                .addComponent(jLabel_codigoMat))
+                                            .addGap(48, 48, 48))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jLabel_fecha)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(jLabel_domicilio)
+                                            .addComponent(jLabel_razonSocial)
+                                            .addComponent(jLabel_nombre))
+                                        .addGap(55, 55, 55)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField_cod, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField_cod, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(84, 84, 84))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_fecha)
-                        .addGap(66, 66, 66)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(189, 189, 189)
-                            .addComponent(jLabel_Materiattulo, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(136, 136, 136)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(80, 80, 80)
-                            .addComponent(jLabel_fecha1)
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jcBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jCheckBox_Activo))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_nuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(jButton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
-                .addComponent(jButton_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                                        .addComponent(jTextField_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(45, 45, 45)
+                                        .addComponent(jbAgregar)))
+                                .addGap(132, 132, 132)
+                                .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(84, 84, 84))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,39 +282,40 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
                     .addComponent(jLabel_codigoMat)
                     .addComponent(jTextField_cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_buscar))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_nombre)
-                    .addComponent(jTextField_cant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_razonSocial)
-                    .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_domicilio)
-                    .addComponent(cBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel_fecha)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_fecha))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_fecha1)
                     .addComponent(jcBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_estado)
-                    .addComponent(jCheckBox_Activo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                    .addComponent(jLabel_domicilio)
+                    .addComponent(cBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_razonSocial)
+                    .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_cant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_nombre)
+                    .addComponent(jbAgregar))
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_nuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+                    .addComponent(jButton_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_estado)
+                    .addComponent(jCheckBox_Activo))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -322,28 +339,34 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         Producto producto = (Producto) cBoxProducto.getSelectedItem();
         LocalDate fechaCompra = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         boolean estado = jCheckBox_Activo.isSelected();
+        
+        Compra compra=new Compra(proveedor,fechaCompra,true);
+        CompraData cData=new CompraData();
+        int clave=cData.compraAProveedores(compra);
+        compra.setIdCompra(clave);
+        
 
-        // Guardar o Modificar la Compra
-        if (compraActual == null) {
-            compraActual = new Compra(proveedor, fechaCompra, estado);
-        } else {
-            compraActual.setProvedor(proveedor);
-            compraActual.setFecha(fechaCompra);
-            compraActual.setEstado(estado);
-            compraData.modificarCompra(compraActual);
-        }
-
-        // Guardar o Modificar el Detalle de la Compra
-        if (detCompra == null) {
-            detCompra = new DetalleCompra(cantidad, precio, compraActual, producto, estado);
-        } else {
-            detCompra.setCantidad(cantidad);
-            detCompra.setPrecioCosto(precio);
-            detCompra.setCompra(compraActual);
-            detCompra.setProducto(producto);
-            detCompra.setEstado(estado);
-            detalleCompraData.modificarDetalleCompra(detCompra);
-        }
+//        // Guardar o Modificar la Compra
+//        if (compraActual == null) {
+//            compraActual = new Compra(proveedor, fechaCompra, estado);
+//        } else {
+//            compraActual.setProvedor(proveedor);
+//            compraActual.setFecha(fechaCompra);
+//            compraActual.setEstado(estado);
+//            compraData.modificarCompra(compraActual);
+//        }
+//
+//        // Guardar o Modificar el Detalle de la Compra
+//        if (detCompra == null) {
+//            detCompra = new DetalleCompra(cantidad, precio, compraActual, producto, estado);
+//        } else {
+//            detCompra.setCantidad(cantidad);
+//            detCompra.setPrecioCosto(precio);
+//            detCompra.setCompra(compraActual);
+//            detCompra.setProducto(producto);
+//            detCompra.setEstado(estado);
+//            detalleCompraData.modificarDetalleCompra(detCompra);
+//        }
 
         // Mensaje de Éxito
         JOptionPane.showMessageDialog(this, "Detalles de compras guardados correctamente");
@@ -392,6 +415,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         // TODO add your handling code here:
+        borrarFilas();
 
         try {
             Integer cod = Integer.parseInt(jTextField_cod.getText());
@@ -399,17 +423,20 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
 
             if (compraActual != null) {
                 int codCompra = compraActual.getIdCompra();
-                detCompra = detalleCompraData.buscarDetalleCompra(codCompra);
+                listaDetalleCompras=detalleCompraData.listarDetallesCompra(codCompra);
 
-                if (detCompra != null) {
-                    Producto auxProducto = detCompra.getProducto();
-                    modeloTabla.addRow(new Object[]{
-                        auxProducto.getIdProducto(),
-                        detCompra.getCantidad(),
-                        detCompra.getPrecioCosto(),
-                        compraActual.getFecha(),
-                        compraActual.getProveedor()
+                if (!listaDetalleCompras.isEmpty()) {
+                   for(DetalleCompra aux: listaDetalleCompras){
+                        
+                        modeloTabla.addRow(new Object[]{
+                        aux.getCompra().getFecha(),
+                        aux.getCompra().getProveedor(),
+                        aux.getProducto(),
+                        aux.getCantidad(),
+                        aux.getPrecioCosto()
                     });
+                   }
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "No existe detalle de compra para el código ingresado");
                 }
@@ -441,23 +468,47 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
+    private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
+        // TODO add your handling code here:
+        Proveedor proveedor=(Proveedor)jcBoxProveedor.getSelectedItem();
+        java.util.Date d1 = jDateChooser1.getDate();
+        LocalDate f1 = d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Compra c=new Compra(proveedor,f1,true);
+        Producto p=(Producto)cBoxProducto.getSelectedItem();
+        int cantidad=Integer.parseInt(jTextField_cant.getText().trim());
+        double costo=p.getPrecioActual()*cantidad;
+        System.out.println("Cantidad "+cantidad);
+        System.out.println("Costo "+costo);
+        System.out.println(c);
+        System.out.println(p);
+        DetalleCompra dcompra=new DetalleCompra(cantidad,costo,c,p,true);
+        jListDetalle.setModel(modeloList);
+        modeloList.addElement(dcompra);
+    }//GEN-LAST:event_jbAgregarActionPerformed
+
+    private void cBoxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxProductoActionPerformed
+        // TODO add your handling code here:
+        Producto p=(Producto)cBoxProducto.getSelectedItem();
+        jTextField_precio.setText(""+p.getPrecioActual());
+    }//GEN-LAST:event_cBoxProductoActionPerformed
+
     private void armarCabecera() {
     if (modeloTabla == null) {
             modeloTabla = new DefaultTableModel();
         }
 
         ArrayList<Object> filaCabecera = new ArrayList<>();
-        filaCabecera.add("Id producto");
-        filaCabecera.add("Cantidad");
-        filaCabecera.add("Precio");
         filaCabecera.add("Fecha de compra");
         filaCabecera.add("Proveedor");
+        filaCabecera.add("Producto");
+        filaCabecera.add("Cantidad");
+        filaCabecera.add("Precio");
 
         for (Object aux : filaCabecera) {
             modeloTabla.addColumn(aux);
         }
 
-        jTable1.setModel(modeloTabla);
+        jTableCompra.setModel(modeloTabla);
     }
 
     private void cargarCompras() {
@@ -490,10 +541,6 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Producto> cBoxProducto;
     private javax.swing.JButton jButton_buscar;
-    private javax.swing.JButton jButton_buscarMateria;
-    private javax.swing.JButton jButton_buscarMateria1;
-    private javax.swing.JButton jButton_buscarMateria2;
-    private javax.swing.JButton jButton_buscarMateria3;
     private javax.swing.JButton jButton_eliminar;
     private javax.swing.JButton jButton_guardar;
     private javax.swing.JButton jButton_nuevo2;
@@ -508,12 +555,15 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_fecha1;
     private javax.swing.JLabel jLabel_nombre;
     private javax.swing.JLabel jLabel_razonSocial;
+    private javax.swing.JList<DetalleCompra> jListDetalle;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableCompra;
     private javax.swing.JTextField jTextField_cant;
     private javax.swing.JTextField jTextField_cod;
     private javax.swing.JTextField jTextField_precio;
+    private javax.swing.JButton jbAgregar;
     private javax.swing.JComboBox<Proveedor> jcBoxProveedor;
     // End of variables declaration//GEN-END:variables
 
@@ -536,6 +586,14 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         cBoxProducto.addItem(vacio);
         for (Producto producto : listaProducto) {
             cBoxProducto.addItem(producto);
+        }
+    }
+    
+    private void borrarFilas() {
+        //devuelve la cant de fila = getRowCount, que va a ser usada como indice por eso se resta -1
+        int indiceFila = modeloTabla.getRowCount() - 1;
+        for (int i = indiceFila; i >= 0; i--) {
+            modeloTabla.removeRow(i);
         }
     }
 }

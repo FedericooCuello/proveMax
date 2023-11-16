@@ -24,7 +24,8 @@ public class CompraData {
         con = Conexion.getConexion();
     }
     
-    public void compraAProveedores(Compra compra){
+    public int compraAProveedores(Compra compra){
+        int clave=0;
         try{
         String sql = "INSERT INTO compra (idProveedor,fecha,estado) " + "VALUES (?,?,?)";
        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -38,13 +39,17 @@ public class CompraData {
                 compra.setIdCompra(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Compra añadida con exito.");
             }
+            clave=rs.getInt(1);
+            
             ps.close();
+            return clave;
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a compra" + ex.getMessage());
 
             
             }
+        return clave;
     }
     public void  modificarCompra(Compra compra){
         String sql = "UPDATE compra SET proveedor = ?, fecha = ?" + "WHERE idCompra = ?";

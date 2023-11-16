@@ -17,7 +17,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1_detalleCompra">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Comprar"/>
+                <Property name="text" type="java.lang.String" value="Compras"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1_detalleCompraActionPerformed"/>
@@ -25,18 +25,10 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1_listaComprasAproveedores">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lista de compras"/>
+                <Property name="text" type="java.lang.String" value="Listar compras"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1_listaComprasAproveedoresActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1_detalleDeCompra">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Detalle de compras"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1_detalleDeCompraActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuCompraSugerida">
