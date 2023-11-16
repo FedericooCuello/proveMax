@@ -22,7 +22,7 @@ public ProductoData(){
     public void regristrarProducto(Producto producto){
 
         try {
-            String sql = "INSERT INTO producto (nombreProducto, descripcion, precioActual, stock,stockMinimo estado)" + "VALUES (?, ?, ?, ?, ?,?)";
+            String sql = "INSERT INTO producto (nombreProducto, descripcion, precioActual, stock,stockMinimo, estado)" + "VALUES (?, ?, ?, ?, ?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, producto.getNombreProducto());
