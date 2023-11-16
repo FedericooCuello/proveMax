@@ -1,4 +1,6 @@
+
 package accesoADatos;
+
 
 import java.sql.*;
 import entidades.*;
@@ -12,6 +14,7 @@ public class DetalleCompraData {
     private ProductoData pd=null;
     private CompraData cd=null;
     private ProveedorData pr=null;
+    private ProductoData p = null;
     
     public DetalleCompraData(){
         con = Conexion.getConexion();
@@ -105,6 +108,9 @@ public class DetalleCompraData {
         }
         return detalle;
     }
+
+ 
+    
     
     public List<DetalleCompra> listarDetallesCompra(int idCompra){
         DetalleCompra detalle=null;

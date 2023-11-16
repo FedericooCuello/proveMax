@@ -68,45 +68,49 @@ public ProductoData(){
     public void eliminarProducto(int id){
         String sql="UPDATE producto SET estado=0 WHERE idProducto=?";
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-            int exito=ps.executeUpdate();
-            if(exito==1){
-                JOptionPane.showMessageDialog(null,"Producto borrado");
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Producto borrado");
             }
-            
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla producto "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
         }
     }
     
-    public Producto buscarProducto(int id){
-        String sql="SELECT nombreProducto,descripcion,precioActual,stock FROM producto WHERE idProducto=? AND estado=1";
-        Producto producto=null;
+
+    public List<Producto> buscarProductoLista(int id) {
+        List<Producto> productos = new ArrayList<>();
+        String sql = "SELECT nombreProducto,descripcion,precioActual,stock FROM producto WHERE idProducto=? AND estado=1";
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-            ResultSet rs=ps.executeQuery();
-            if(rs.next()){
-                producto=new Producto();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Producto producto = new Producto();
                 producto.setIdProducto(id);
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setDescripcion(rs.getString("descripcion"));
                 producto.setPrecioActual(rs.getDouble("precioActual"));
                 producto.setStock(rs.getInt("stock"));
                 producto.setEstado(true);
-            }else{
-                JOptionPane.showMessageDialog(null,"No existe el producto");
+
+                productos.add(producto);   
             }
             ps.close();
-            
+
+            if (productos.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No existe el producto con ID: " + id);
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla producto "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto " + ex.getMessage());
         }
-        return producto;
+        return productos;
     }
-    
-    public List<Producto> listaProductosMin(int min){
+
+    public List<Producto> listaProductosMin(int min) {
         ArrayList<Producto> productos=new ArrayList<>();
         String sql="SELECT idProducto,nombreProducto,descripcion,precioActual,stock FROM producto "
                 + " WHERE stock<=? AND estado=1 "
@@ -236,5 +240,32 @@ public ProductoData(){
         }
         return productosBajostock;
     }
+    
+    public Producto buscarProducto(int id){
+        String sql="SELECT nombreProducto,descripcion,precioActual,stock FROM producto WHERE idProducto=? AND estado=1";
+        Producto producto=null;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                producto=new Producto();
+                producto.setIdProducto(id);
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setPrecioActual(rs.getDouble("precioActual"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setEstado(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"No existe el producto");
+            }
+            ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla producto "+ex.getMessage());
+        }
+        return producto;
+    }
+    
 }
 

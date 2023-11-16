@@ -52,6 +52,7 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
 
         armarCabeceraTabla();
         armarCabeceraTabla2();
+        
     }
 
     private void cargarProveedores() {
@@ -293,6 +294,11 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         }
         jTable1_listadoCompraProveedores.setModel(modeloTabla2);
     }
+    
+    public void cargarDatosEnTabla () {
+        
+    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

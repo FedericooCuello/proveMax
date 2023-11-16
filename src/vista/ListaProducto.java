@@ -16,7 +16,7 @@ public class ListaProducto extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTabla;
  //   private List <Proveedor> listaProveedorProveedor=null;
     private ProductoData productoData  = null ;
-
+    private List <Producto> listaProducto=null;
     /**
      * Creates new form ListaProveedor
      */
@@ -69,11 +69,6 @@ public class ListaProducto extends javax.swing.JInternalFrame {
         jcomboBoxProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcomboBoxProductoActionPerformed(evt);
-            }
-        });
-        jcomboBoxProducto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jcomboBoxProductoKeyTyped(evt);
             }
         });
 
@@ -177,7 +172,7 @@ public class ListaProducto extends javax.swing.JInternalFrame {
 
             //  modelo de la tabla no sea nulo
             if (modeloTabla != null) {
-                
+
                 for (Producto producto : productoListCoincidentes) {
                     modeloTabla.addRow(new Object[]{
                         producto.getIdProducto(),
@@ -191,47 +186,57 @@ public class ListaProducto extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "No hay datos cargados. Debe dar de alta un proveedor a traves de formulario");
             }
         } catch (Exception ex) {
-                 JOptionPane.showMessageDialog(this, "Error, reintente nuevamente");
+            JOptionPane.showMessageDialog(this, "Error, reintente nuevamente");
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jTextField1_BusquedaProductoKeyReleased
 
     private void jTextField1_BusquedaProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1_BusquedaProductoActionPerformed
         // TODO add your handling code here:
-        limpiarTabla();
-        busquedaPorCoincidencia();
+       
+//        busquedaPorCoincidencia();
     }//GEN-LAST:event_jTextField1_BusquedaProductoActionPerformed
-
-    private void jcomboBoxProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcomboBoxProductoKeyTyped
-        // Limpiar la tabla antes de agregar nuevas filas
-        limpiarTabla();
-        jcomboBoxProducto.setEditable(true);
-        busquedaPorCoincidencia();
-    }//GEN-LAST:event_jcomboBoxProductoKeyTyped
 
     private void jcomboBoxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProductoActionPerformed
         // TODO add your handling code here:
         // Limpiar la tabla antes de agregar nuevas filas
-        limpiarTabla();
-        jcomboBoxProducto.setEditable(true);
-        busquedaPorCoincidencia();
-     
+       limpiarTabla();
+       limpiarCampos ();
+         Producto prod = (Producto) jcomboBoxProducto.getSelectedItem();
+         
+         try {
+  
+                 for (Producto producto : productoData.buscarProductoLista(prod.getIdProducto())  ) {
+                    modeloTabla.addRow(new Object[]{
+                        producto.getIdProducto(),
+                        producto.getNombreProducto(),
+                        producto.getDescripcion(),
+                        producto.getPrecioActual(),
+                        producto.getStock()
+                    });
+                    
+            } 
+               
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error, reintente nuevamente");
+            
+        }
     }//GEN-LAST:event_jcomboBoxProductoActionPerformed
 
     private void jBmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmostrarActionPerformed
         // TODO add your handling code here:
         limpiarTabla();
         cargarProductosInactivos();
-        
+
     }//GEN-LAST:event_jBmostrarActionPerformed
 
     private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
-  filaCabecera.add("Id producto");
-            filaCabecera.add("Producto");
-            filaCabecera.add("Descripción");
-            filaCabecera.add("Precio");
-            filaCabecera.add("Stock");
+        filaCabecera.add("Id producto");
+        filaCabecera.add("Producto");
+        filaCabecera.add("Descripción");
+        filaCabecera.add("Precio");
+        filaCabecera.add("Stock");
         for (Object aux : filaCabecera) {
             modeloTabla.addColumn(aux);
         }
@@ -246,29 +251,14 @@ public class ListaProducto extends javax.swing.JInternalFrame {
 
     private void limpiarTabla() {
         modeloTabla.setRowCount(0);
-        jcomboBoxProducto.setSelectedItem("seleccione");
+        
     }
     
-    private void busquedaPorCoincidencia () {
-        // Obtener el texto ingresado en el JComboBox después de la pulsación de tecla
-    String textoIngresado = ((JTextComponent) jcomboBoxProducto.getEditor().getEditorComponent()).getText();
- 
-    // Verificar si el texto ingresado está en la lista de proveedores
-    List<Producto> proveedoresCoincidentes = productoData.buscarProdPorCoincidencia(textoIngresado);
+    private void limpiarCampos () {
+        jTextField1_BusquedaProducto.setText("");
+    }
 
-    // Llenar la tabla con los proveedores coincidentes
-    for (Producto producto : proveedoresCoincidentes) {
-      modeloTabla.addRow(new Object[]{
-                        producto.getIdProducto(),
-                        producto.getNombreProducto(),
-                        producto.getDescripcion(),
-                        producto.getPrecioActual(),
-                        producto.getStock()
-                    });
-    }
-        
-       
-    }
+ 
     private void cargarProductosInactivos(){
         List<Producto> productosInactivos = productoData.listaProductosBaja();
         for (Producto productoI : productosInactivos){

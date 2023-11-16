@@ -272,8 +272,8 @@ public class FormularioAltaProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
       
         try {
-         productoActual= productoData.buscarProducto(Integer.parseInt(jTextField_cod.getText()));
-           
+            Integer prodInt = Integer.parseInt(jTextField_cod.getText());
+            productoActual = (Producto) productoData.buscarProducto(prodInt);
             if (productoActual!=null) {
                 jTextField_nombre.setText(productoActual.getNombreProducto());
                 jTextField_descripcion.setText( productoActual.getDescripcion() );
