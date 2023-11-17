@@ -1,6 +1,7 @@
  
 package vista;
 
+import entidades.ProveedorProducto;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -41,9 +42,10 @@ public class MenuView extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem_altaProducto = new javax.swing.JMenuItem();
         jMenuItem1_listaProducto = new javax.swing.JMenuItem();
-        jMenu2_altaModificacionProveedor = new javax.swing.JMenu();
+        asociarNombre = new javax.swing.JMenu();
         jMenuItem1_altaProveedor = new javax.swing.JMenuItem();
         jMenuItem1_listaProveedor = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ProveMax - Gestión de ventas");
@@ -113,10 +115,10 @@ public class MenuView extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu2_altaModificacionProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/repartidor (2).png"))); // NOI18N
-        jMenu2_altaModificacionProveedor.setText(" Proveedores");
-        jMenu2_altaModificacionProveedor.setToolTipText("");
-        jMenu2_altaModificacionProveedor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        asociarNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/repartidor (2).png"))); // NOI18N
+        asociarNombre.setText(" Proveedores");
+        asociarNombre.setToolTipText("");
+        asociarNombre.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
 
         jMenuItem1_altaProveedor.setText("Formulario alta / busqueda de proveedor");
         jMenuItem1_altaProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +126,7 @@ public class MenuView extends javax.swing.JFrame {
                 jMenuItem1_altaProveedorActionPerformed(evt);
             }
         });
-        jMenu2_altaModificacionProveedor.add(jMenuItem1_altaProveedor);
+        asociarNombre.add(jMenuItem1_altaProveedor);
 
         jMenuItem1_listaProveedor.setText("Lista de proveedores");
         jMenuItem1_listaProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -132,9 +134,17 @@ public class MenuView extends javax.swing.JFrame {
                 jMenuItem1_listaProveedorActionPerformed(evt);
             }
         });
-        jMenu2_altaModificacionProveedor.add(jMenuItem1_listaProveedor);
+        asociarNombre.add(jMenuItem1_listaProveedor);
 
-        jMenuBar1.add(jMenu2_altaModificacionProveedor);
+        jMenuItem1.setText("Asociar Producto");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        asociarNombre.add(jMenuItem1);
+
+        jMenuBar1.add(asociarNombre);
 
         setJMenuBar(jMenuBar1);
 
@@ -234,6 +244,17 @@ public class MenuView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuCompraSugeridaActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        jDesktopPrincipal.removeAll();
+        jDesktopPrincipal.repaint();
+        ProductoProveedor productoPro=new ProductoProveedor();
+        productoPro.setVisible(true);
+        jDesktopPrincipal.add(productoPro);
+        jDesktopPrincipal.moveToFront(productoPro);
+        productoPro.getContentPane().setBackground(new Color(240, 240, 246 ));
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -271,12 +292,13 @@ public class MenuView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu asociarNombre;
     private javax.swing.JDesktopPane jDesktopPrincipal;
     private javax.swing.JMenu jMenu1_detalleCompra;
-    private javax.swing.JMenu jMenu2_altaModificacionProveedor;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuCompraSugerida;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem1_altaProveedor;
     private javax.swing.JMenuItem jMenuItem1_detalleCompra;
     private javax.swing.JMenuItem jMenuItem1_listaComprasAproveedores;

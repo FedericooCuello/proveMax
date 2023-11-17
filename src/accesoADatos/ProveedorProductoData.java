@@ -26,7 +26,7 @@ public class ProveedorProductoData {
     public int compraAProveedores(ProveedorProducto proveedorProducto){
         int clave=0;
         try{
-        String sql = "INSERT INTO proveedroproducto(idProveedor,idProducto,estado) " + "VALUES (?,?,?)";
+        String sql = "INSERT INTO proveedorproducto(idProveedor,idProducto,estado) " + "VALUES (?,?,?)";
        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,proveedorProducto.getProveedror().getIdProvedor());
             ps.setInt(2,proveedorProducto.getProducto().getIdProducto());
