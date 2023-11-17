@@ -1,4 +1,4 @@
- 
+
 package vista;
 
 import java.awt.Color;
