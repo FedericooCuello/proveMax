@@ -188,12 +188,31 @@ public class ProveMax {
          for(Producto aux:listaProd){
              System.out.println(aux);
          }
-         
+         //-*------listado de productos proveidos por empresa
          List <Proveedor> listaProveedors = p.buscarProveedoresPorProducto(2);
          System.out.println("prod por prveedores");
           for(Producto aux:listaProd){
              System.out.println(aux);
          }
+          
+          //-------prueba de busqueda mas compreados entre fechas
+           // Definir las fechas de inicio y fin
+           
+           DetalleCompraData detalleCompraData = new DetalleCompraData();
+           LocalDate fechaInicio=LocalDate.of(2023, 1, 1);
+         LocalDate fechaFin=LocalDate.of(2023,11,30);
+
+            // Llamar al método buscarProductosPorFecha
+            List<Producto> listaProductos= detalleCompraData.buscarProductosPorFecha(Date.valueOf(fechaInicio), Date.valueOf(fechaFin));
+
+            // Imprimir resultados o hacer lo que necesites con la lista de productos
+            for (Producto producto : listaProductos) {
+                System.out.println("\n -------- "
+                        + "lista de + comprados");
+                System.out.println("ID: " + producto.getIdProducto() + ", Nombre: " + producto.getNombreProducto());
+            
+            }
+          
 
 
 

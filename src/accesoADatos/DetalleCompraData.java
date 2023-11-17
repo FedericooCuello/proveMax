@@ -15,6 +15,7 @@ public class DetalleCompraData {
     private CompraData cd=null;
     private ProveedorData pr=null;
     private ProductoData p = null;
+    private DetalleCompraData detCompra = null;
     
     public DetalleCompraData(){
         con = Conexion.getConexion();
@@ -117,7 +118,7 @@ public class DetalleCompraData {
         List<DetalleCompra> compras=new ArrayList<>();
         cd=new CompraData();
         pd=new ProductoData();
-        String sql="SELECT * FROM detallecompra WHERE idCompra=?";
+        String sql="SELECT * FROM detallecompra WHERE idCompra=? ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,idCompra);
@@ -147,7 +148,7 @@ public class DetalleCompraData {
         String sql="SELECT * "
                 + "FROM detallecompra dc JOIN producto p ON (dc.idProducto=p.idProducto) JOIN compra c ON (dc.idCompra=c.idCompra) "
                 + "JOIN proveedor pr ON (c.idProveedor=pr.idProveedor) "
-                + "WHERE pr.idProveedor=? AND c.fecha BETWEEN ? AND ?";
+                + "WHERE pr.idProveedor=? AND pr.estado = 1 AND c.fecha BETWEEN ? AND ?";
         DetalleCompra compra=null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -179,9 +180,10 @@ public class DetalleCompraData {
         String sql = "SELECT * "
                 + "FROM detallecompra dc JOIN producto p ON (dc.idProducto=p.idProducto) JOIN compra c ON (dc.idCompra=c.idCompra) "
                 + "JOIN proveedor pr ON (c.idProveedor=pr.idProveedor) "
-                + "WHERE pr.idProveedor=?";
-        DetalleCompra compraApro= null;
+                + "WHERE p.estado= 1 AND pr.estado=1 AND pr.idProveedor=? ";
+        
         try {
+            DetalleCompra compraApro= null;
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idProveedor);
             ResultSet rs = ps.executeQuery();
@@ -196,12 +198,47 @@ public class DetalleCompraData {
                 comprasAPro.add(compraApro);
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detalle de compra" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detalle de compra" + ex.getMessage());
         }
-        
-       return comprasAPro; 
+
+        return comprasAPro;
     }
+
     
+    
+   public List<Producto> buscarProductosPorFecha(Date fechaInicio, Date fechaFin) {
+    String sql = "SELECT p.idProducto, p.nombreProducto, COUNT(*) AS 'cantidad de veces que compre' "
+            + " FROM producto p JOIN detallecompra dc ON p.idProducto = dc.idProducto "
+            + " JOIN compra c ON dc.idCompra = c.idCompra WHERE c.fecha "
+            + " BETWEEN ? AND ? GROUP BY p.idProducto, p.nombreProducto "
+            + " ORDER BY COUNT(*) DESC";
+    List<Producto> listaProductos = new ArrayList<>();
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, fechaInicio);
+        ps.setDate(2, fechaFin);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Producto prod = new Producto();
+            prod.setIdProducto(rs.getInt("idProducto"));
+            prod.setNombreProducto(rs.getString("nombreProducto"));
+
+            // Usar detCompra para buscar información adicional si es necesario
+            // por ejemplo, puedes llamar a detCompra.buscarDetalleCompra(idProducto) 
+            // para obtener información relacionada con el producto
+
+            listaProductos.add(prod);
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto/DetalleCompra/Compra" + ex.getMessage());
+    }
+
+    return listaProductos;
+}
+
+
     
     
     
