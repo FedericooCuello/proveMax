@@ -28,7 +28,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     
     private CompraData compraData = new CompraData();
     private Compra compraActual = null;
-    private DetalleCompra detCompra ;
+    private DetalleCompra detCompra;
     private ProveedorData provData;
     private ProductoData prodData;
     private ProveedorProductoData ppData;
@@ -69,8 +69,6 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         jTextField_cod = new javax.swing.JTextField();
         jLabel_nombre = new javax.swing.JLabel();
         jTextField_cant = new javax.swing.JTextField();
-        jLabel_razonSocial = new javax.swing.JLabel();
-        jTextField_precio = new javax.swing.JTextField();
         jLabel_estado = new javax.swing.JLabel();
         jCheckBox_Activo = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
@@ -110,15 +108,6 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         jTextField_cant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_cantActionPerformed(evt);
-            }
-        });
-
-        jLabel_razonSocial.setText("Precio:");
-
-        jTextField_precio.setText(" ");
-        jTextField_precio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_precioActionPerformed(evt);
             }
         });
 
@@ -261,11 +250,9 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel_domicilio)
-                                            .addComponent(jLabel_razonSocial)
                                             .addComponent(jLabel_nombre))
                                         .addGap(55, 55, 55)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jcBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField_cod, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,11 +289,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_domicilio)
                     .addComponent(cBoxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_razonSocial)
-                    .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_cant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_nombre)
@@ -314,7 +297,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_nuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,6 +315,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     private void jButton_nuevo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_nuevo2ActionPerformed
         // TODO add your handling code here:
         limpiarCamposPantalla();
+        borrarFilas2();
         compraActual = null;
     }//GEN-LAST:event_jButton_nuevo2ActionPerformed
 
@@ -340,7 +324,6 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
        try {
         // Validación de Campos
         Integer cantidad = Integer.parseInt(jTextField_cant.getText().trim());
-        Double precio = Double.parseDouble(jTextField_precio.getText().trim());
 
         // Obtener otros valores necesarios
         Proveedor proveedor = (Proveedor) jcBoxProveedor.getSelectedItem();
@@ -352,6 +335,11 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         CompraData cData=new CompraData();
         int clave=cData.compraAProveedores(compra);
         compra.setIdCompra(clave);
+        for (int i = 0; i < modeloList.getSize(); i++) {
+            DetalleCompra elemento = modeloList.getElementAt(i);
+            detalleCompraData.registrarDetalleCompra(elemento);
+        }
+        
         
 
 //        // Guardar o Modificar la Compra
@@ -399,26 +387,26 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox_ActivoActionPerformed
 
-    private void jTextField_precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_precioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_precioActionPerformed
-
     private void jTextField_cantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_cantActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_cantActionPerformed
 
     private void jButton_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_eliminarActionPerformed
-
-        if (compraActual!=null) {
-            ///---------------------------------------Necesario eliminar en ambas tablas y tablas anexadas?
-            compraData.eliminarCompra(compraActual.getIdCompra());
-            // compraData.eliminarCompra(compraActual.getIdProvedor() );
-            compraActual=null;
-            limpiarCamposPantalla();
-            JOptionPane.showMessageDialog(this, "Compra eliminado");
-        } else  {
-            JOptionPane.showMessageDialog(this, "No hay una compra seleccionado");
-        }
+        int idCompra=Integer.parseInt(jTextField_cod.getText());
+        compraData.eliminarCompra(idCompra);
+        detalleCompraData=new DetalleCompraData();
+        detalleCompraData.eliminarDetalleCompraC(idCompra);
+        
+//        if (compraActual!=null) {
+//            ///---------------------------------------Necesario eliminar en ambas tablas y tablas anexadas?
+//            compraData.eliminarCompra(compraActual.getIdCompra());
+//            // compraData.eliminarCompra(compraActual.getIdProvedor() );
+//            compraActual=null;
+//            limpiarCamposPantalla();
+//            JOptionPane.showMessageDialog(this, "Compra eliminado");
+//        } else  {
+//            JOptionPane.showMessageDialog(this, "No hay una compra seleccionado");
+//        }
     }//GEN-LAST:event_jButton_eliminarActionPerformed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
@@ -497,13 +485,11 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     private void cBoxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxProductoActionPerformed
         // TODO add your handling code here:
         Producto p=(Producto)cBoxProducto.getSelectedItem();
-        jTextField_precio.setText(""+p.getPrecioActual());
     }//GEN-LAST:event_cBoxProductoActionPerformed
 
     private void jcBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcBoxProveedorActionPerformed
         // TODO add your handling code here:
         cBoxProducto.removeAllItems();
-        cBoxProducto.repaint();
         ppData=new ProveedorProductoData();
         Proveedor provSeleccionado=(Proveedor)jcBoxProveedor.getSelectedItem();
         listaProducto=ppData.buscarProductosProveedor(provSeleccionado.getIdProvedor());
@@ -554,7 +540,6 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     private void limpiarCamposPantalla() {
         jTextField_cant.setText("");
         jTextField_cod.setText("");
-        jTextField_precio.setText("");
         jCheckBox_Activo.setSelected(true);
     }
 
@@ -574,7 +559,6 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_fecha;
     private javax.swing.JLabel jLabel_fecha1;
     private javax.swing.JLabel jLabel_nombre;
-    private javax.swing.JLabel jLabel_razonSocial;
     private javax.swing.JList<DetalleCompra> jListDetalle;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -582,7 +566,6 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTableCompra;
     private javax.swing.JTextField jTextField_cant;
     private javax.swing.JTextField jTextField_cod;
-    private javax.swing.JTextField jTextField_precio;
     private javax.swing.JButton jbAgregar;
     private javax.swing.JComboBox<Proveedor> jcBoxProveedor;
     // End of variables declaration//GEN-END:variables
@@ -605,5 +588,10 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         for (int i = indiceFila; i >= 0; i--) {
             modeloTabla.removeRow(i);
         }
+    }
+    
+    private void borrarFilas2() {
+        //devuelve la cant de fila = getRowCount, que va a ser usada como indice por eso se resta -1
+        modeloList.clear();
     }
 }

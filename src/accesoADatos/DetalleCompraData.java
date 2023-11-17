@@ -80,6 +80,21 @@ public class DetalleCompraData {
         }
     }
     
+    public void eliminarDetalleCompraC(int id){
+        String sql="UPDATE detallecompra SET estado=0 WHERE idCompra=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int exito=ps.executeUpdate();
+            if(exito==1){
+                JOptionPane.showMessageDialog(null,"Detalle de compra borrada");
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla detalle de producto "+ex.getMessage());
+        }
+    }
+    
     
     public DetalleCompra buscarDetalleCompra(int id){
         String sql="SELECT cantidad,precioCosto,idCompra,idProducto FROM detalleCompra WHERE idDetalle=? AND estado=1";

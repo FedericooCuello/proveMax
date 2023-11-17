@@ -68,7 +68,7 @@ public class CompraData {
     
     }
     public void eliminarCompra(int idcompra){
-      String sql = "UPDATE compra SET estado = 0" + "WHERE idCompra = ?";
+      String sql = "UPDATE compra SET estado = 0" + " WHERE idCompra = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,idcompra);
