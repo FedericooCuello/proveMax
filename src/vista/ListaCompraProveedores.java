@@ -333,8 +333,14 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
        jDateChooser1_fechaFinal.setEnabled(false);
        jDateChooser1_fechaFinal.setEnabled(false);
        if (filaSeleccionada!=-1 ) {
-           Proveedor  
-       }
+           // extraccion de dato de la col 1 producto
+            Integer idProducto = (Integer) jTable1_listadoCompraProveedores.getValueAt(filaSeleccionada, 2);
+            
+        }else {
+            JOptionPane.showConfirmDialog(this, "No hay fila seleccionada, por favor seleccione un alumno a editar");
+        }
+                   
+       
     }//GEN-LAST:event_jButton1_prodXproveedorActionPerformed
 
     private void borrarFilas() {
