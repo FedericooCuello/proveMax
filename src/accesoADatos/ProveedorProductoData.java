@@ -99,7 +99,7 @@ public class ProveedorProductoData {
                 listaProductos.add(producto);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proveedor /Productos" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proveedor/Productos" + ex.getMessage());
         }
         
         return listaProductos;
