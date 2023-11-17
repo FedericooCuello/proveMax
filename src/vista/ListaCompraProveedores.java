@@ -76,8 +76,6 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1_listadoProveedores = new javax.swing.JTable();
         jDateChooser1_fechaFinal = new com.toedter.calendar.JDateChooser();
-        jLabel1_fInicial = new javax.swing.JLabel();
-        jLabel_fFinal = new javax.swing.JLabel();
         jcomboBoxProveedor = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jButton_buscarProveedorFecha = new javax.swing.JButton();
@@ -91,11 +89,18 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         setTitle("Listado de compras a proveedores");
         setToolTipText("");
 
+        jDateChooser1_fechaInicial.setToolTipText("fecha inicial");
+        jDateChooser1_fechaInicial.setMaximumSize(null);
+
         jLabel_fechaCompra.setText("Fecha de compra:");
+        jLabel_fechaCompra.setMaximumSize(null);
 
         jLabel_compra.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel_compra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/proveedor.png"))); // NOI18N
         jLabel_compra.setText("Listado de compras a proveedores");
+        jLabel_compra.setMaximumSize(null);
+
+        jScrollPane1.setMaximumSize(null);
 
         jTable1_listadoProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,21 +115,30 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1_listadoProveedores);
 
-        jLabel1_fInicial.setText("Inicio");
-
-        jLabel_fFinal.setText("Final");
+        jDateChooser1_fechaFinal.setToolTipText("fecha final");
+        jDateChooser1_fechaFinal.setMaximumSize(null);
 
         jcomboBoxProveedor.setToolTipText("");
+        jcomboBoxProveedor.setMaximumSize(null);
+        jcomboBoxProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcomboBoxProveedorActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Elija un proveedor: ");
+        jLabel1.setMaximumSize(null);
 
         jButton_buscarProveedorFecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/buscar.png"))); // NOI18N
         jButton_buscarProveedorFecha.setToolTipText("Clic derecho para buscar compras a proveedores en el intervalo de fechas");
+        jButton_buscarProveedorFecha.setMaximumSize(null);
         jButton_buscarProveedorFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_buscarProveedorFechaActionPerformed(evt);
             }
         });
+
+        jScrollPane2.setMaximumSize(null);
 
         jTable1_listadoCompraProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -147,59 +161,48 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1_fInicial)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1_fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel_fFinal)
-                                .addGap(30, 30, 30)
-                                .addComponent(jDateChooser1_fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton_buscarProveedorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jLabel_fechaCompra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jcomboBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcomboBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(180, 180, 180)
-                        .addComponent(jLabel_compra)))
-                .addContainerGap(200, Short.MAX_VALUE))
+                        .addComponent(jLabel_compra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel_fechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDateChooser1_fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(135, 135, 135)
+                        .addComponent(jDateChooser1_fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(jButton_buscarProveedorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel_compra)
+                .addComponent(jLabel_compra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcomboBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcomboBoxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_fechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser1_fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser1_fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_buscarProveedorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addComponent(jLabel_fechaCompra)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jDateChooser1_fechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jDateChooser1_fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1_fInicial))
-                            .addComponent(jLabel_fFinal, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(jButton_buscarProveedorFecha))
-                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                .addGap(41, 41, 41))
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -266,6 +269,43 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton_buscarProveedorFechaActionPerformed
 
+    private void jcomboBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxProveedorActionPerformed
+        // TODO add your handling code here:
+        borrarFilas();
+        borrarFilas2();
+        Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
+        detCompData = new DetalleCompraData();
+        //llenado de tabla 1 con datos de proveedor
+        for (Proveedor proveedor : provData.listarProveedoresPorID(provSeleccionado.getIdProvedor())) {
+            modeloTabla.addRow(new Object[]{
+                proveedor.getIdProvedor(),
+                proveedor.getNombre(),
+                proveedor.getRazonSocial(),
+                proveedor.getDomicilio(),
+                proveedor.getTelefono()
+            });
+
+        }
+
+        listaCompras = detCompData.ListarComprasAProveedor(provSeleccionado.getIdProvedor());
+
+        if (!listaCompras.isEmpty()) {
+            for (DetalleCompra aux : listaCompras) {
+                modeloTabla2.addRow(new Object[]{
+                    aux.getCompra().getFecha(),
+                    aux.getProducto(),
+                    aux.getCantidad(),
+                    aux.getPrecioCosto()
+                });
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay compras registradas bajo ese proveedor.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_jcomboBoxProveedorActionPerformed
+
     private void borrarFilas() {
         //devuelve la cant de fila = getRowCount, que va a ser usada como indice por eso se resta -1
         int indiceFila = modeloTabla.getRowCount() - 1;
@@ -318,9 +358,7 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDateChooser1_fechaFinal;
     private com.toedter.calendar.JDateChooser jDateChooser1_fechaInicial;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel1_fInicial;
     private javax.swing.JLabel jLabel_compra;
-    private javax.swing.JLabel jLabel_fFinal;
     private javax.swing.JLabel jLabel_fechaCompra;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
