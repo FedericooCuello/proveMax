@@ -84,7 +84,6 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         jButton_buscarProveedorFecha = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1_listadoCompraProveedores = new javax.swing.JTable();
-        jButton1_prodXproveedor = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jListDetalle_provYproductos = new javax.swing.JList<>();
 
@@ -161,13 +160,6 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         jTable1_listadoCompraProveedores.setToolTipText("Tabla información de productos");
         jScrollPane2.setViewportView(jTable1_listadoCompraProveedores);
 
-        jButton1_prodXproveedor.setText("Buscar productos por proveedor");
-        jButton1_prodXproveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1_prodXproveedorActionPerformed(evt);
-            }
-        });
-
         jScrollPane3.setViewportView(jListDetalle_provYproductos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,10 +188,6 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
                         .addGap(27, 27, 27)
                         .addComponent(jButton_buscarProveedorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1_prodXproveedor)
-                .addGap(322, 322, 322))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -233,9 +221,7 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1_prodXproveedor)
-                .addGap(19, 19, 19))
+                .addGap(69, 69, 69))
         );
 
         pack();
@@ -347,50 +333,6 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jcomboBoxProveedorActionPerformed
 
-    private void jButton1_prodXproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_prodXproveedorActionPerformed
-
-        try {
-    borrarFilas();
-    int filaSeleccionada = jTable1_listadoCompraProveedores.getSelectedRow();
-    jcomboBoxProveedor.setEnabled(false);
-    jDateChooser1_fechaInicial.setEnabled(false);
-    jDateChooser1_fechaFinal.setEnabled(false);
-
-    if (filaSeleccionada != -1) {
-        // extracción de dato de la columna 2 (idProducto)
-        Integer idProducto = (Integer) jTable1_listadoCompraProveedores.getValueAt(filaSeleccionada, 2);
-
-        // Obtener la lista de proveedores para el producto seleccionado
-        
-      List <Proveedor> listProvXProd=  proveedorProductoData.buscarProveedoresPorProducto(idProducto);
-      // System.out.println("id prod"  + proveedorProductoData.buscarProveedoresPorProducto(idProducto).toString());
-        
-       if (!listProvXProd.isEmpty()) {
-            for (Proveedor aux : listProvXProd) {
-                modeloTabla.addRow(new Object[]{
-                    aux.getIdProvedor(),
-                    aux.getNombre(),
-                    aux.getRazonSocial(),
-                    aux.getDomicilio(),
-                    aux.getTelefono()
-                });
-           
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "No hay proveedores para el producto seleccionado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "No hay compras registradas bajo ese proveedor.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
-    }
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(this, "Error, reintente nuevamente.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
-    e.printStackTrace();
-}
-
-                   
-       
-    }//GEN-LAST:event_jButton1_prodXproveedorActionPerformed
-
     private void borrarFilas() {
         //devuelve la cant de fila = getRowCount, que va a ser usada como indice por eso se resta -1
         int indiceFila = modeloTabla.getRowCount() - 1;
@@ -433,7 +375,6 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1_prodXproveedor;
     private javax.swing.JButton jButton_buscarProveedorFecha;
     private com.toedter.calendar.JDateChooser jDateChooser1_fechaFinal;
     private com.toedter.calendar.JDateChooser jDateChooser1_fechaInicial;

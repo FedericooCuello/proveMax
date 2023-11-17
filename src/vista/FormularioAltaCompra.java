@@ -342,6 +342,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
             detalle.setCantidad(elemento.getCantidad());
             detalle.setPrecioCosto(elemento.getPrecioCosto());
             detalle.setCompra(compra);
+            detalle.setEstado(true);
             detalleCompraData.registrarDetalleCompra(detalle);
         }
         
