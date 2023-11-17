@@ -175,6 +175,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                         proveedor.getIdProvedor(),
                         proveedor.getNombre(),
                         proveedor.getRazonSocial(),
+                        proveedor.getDomicilio(),
                         proveedor.getTelefono()
                     });
                 }
@@ -214,8 +215,9 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                 aux.getIdProvedor(),
                 aux.getNombre(),
                 aux.getRazonSocial(),
-                aux.getTelefono(),
-                aux.getDomicilio()
+                aux.getDomicilio(),
+                aux.getTelefono()
+                
             });
         }
         }
@@ -265,6 +267,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                     proveedor.getIdProvedor(),
                     proveedor.getNombre(),
                     proveedor.getRazonSocial(),
+                    proveedor.getDomicilio(),
                     proveedor.getTelefono()
                 });
             }
@@ -283,8 +286,9 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
                 proveedoresI.getIdProvedor(),
                 proveedoresI.getNombre(),
                 proveedoresI.getRazonSocial(),
-                proveedoresI.getTelefono(),
-                proveedoresI.getDomicilio()
+                proveedoresI.getDomicilio(),
+                proveedoresI.getTelefono()
+                
             });
         }
     }
