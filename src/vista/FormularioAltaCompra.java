@@ -6,6 +6,7 @@ import accesoADatos.DetalleCompraData;
 import entidades.DetalleCompra;
 import accesoADatos.ProductoData;
 import accesoADatos.ProveedorData;
+import accesoADatos.ProveedorProductoData;
 import entidades.Compra; 
 import entidades.Producto;
 import entidades.Proveedor;
@@ -30,6 +31,7 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     private DetalleCompra detCompra ;
     private ProveedorData provData;
     private ProductoData prodData;
+    private ProveedorProductoData ppData;
     private List <Proveedor> listaProveedor;
     private List <Producto> listaProducto; 
     private List <DetalleCompra> listaDetalleCompras=null; 
@@ -44,9 +46,10 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         prodData=new ProductoData();
         detalleCompraData = new DetalleCompraData();
         listaProveedor =provData.listarProveedores();
-        listaProducto=prodData.listaProductos();
+        //listaProducto=prodData.listaProductos();
+        
         cargarProveedores();
-        cargarProductos();
+        //cargarProductos();
         armarCabecera();
         
         
@@ -165,6 +168,11 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         });
 
         jcBoxProveedor.setToolTipText("");
+        jcBoxProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcBoxProveedorActionPerformed(evt);
+            }
+        });
 
         jLabel_fecha1.setText("Proveedor:");
 
@@ -492,6 +500,18 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
         jTextField_precio.setText(""+p.getPrecioActual());
     }//GEN-LAST:event_cBoxProductoActionPerformed
 
+    private void jcBoxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcBoxProveedorActionPerformed
+        // TODO add your handling code here:
+        cBoxProducto.removeAllItems();
+        cBoxProducto.repaint();
+        ppData=new ProveedorProductoData();
+        Proveedor provSeleccionado=(Proveedor)jcBoxProveedor.getSelectedItem();
+        listaProducto=ppData.buscarProductosProveedor(provSeleccionado.getIdProvedor());
+        for (Producto producto : listaProducto) {
+            cBoxProducto.addItem(producto);
+        }
+    }//GEN-LAST:event_jcBoxProveedorActionPerformed
+
     private void armarCabecera() {
     if (modeloTabla == null) {
             modeloTabla = new DefaultTableModel();
@@ -568,22 +588,12 @@ public class FormularioAltaCompra extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarProveedores() {
-        Proveedor vacio=new Proveedor();
-        vacio.setNombre("Lista de Proveedores");
-        vacio.setRazonSocial("Razon Social");
-        vacio.setIdProvedor(0);
-        jcBoxProveedor.addItem(vacio);
         for (Proveedor proveedor : listaProveedor) {
            jcBoxProveedor.addItem(proveedor);
         }
     }
 
     private void cargarProductos() {
-        Producto vacio=new Producto();
-        vacio.setNombreProducto("Lista de Productos");
-        vacio.setDescripcion("Descripcion");
-        vacio.setIdProducto(0);
-        cBoxProducto.addItem(vacio);
         for (Producto producto : listaProducto) {
             cBoxProducto.addItem(producto);
         }

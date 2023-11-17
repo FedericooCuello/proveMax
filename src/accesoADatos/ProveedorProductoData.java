@@ -88,7 +88,7 @@ public class ProveedorProductoData {
         String sql ="SELECT idProducto FROM ProveedorProducto WHERE idProveedor = ? AND estado = 1 ";
         Producto producto = null;
         ProductoData pd=new ProductoData();
-        ArrayList<Producto> listaProductos=new ArrayList<>();
+        List<Producto> listaProductos=new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,idProveedor);
