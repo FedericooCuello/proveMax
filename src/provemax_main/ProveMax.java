@@ -188,6 +188,12 @@ public class ProveMax {
          for(Producto aux:listaProd){
              System.out.println(aux);
          }
+         
+         List <Proveedor> listaProveedors = p.buscarProveedoresPorProducto(2);
+         System.out.println("prod por prveedores");
+          for(Producto aux:listaProd){
+             System.out.println(aux);
+         }
 
 
 

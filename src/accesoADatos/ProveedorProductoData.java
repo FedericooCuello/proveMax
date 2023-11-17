@@ -99,9 +99,34 @@ public class ProveedorProductoData {
                 listaProductos.add(producto);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proveedor/Productos" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proveedor /Productos" + ex.getMessage());
         }
-        
+   
         return listaProductos;
     }
+
+    public List<Proveedor> buscarProveedoresPorProducto(int idProducto) {
+        String sql = "SELECT idProveedor FROM ProveedorProducto WHERE idProducto = ? AND estado = 1";
+        List<Proveedor> listaProveedores = new ArrayList<>();
+        Proveedor prov = null;
+        ProveedorData provd = new ProveedorData();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idProducto);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                prov = new Proveedor();
+                prov = provd.buscarProveedor(rs.getInt("idProveedor"));
+                listaProveedores.add(prov);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proveedor/Productos" + ex.getMessage());
+        }
+
+        return listaProveedores;
+    }
+
+
 }
