@@ -231,7 +231,9 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         Proveedor provSeleccionado = (Proveedor) jcomboBoxProveedor.getSelectedItem();
         borrarFilas();
         borrarFilas2();
-
+        jcomboBoxProveedor.setEnabled(true);
+        jDateChooser1_fechaFinal.setEnabled(true);
+        jDateChooser1_fechaFinal.setEnabled(true);
         modeloTabla.addRow(new Object[]{
             provSeleccionado.getIdProvedor(),
             provSeleccionado.getNombre(),
@@ -296,14 +298,16 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
         detCompData = new DetalleCompraData();
         //llenado de tabla 1 con datos de proveedor
         for (Proveedor proveedor : provData.listarProveedoresPorID(provSeleccionado.getIdProvedor())) {
+            System.out.println("prove" + proveedor);
             modeloTabla.addRow(new Object[]{
                 proveedor.getIdProvedor(),
                 proveedor.getNombre(),
                 proveedor.getRazonSocial(),
                 proveedor.getDomicilio(),
                 proveedor.getTelefono()
+                 
             });
-
+            System.out.println("saliendo de lista");
         }
 
         listaCompras = detCompData.ListarComprasAProveedor(provSeleccionado.getIdProvedor());
@@ -327,18 +331,41 @@ public class ListaCompraProveedores extends javax.swing.JInternalFrame {
 
     private void jButton1_prodXproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_prodXproveedorActionPerformed
         // TODO add your handling code here:
+         try {
         borrarFilas();
-       int filaSeleccionada = jTable1_listadoCompraProveedores.getSelectedRow();
-       jcomboBoxProveedor.setEnabled(false);
-       jDateChooser1_fechaFinal.setEnabled(false);
-       jDateChooser1_fechaFinal.setEnabled(false);
-       if (filaSeleccionada!=-1 ) {
-           // extraccion de dato de la col 1 producto
+        int filaSeleccionada = jTable1_listadoCompraProveedores.getSelectedRow();
+        jcomboBoxProveedor.setEnabled(false);
+        jDateChooser1_fechaInicial.setEnabled(false);
+        jDateChooser1_fechaFinal.setEnabled(false);
+
+        if (filaSeleccionada != -1) {
+            // extracción de dato de la columna 2 (idProducto)
             Integer idProducto = (Integer) jTable1_listadoCompraProveedores.getValueAt(filaSeleccionada, 2);
-            
-        }else {
-            JOptionPane.showConfirmDialog(this, "No hay fila seleccionada, por favor seleccione un alumno a editar");
+
+            // Obtener la lista de proveedores para el producto seleccionado
+            List<Proveedor> listaProveedores = prov.buscarProveedoresPorProducto(idProducto);
+
+            // Verificar si la lista de proveedores no está vacía
+            if (!listaProveedores.isEmpty()) {
+                for (Proveedor aux : listaProveedores) {
+                    modeloTabla.addRow(new Object[]{
+                        aux.getIdProvedor(),
+                        aux.getNombre(),
+                        aux.getRazonSocial(),
+                        aux.getDomicilio(),
+                        aux.getTelefono()
+                    });
+                }
+            } else {
+               
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay compras registradas bajo ese proveedor.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
         }
+    } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error, reintente nuevamente.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+        e.printStackTrace();
+    }
                    
        
     }//GEN-LAST:event_jButton1_prodXproveedorActionPerformed
